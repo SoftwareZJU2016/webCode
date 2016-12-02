@@ -1,25 +1,25 @@
 # SE SYSTEM(暂定..)
 ## 环境搭建
-1. 下载安装git
-1. 去官网下载安装 nodejs（装LTS版本吧
-1. 找一个合适的地方放项目...
-    ```
-    git clone https://github.com/ZJU-SRE/...
-    ```
-1. 进入项目目录（有package.json的目录
-1. 用nodejs的软件包管理器npm下载项目需要的依赖（这里为了加速从阿里提供的镜像站下载）
-    ```
-    npm install --registry=https://registry.npm.taobao.org
-    ```
-1. 运行
-    ```
-    npm run dev
-    ```
-1. 访问htpp://localhost:3000/
-1. 开启mysql服务（mysqld)，配置mysql（其实就是执行data.sql
-    ```
-    mysql -h localhost -u root -p < data.sql的路径
-    ```
++ 下载安装git
++ 去官网下载安装 nodejs（装LTS版本吧
++ 找一个合适的地方放项目...
+```
+git clone https://github.com/SoftwareZJU2016/webCode.git
+```
++ 进入项目目录（有package.json的目录
++ 用nodejs的软件包管理器npm下载项目需要的依赖（这里为了加速从阿里提供的镜像站下载）
+```
+npm install --registry=https://registry.npm.taobao.org
+```
++ 运行
+```
+npm run dev
+```
++ 访问http://localhost:3000/
++ 开启mysql服务（mysqld)，配置mysql（其实就是执行data.sql
+```
+mysql -h localhost -u root -p < data.sql的路径
+```
 
 ## 前端
 ### `views`目录
@@ -52,7 +52,6 @@ js/main.js里有个例子
 以ajax方式提交请求时，可以返回json等数据
 
 用到的框架是[express](https://expressjs.com)
-
 
 #### 劝退
 （感觉学习成本太高的话还是换成php，jsp之类的吧0 0
