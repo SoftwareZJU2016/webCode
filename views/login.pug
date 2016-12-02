@@ -1,0 +1,33 @@
+- var title = '登录页'
+html
+    include components/head.pug
+    body
+        include components/header.pug
+
+        if msg
+            h1 后端返回的消息是：#{msg}
+        //标签名紧跟= 可以获取到变量值，上面的#{}也可以
+        each item in test
+            p= item.a  
+            p= item.b
+            p= item.c
+        // class为login-box，id为lalala的div
+        div.login-box#lalala
+            h2 ajax方式
+            form
+                p username
+                input(type='text' name='id')
+                p password
+                input(type='password' name='password')
+                input#login(type='button' value='submit')
+
+        div
+            h2 表单方式
+            form(action='/login/form_way' method='post')
+                p username
+                input(type='text' name='_id')
+                p password
+                input(type='password' name='_password')
+                input(type='submit')
+
+        include components/footer.pug
