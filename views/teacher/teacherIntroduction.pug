@@ -1,0 +1,351 @@
+doctype html
+head
+  title 软件工程教务系统
+  meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+  meta(http-equiv='imagetoolbar', content='no')
+  link(rel='stylesheet', href='../styles/layout.css', type='text/css')
+  script(type='text/javascript', src='../scripts/jquery-1.4.1.min.js')
+  script(type='text/javascript', src='../scripts/jquery.slidepanel.setup.js')
+  script(type='text/javascript', src='../scripts/jquery.cycle.min.js')
+  script(type='text/javascript', src='../scripts/jquery.cycle.setup.js')
+  script(type='text/javascript', src='../editor/kindeditor.js')
+  script(type='utf-8', src='../editor/lang/en.js')
+  script(type='text/javascript').
+    var KindEd;
+    KindEditor.ready(
+      function(K)
+      {
+        window.editor = K.create('#editor_id1');
+        window.editor1 = K.create('#editor_id2');
+        window.editor2 = K.create('#editor_id3');
+        window.editor3 = K.create('#editor_id4');
+        window.editor4 = K.create('#editor_id5');
+        window.editor4 = K.create('#editor_id6');
+        KindEd=K;
+      }
+    );
+    function Pass(str) {
+      var html = editor.html(); // KindEditor Node API
+      console.log(html);
+      var xmlhttp;
+      var myarray = new Array(str, html);
+      if (html.length == 0) {
+        alert("数据为空！失败");
+        return;
+      }
+      if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+      }
+      else {// code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+          alert("操作成功");
+        }
+      }
+      xmlhttp.open("GET", "Filetest/test.php?q=" + myarray, true);
+      xmlhttp.send();
+    }
+script.
+  $(function () {
+    $("#editBtn1").click(function () {
+      $("#editBtn1").hide();
+      $("#textEdit1").fadeIn();
+    })
+    $("#editBtn2").click(function () {
+      $("#editBtn2").hide();
+      $("#textEdit2").fadeIn();
+    })
+    $("#editBtn3").click(function () {
+      $("#editBtn3").hide();
+      $("#textEdit3").fadeIn();
+    })
+    $("#editBtn4").click(function () {
+      $("#editBtn4").hide();
+      $("#textEdit4").fadeIn();
+    })
+    $("#editBtn5").click(function () {
+      $("#editBtn5").hide();
+      $("#textEdit5").fadeIn();
+    })
+    $("#editBtn6").click(function () {
+      $("#editBtn6").hide();
+      $("#textEdit6").fadeIn();
+    })
+    $("#saveBtn1").click(function () {
+      $("#editBtn1").fadeIn(1000);
+      $("#textEdit1").hide();
+    })
+    $("#saveBtn2").click(function () {
+      $("#editBtn2").fadeIn(1000);
+      $("#textEdit2").hide();
+    })
+    $("#saveBtn3").click(function () {
+      $("#editBtn3").fadeIn(1000);
+      $("#textEdit3").hide();
+    })
+    $("#saveBtn4").click(function () {
+      $("#editBtn4").fadeIn(1000);
+      $("#textEdit4").hide();
+    })
+    $("#saveBtn5").click(function () {
+      $("#editBtn5").fadeIn(1000);
+      $("#textEdit5").hide();
+    })
+    $("#saveBtn6").click(function () {
+      $("#editBtn6").fadeIn(1000);
+      $("#textEdit6").hide();
+    })
+  })
+div
+  .wrapper.col0
+    #topbar
+      #slidepanel
+        .topbox
+          p.readmore1
+            a(href='guide.html') 查看网站指南»»»
+          h2 学生信息
+          p 学生姓名，学号，选课，教师，是否担任助教等信息
+        .topbox
+          h2 修改密码
+          form(action='#', method='post')
+            fieldset
+              legend Teachers Login Form
+              label(for='teachername')
+                | 输入新密码：
+                input#teachername(type='text', name='teachername', value='')
+              label(for='teacherpass')
+                | 确认密码：
+                input#teacherpass(type='password', name='teacherpass', value='')
+              p
+                input#teacherlogin(type='submit', name='teacherlogin', value='修改')
+                input#teacherreset(type='reset', name='teacherreset', value='清空')
+        .topbox.last
+          h2 切换用户
+          form(action='#', method='post')
+            fieldset
+              legend Pupils Login Form
+              label(for='pupilname')
+                | 帐号：
+                input#pupilname(type='text', name='pupilname', value='')
+              label(for='pupilpass')
+                | 密码：
+                input#pupilpass(type='password', name='pupilpass', value='')
+              label(for='pupilremember')
+                input#pupilremember.checkbox(type='checkbox', name='pupilremember', checked='checked')
+              p
+                input#pupillogin(type='submit', name='pupillogin', value='登录')
+                input#pupilreset(type='reset', name='pupilreset', value='注销')
+        br.clear
+      #loginpanel
+        ul
+          li.left 不懂看这里»
+          li#toggle.right
+            a#slideit(href='#slidepanel') 我的信息
+            a#closeit(style='display: none;', href='#slidepanel') 关闭
+      br.clear
+  // #######################################################################################################
+  .wrapper.col1
+    #header
+      #logo
+        h1
+          a(href='#') 软件工程教务系统
+        p Software Enginnering Education System
+      #topnav
+        nav
+          ul
+            li
+              a(href='classIntroduction.html', style='font-size: 20px;') 课程介绍
+            li.active
+              a(href='teacherIntroduction.html', style='font-size: 20px;') 教师介绍
+            li
+              a(href='courseResource.html', style='font-size: 20px;') 课件资料
+            li
+              a(href='homework.html', style='font-size: 20px;') 作业模块
+            li
+              a(href='BBS.html', style='font-size: 20px;') 论坛
+            li.last
+              a(href='others_info.html', style='font-size: 20px;') 其他
+      br.clear
+  .wrapper.col3
+    #container
+      #content
+        h1(id='总体介绍') 总体介绍
+        img.imgr(src='images/demo/imgr.gif', alt='', width='125', height='125')
+        p
+          | Aliquatjusto quisque nam consequat doloreet vest orna partur scetur portortis nam. Metadipiscing eget facilis elit sagittis felisi eger id justo maurisus convallicitur.
+        p
+          | Dapiensociis temper donec auctortortis cumsan et curabitur condis lorem loborttis leo. Ipsumcommodo libero nunc at in velis tincidunt pellentum tincidunt vel lorem.
+        img.imgl(src='images/demo/imgl.gif', alt='', width='125', height='125')
+        p
+          | This is a W3C compliant free website template from . This template is distributed using a .
+        p
+          | You can use and modify the template for both personal and commercial use. You must keep all copyright information and credit links in the template and associated files. For more CSS templates visit .
+        p
+          | Portortornec condimenterdum eget consectetuer condis consequam pretium pellus sed mauris enim. Puruselit mauris nulla hendimentesque elit semper nam a sapien urna sempus.
+        div
+          #editBtn1(style='text-align: left;height: 80px;padding-top: 20px;')
+            button(style='background-color: #293C6B;color: white') 编辑
+          #textEdit1(style='display: none;')
+            div(style='width:300px; margin-left:0px; margin-top:0px;')
+              textarea#editor_id1(name='content1', style='width:500px; ')
+            #saveBtn1(style='text-align: left;height: 80px;padding-top: 20px;')
+              button(style='background-color: #293C6B;color: white') 保存
+        h1(id='教学风格') 教学风格
+        img.imgr(src='images/demo/imgr.gif', alt='', width='125', height='125')
+        p
+          | Aliquatjusto quisque nam consequat doloreet vest orna partur scetur portortis nam. Metadipiscing eget facilis elit sagittis felisi eger id justo maurisus convallicitur.
+        p
+          | Dapiensociis  et curabitur condis lorem loborttis leo. Ipsumcommodo libero nunc at in velis tincidunt pellentum tincidunt vel lorem.
+        img.imgl(src='images/demo/imgl.gif', alt='', width='125', height='125')
+        p
+          | This is a W3C compliant free website template from  This template is distributed using a .
+        p
+          | You can use and modify the template for both personal and commercial use. You must keep all copyright information and credit links in the template and associated files. For more CSS templates visit .
+        p
+          | Portortornec condimenterdum eget consectetuer condis consequam pretium pellus sed mauris enim. Puruselit mauris nulla hendimentesque elit semper nam a sapien urna sempus.
+        div
+          #editBtn2(style='text-align: left;height: 80px;padding-top: 20px;')
+            button(style='background-color: #293C6B;color: white') 编辑
+          #textEdit2(style='display: none;')
+            div(style='width:300px; margin-left:0px; margin-top:0px;')
+              textarea#editor_id2(name='content2', style='width:500px; ')
+            #saveBtn2(style='text-align: left;height: 80px;padding-top: 20px;')
+              button(style='background-color: #293C6B;color: white') 保存
+        h1(id='以往教学') 以往教学
+        img.imgr(src='images/demo/imgr.gif', alt='', width='125', height='125')
+        p
+          | Aliquatjusto quisque nam consequat doloreet vest orna partur scetur portortis nam. Metadipiscing eget facilis elit sagittis felisi eger id justo maurisus convallicitur.
+        p
+          | Dapiensociis  et curabitur condis lorem loborttis leo. Ipsumcommodo libero nunc at in velis tincidunt pellentum tincidunt vel lorem.
+        img.imgl(src='images/demo/imgl.gif', alt='', width='125', height='125')
+        p
+          | This is a W3C compliant free website template from . This template is distributed using a .
+        p
+          | You can use and modify the template for both personal and commercial use. You must keep all copyright information and credit links in the template and associated files. For more CSS templates visit .
+        p
+          | Portortornec condimenterdum eget consectetuer condis consequam pretium pellus sed mauris enim. Puruselit mauris nulla hendimentesque elit semper nam a sapien urna sempus.
+        div
+          #editBtn3(style='text-align: left;height: 80px;padding-top: 20px;')
+            button(style='background-color: #293C6B;color: white') 编辑
+          #textEdit3(style='display: none;')
+            div(style='width:300px; margin-left:0px; margin-top:0px;')
+              textarea#editor_id3(name='content3', style='width:500px; ')
+            #saveBtn3(style='text-align: left;height: 80px;padding-top: 20px;')
+              button(style='background-color: #293C6B;color: white') 保存
+        h1(id='科研成果') 科研成果
+        img.imgr(src='images/demo/imgr.gif', alt='', width='125', height='125')
+        p
+          | Aliquatjusto quisque nam consequat doloreet vest orna partur scetur portortis nam. Metadipiscing eget facilis elit sagittis felisi eger id justo maurisus convallicitur.
+        p
+          | Dapiensociis  et curabitur condis lorem loborttis leo. Ipsumcommodo libero nunc at in velis tincidunt pellentum tincidunt vel lorem.
+        img.imgl(src='images/demo/imgl.gif', alt='', width='125', height='125')
+        p
+          | This is a W3C compliant free website template from . This template is distributed using a >Website Template Licence.
+        p
+          | You can use and modify the template for both personal and commercial use. You must keep all copyright information and credit links in the template and associated files. For more CSS templates visit .
+        p
+          | Portortornec condimenterdum eget consectetuer condis consequam pretium pellus sed mauris enim. Puruselit mauris nulla hendimentesque elit semper nam a sapien urna sempus.
+        div
+          #editBtn4(style='text-align: left;height: 80px;padding-top: 20px;')
+            button(style='background-color: #293C6B;color: white') 编辑
+          #textEdit4(style='display: none;')
+            div(style='width:300px; margin-left:0px; margin-top:0px;')
+              textarea#editor_id4(name='content4', style='width:500px; ')
+            #saveBtn4(style='text-align: left;height: 80px;padding-top: 20px;')
+              button(style='background-color: #293C6B;color: white') 保存
+        h1(id='出版书籍') 出版书籍
+        img.imgr(src='images/demo/imgr.gif', alt='', width='125', height='125')
+        p
+          | Aliquatjusto quisque nam consequat doloreet vest orna partur scetur portortis nam. Metadipiscing eget facilis elit sagittis felisi eger id justo maurisus convallicitur.
+        p
+          | Dapiensociis temper donec auctortortis cumsan et curabitur condis lorem loborttis leo. Ipsumcommodo libero nunc at in velis tincidunt pellentum tincidunt vel lorem.
+        img.imgl(src='images/demo/imgl.gif', alt='', width='125', height='125')
+        p
+          | This is a W3C compliant free website template from . This template is distributed using a .
+        p
+          | You can use and modify the template for both personal and commercial use. You must keep all copyright information and credit links in the template and associated files. For more CSS templates visit .
+        p
+          | Portortornec condimenterdum eget consectetuer condis consequam pretium pellus sed mauris enim. Puruselit mauris nulla hendimentesque elit semper nam a sapien urna sempus.
+        div
+          #editBtn5(style='text-align: left;height: 80px;padding-top: 20px;')
+            button(style='background-color: #293C6B;color: white') 编辑
+          #textEdit5(style='display: none;')
+            div(style='width:300px; margin-left:0px; margin-top:0px;')
+              textarea#editor_id5(name='content5', style='width:500px; ')
+            #saveBtn5(style='text-align: left;height: 80px;padding-top: 20px;')
+              button(style='background-color: #293C6B;color: white') 保存
+        h1(id='所获荣誉') 所获荣誉
+        img.imgr(src='images/demo/imgr.gif', alt='', width='125', height='125')
+        p
+          | Aliquatjusto quisque nam consequat doloreet vest orna partur scetur portortis nam. Metadipiscing eget facilis elit sagittis felisi eger id justo maurisus convallicitur.
+        p
+          | Dapiensociis  et curabitur condis lorem loborttis leo. Ipsumcommodo libero nunc at in velis tincidunt pellentum tincidunt vel lorem.
+        img.imgl(src='images/demo/imgl.gif', alt='', width='125', height='125')
+        p
+          | This is a W3C compliant free website template from . This template is distributed using a .
+        p
+          | You can use and modify the template for both personal and commercial use. You must keep all copyright information and credit links in the template and associated files. For more CSS templates visit .
+        p
+          | Portortornec condimenterdum eget consectetuer condis consequam pretium pellus sed mauris enim. Puruselit mauris nulla hendimentesque elit semper nam a sapien urna sempus.
+        div
+          #editBtn6(style='text-align: left;height: 80px;padding-top: 20px;')
+            button(style='background-color: #293C6B;color: white') 编辑
+          #textEdit6(style='display: none;')
+            div(style='width:300px; margin-left:0px; margin-top:0px;')
+              textarea#editor_id6(name='content6', style='width:500px; ')
+            #saveBtn6(style='text-align: left;height: 80px;padding-top: 20px;')
+              button(style='background-color: #293C6B;color: white') 保存
+      #column
+        .subnav(style='position: fixed;')
+          h2 课程介绍
+          ul
+            li
+              a(href='#总体介绍') 总体介绍
+            li
+              a(href='#教学风格') 教学风格
+            li
+              a(href='#以往教学') 以往教学
+            li
+              a(href='#科研成果') 科研成果
+            li
+              a(href='#出版书籍') 出版书籍
+            li
+              a(href='#所获荣誉') 所获荣誉
+          h2
+            br
+          h2 编辑入口
+          ul
+            li
+              a(href='teacherIntroduction.html') 学生端
+            li
+              a(href='teacherIntroduction_for_visitor.html') 游客端
+      .clear
+  // #######################################################################################################
+  .wrapper.col4
+    #footer
+      .footbox
+        h2 友情链接
+        ul
+          li
+            a(href='http://www.cc98.org/list.asp?boardid=74') CC98软件工程版
+          li
+            a(href='http://cspo.zju.edu.cn/') 浙江大学计算机学院中文网
+          li
+            a(href='http://jwbinfosys.zju.edu.cn/default2.aspx') 浙江大学教务系统
+          li
+            a(href='http://luckweb.057101.com/bt2/index.asp') 浙江大学缘网
+      .footbox.last
+        h2 关于我们
+        ul
+          li
+            p 我们是浙江大学软件工程2014届的学生，这是为了我们更好学习课程内容而制作的网站，如果您有任何的意见，欢迎向我们反馈，我们会即使改进。
+      br.clear
+  // #######################################################################################################
+  .wrapper.col5
+    #copyright
+      p.fl_left
+        | Copyright © 2016 - All Rights Reserved - 
+        a(href='#') 软需第13开发团队
+      br.clear

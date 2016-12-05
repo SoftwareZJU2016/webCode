@@ -1,0 +1,163 @@
+doctype html
+head
+  title 教师使用指南
+  style.
+  meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+  meta(http-equiv='imagetoolbar', content='no')
+  link(rel='stylesheet', href='../styles/layout.css', type='text/css')
+  script(type='text/javascript', src='../scripts/jquery-1.4.1.min.js')
+  script(type='text/javascript', src='../scripts/jquery.slidepanel.setup.js')
+  script(type='text/javascript', src='../scripts/jquery.cycle.min.js')
+  script(type='text/javascript', src='../scripts/jquery.cycle.setup.js')
+.container
+  .wrapper.col0
+    #topbar
+      #slidepanel
+        .topbox
+          p.readmore1
+            a(href='#') 查看网站指南»»»
+          h2 学生信息
+          p 学生姓名，学号，选课，教师，是否担任助教等信息
+        .topbox
+          h2 修改密码
+          form(action='#', method='post')
+            fieldset
+              legend Teachers Login Form
+              label(for='teachername')
+                | 输入新密码：
+                input#teachername(type='text', name='teachername', value='')
+              label(for='teacherpass')
+                | 确认密码：
+                input#teacherpass(type='password', name='teacherpass', value='')
+              p
+                input#teacherlogin(type='submit', name='teacherlogin', value='修改')
+                input#teacherreset(type='reset', name='teacherreset', value='清空')
+        .topbox.last
+          h2 切换用户
+          form(action='#', method='post')
+            fieldset
+              legend Pupils Login Form
+              label(for='pupilname')
+                | 帐号：
+                input#pupilname(type='text', name='pupilname', value='')
+              label(for='pupilpass')
+                | 密码：
+                input#pupilpass(type='password', name='pupilpass', value='')
+              label(for='pupilremember')
+                input#pupilremember.checkbox(type='checkbox', name='pupilremember', checked='checked')
+              p
+                input#pupillogin(type='submit', name='pupillogin', value='登录')
+                input#pupilreset(type='reset', name='pupilreset', value='注销')
+        br.clear
+      #loginpanel
+        ul
+          li.left 不懂看这里»
+          li#toggle.right
+            a#slideit(href='#slidepanel') 我的信息
+            a#closeit(style='display: none;', href='#slidepanel') 关闭
+      br.clear
+  // #######################################################################################################
+  .wrapper.col1
+    #header
+      #logo
+        h1
+          a(href='#') 软件工程教务系统
+        p Software Enginnering Education System
+      #topnav
+        nav
+          ul
+            li
+              a(href='classIntroduction.html', style='font-size: 20px;') 课程介绍
+            li
+              a(href='teacherIntroduction.html', style='font-size: 20px;') 教师介绍
+            li
+              a(href='courseResource.html', style='font-size: 20px;') 课件资料
+            li
+              a(href='homework.html', style='font-size: 20px;') 作业模块
+            li
+              a(href='BBS.html', style='font-size: 20px;') 论坛
+            li.last
+              a(href='others_info.html', style='font-size: 20px;') 其他
+      br.clear
+  // #######################################################################################################
+  .wrapper.col3
+    #container
+      #content
+        h1#nav1 “课程介绍”指南
+        img.imgr(src='../images/demo/imgr.gif', alt='', width='125', height='125')
+        p 您可以在此处编辑“教学计划”
+        p 您可以在此处编辑“背景”
+        p 您可以在此处编辑“考核方式”
+        p 您可以在此处编辑“使用教材”
+        p 您可以在此处编辑“大作业介绍”
+        p 您可以在此处编辑“基础介绍”
+        br
+        h1#nav2 “教师介绍”指南
+        img.imgr(src='../images/demo/imgr.gif', alt='', width='125', height='125')
+        p 您可以在此处编辑“总体介绍”
+        p 您可以在此处编辑“教学风格”
+        p 您可以在此处编辑“以往教学”
+        p 您可以在此处编辑“科研成果”
+        p 您可以在此处编辑“出版书籍”
+        p 您可以在此处编辑“所获荣誉”
+        br
+        h1#nav3 “课件资料”指南
+        img.imgr(src='../images/demo/imgr.gif', alt='', width='125', height='125')
+        p 您可以在此处编辑“课件管理”
+        p 您可以在此处编辑“参考资料管理”
+        p 您可以在此处编辑“优秀作业”
+        p 您可以在此处编辑“视音频材料”
+        br
+        h1#nav4 “作业模块”指南
+        img.imgr(src='../images/demo/imgr.gif', alt='', width='125', height='125')
+        p 您可以在此处编辑“作业布置”
+        p 您可以在此处编辑“作业批改”
+        p 您可以在此处编辑“作业查重系统”
+        br
+        h1#nav5 “论坛”指南
+        img.imgr(src='../images/demo/imgr.gif', alt='', width='125', height='125')
+        p 您可以在此处编辑“帖子”
+        p 您可以在此处编辑“主题”
+        br
+      #column
+        .subnav(style='position: fixed;')
+          h2 指南目录
+          ul
+            li
+              a(href='#nav1') “课程介绍”指南
+            li
+              a(href='#nav2') “教师介绍”指南
+            li
+              a(href='#nav3') “课件资料”指南
+            li
+              a(href='#nav4') “作业模块”指南
+            li
+              a(href='#nav5') “论坛”指南
+      .clear
+  // #######################################################################################################
+  .wrapper.col4
+    #footer
+      .footbox
+        h2 友情链接
+        ul
+          li
+            a(href='http://www.cc98.org/list.asp?boardid=74') CC98软件工程版
+          li
+            a(href='http://cspo.zju.edu.cn/') 浙江大学计算机学院中文网
+          li
+            a(href='http://jwbinfosys.zju.edu.cn/default2.aspx') 浙江大学教务系统
+          li
+            a(href='http://luckweb.057101.com/bt2/index.asp') 浙江大学缘网
+      .footbox.last
+        h2 关于我们
+        ul
+          li
+            p 我们是浙江大学软件工程2014届的学生，这是为了我们更好学习课程内容而制作的网站，如果您有任何的意见，欢迎向我们反馈，我们会即使改进。
+      br.clear
+  // #######################################################################################################
+  .wrapper.col5
+    #copyright
+      p.fl_left
+        | Copyright © 2016 - All Rights Reserved - 
+        a(href='#') 软需第13开发团队
+      br.clear

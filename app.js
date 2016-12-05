@@ -1,7 +1,6 @@
 var express =  require('express');
 var session =  require('express-session');
 var pug =  require('pug');
-var ejs = require('ejs');
 var bodyParser =  require('body-parser');
 var helmet =  require('helmet');
 var routes =  require('./routes/index');

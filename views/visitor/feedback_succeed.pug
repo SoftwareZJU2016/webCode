@@ -1,0 +1,111 @@
+doctype html
+head
+  title 软件工程教务系统
+  style.
+  meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+  meta(http-equiv='imagetoolbar', content='no')
+  link(rel='stylesheet', href='../styles/layout.css', type='text/css')
+  script(type='text/javascript', src='../scripts/jquery-1.4.1.min.js')
+  script(type='text/javascript', src='../scripts/jquery.slidepanel.setup.js')
+  script(type='text/javascript', src='../scripts/jquery.cycle.min.js')
+  script(type='text/javascript', src='../scripts/jquery.cycle.setup.js')
+  script(charset='utf-8', src='../editor/kindeditor.js')
+  script(charset='utf-8', src='../editor/lang/zh-CN.js')
+  script.
+    KindEditor.ready(function(K) {
+    window.editor = K.create('#editor_id');
+    });
+.container
+  .wrapper.col0
+    #topbar
+      #slidepanel
+        .topbox
+          p.readmore1
+            a(href='guide.html') 查看网站指南»»»
+          h2 我的信息
+          p 游客访问记录等信息
+        .topbox.last
+          h2 登录
+          form(action='#', method='post')
+            fieldset
+              legend Pupils Login Form
+              label(for='pupilname')
+                | 帐号：
+                input#pupilname(type='text', name='pupilname', value='')
+              label(for='pupilpass')
+                | 密码：
+                input#pupilpass(type='password', name='pupilpass', value='')
+              label(for='pupilremember')
+                input#pupilremember.checkbox(type='checkbox', name='pupilremember', checked='checked')
+              p
+                input#pupillogin(type='submit', name='pupillogin', value='登录')
+                input#pupilreset(type='reset', name='pupilreset', value='登录主界面')
+        br.clear
+      #loginpanel
+        ul
+          li.left 登录看这里»
+          li#toggle.right
+            a#slideit(href='#slidepanel') 我要登录
+            a#closeit(style='display: none;', href='#slidepanel') 关闭
+      br.clear
+  .wrapper.col1
+    #header
+      #logo
+        h1
+          a(href='#') 软件工程教务系统
+        p Software Enginnering Education System
+      #topnav
+        nav
+          ul
+            li
+              a(href='classIntroduction.html', style='font-size: 20px;') 课程介绍
+            li
+              a(href='teacherIntroduction.html', style='font-size: 20px;') 教师介绍
+            li
+              a(href='courseResource.html', style='font-size: 20px;') 课件资料
+            li.lastActive
+              a(href='feedback.html', style='font-size: 20px;') 游客反馈
+      br.clear
+  // #######################################################################################################
+  // #######################################################################################################
+  .wrapper.col3
+    #container
+      #content
+        p
+          b 反馈成功，感谢您的建议！
+        div(style='height:20px;')
+        h1 反馈标题显示在这里
+        .post-meta.clearfix
+          span.type 反馈类型显示在这里
+          span.comments 联系方式显示在这里
+        // end of post meta
+        p
+          | 反馈内容显示在这里Many of us work in an endless stream of tasks, browser tasks, social media, emails, meetings, rushing from one thing to another, never pausing and never ending. Then the day is over, and we are exhausted, and we often have very little to show for it. And we start the next day, ready for a mindless stream of tasks and distractions.
+      #column
+      .clear
+  .wrapper.col4
+    #footer
+      .footbox
+        h2 友情链接
+        ul
+          li
+            a(href='http://www.cc98.org/list.asp?boardid=74') CC98软件工程版
+          li
+            a(href='http://cspo.zju.edu.cn/') 浙江大学计算机学院中文网
+          li
+            a(href='http://jwbinfosys.zju.edu.cn/default2.aspx') 浙江大学教务系统
+          li
+            a(href='http://luckweb.057101.com/bt2/index.asp') 浙江大学缘网
+      .footbox.last
+        h2 关于我们
+        ul
+          li
+            p 我们是浙江大学软件工程2014届的学生，这是为了我们更好学习课程内容而制作的网站，如果您有任何的意见，欢迎向我们反馈，我们会即使改进。
+      br.clear
+  // #######################################################################################################
+  .wrapper.col5
+    #copyright
+      p.fl_left
+        | Copyright © 2016 - All Rights Reserved - 
+        a(href='#') 软需第13开发团队
+      br.clear
