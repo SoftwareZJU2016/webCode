@@ -22,7 +22,7 @@ head
       #slidepanel
         .topbox
           p.readmore1
-            a(href='guide.html') 查看网站指南»»»
+            a(href='guide') 查看网站指南»»»
           h2 管理员信息
           p 所做操作，拥有权限，身份信息
         .topbox
@@ -74,11 +74,11 @@ head
         nav
           ul
             li
-              a(href='websiteGuide.html', style='font-size: 20px;') 网站指南
+              a(href='websiteGuide', style='font-size: 20px;') 网站指南
             li.active
-              a(href='BBS.html', style='font-size: 20px;') 论坛管理
+              a(href='BBS', style='font-size: 20px;') 论坛管理
             li.last
-              a(href='visitorFeedback.html', style='font-size: 20px;') 游客反馈
+              a(href='visitorFeedback', style='font-size: 20px;') 游客反馈
       br.clear
   // #######################################################################################################
   .wrapper.col3
@@ -134,7 +134,7 @@ head
           div(style='height:20px;')
           #respond
             h3 回复此贴
-            form#commentform(action='BBS_article.html', method='post')
+            form#commentform(action='BBS_article', method='post')
               // 提交后再转回这个页面。相当于提交后可以在这个帖子中看到自己的评论，不另设确认页面
               div
                 textarea#editor_id(name='content', style='height:300px;')
@@ -151,9 +151,9 @@ head
           h2 论坛
           ul
             li
-              a(href='BBS.html') 帖子列表
+              a(href='BBS') 帖子列表
             li
-              a(href='BBS_post.html') 发表新帖
+              a(href='BBS_post') 发表新帖
       .clear
   // #######################################################################################################
   .wrapper.col4

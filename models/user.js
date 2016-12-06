@@ -14,7 +14,7 @@ User.getInfo = (username, callback) => {
             }
             user = results[0];
             connection.release();
-            callback(err, user);
+            callback(err, user); /*!!! 回调函数！！**/
         });
     });
 };

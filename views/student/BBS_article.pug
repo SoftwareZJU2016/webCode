@@ -1,7 +1,6 @@
 doctype html
 head
   title 软件工程教务系统
-  style.
   meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
   meta(http-equiv='imagetoolbar', content='no')
   link(rel='stylesheet', href='../styles/layout.css', type='text/css')
@@ -22,7 +21,7 @@ head
       #slidepanel
         .topbox
           p.readmore1
-            a(href='guide.html') 查看网站指南»»»
+            a(href='guide') 查看网站指南»»»
           h2 学生信息
           p 学生姓名，学号，选课，教师，是否担任助教等信息
         .topbox
@@ -74,17 +73,17 @@ head
         nav
           ul
             li
-              a(href='classIntroduction.html', style='font-size: 20px;') 课程介绍
+              a(href='classIntroduction', style='font-size: 20px;') 课程介绍
             li
-              a(href='teacherIntroduction.html', style='font-size: 20px;') 教师介绍
+              a(href='teacherIntroduction', style='font-size: 20px;') 教师介绍
             li
-              a(href='courseResource.html', style='font-size: 20px;') 课件资料
+              a(href='courseResource', style='font-size: 20px;') 课件资料
             li
-              a(href='homework.html', style='font-size: 20px;') 作业模块
+              a(href='homework', style='font-size: 20px;') 作业模块
             li.active
-              a(href='BBS.html', style='font-size: 20px;') 论坛
+              a(href='BBS', style='font-size: 20px;') 论坛
             li.last
-              a(href='inbox.html', style='font-size: 20px;') 收件
+              a(href='inbox', style='font-size: 20px;') 收件
       br.clear
   // #######################################################################################################
   .wrapper.col3
@@ -138,7 +137,7 @@ head
           div(style='height:20px;')
           #respond
             h3 回复此贴
-            form#commentform(action='BBS_article.html', method='post')
+            form#commentform(action='BBS_article', method='post')
               // 提交后再转回这个页面。相当于提交后可以在这个帖子中看到自己的评论，不另设确认页面
               div
                 textarea#editor_id(name='content', style='height:300px;')
@@ -155,9 +154,9 @@ head
           h2 论坛
           ul
             li
-              a(href='BBS.html') 帖子列表
+              a(href='BBS') 帖子列表
             li
-              a(href='BBS_post.html') 发表新帖
+              a(href='BBS_post') 发表新帖
       .clear
   // #######################################################################################################
   .wrapper.col4
