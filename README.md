@@ -20,6 +20,7 @@ npm run dev
 ```
 mysql -h localhost -u root -p < data.sql的路径
 ```
+如果之后发现data.sql更新了最好重新执行一次
 
 ## 前端
 ### `views`目录
@@ -27,14 +28,16 @@ mysql -h localhost -u root -p < data.sql的路径
 
 前端可以通过表单和后端交换数据，表单提交的方式会放弃本页面，所以页面会刷新
 
-可以查看 http://localhost:3000/login 或者 views/login.pug 感受一下
+<p style="text-decoration: line-through">可以查看 http://localhost:3000/login 或者 views/login.pug 感受一下</p>
+（感受个P直接上手写吧
 
 ### `public`目录
 放网站中用到的css，js（别忘了在模板里引入
 
 前端也可以通过js写ajax请求和后端交换数据，页面可以不刷新
 
-js/main.js里有个例子
+<p style="text-decoration: line-through">js/main.js里有个例子</p>
+
 
 用到的库可以是[jquery](http://jquery.com/)，也可以直接写原生js
 
@@ -53,5 +56,12 @@ js/main.js里有个例子
 
 用到的框架是[express](https://expressjs.com)
 
+**登录后在req中有下列数据可以用**
++ req.session.userID
++ req.session.userType
++ req.session.courseID
++ req.session.username
+
 #### 劝退
-（感觉学习成本太高的话还是换成php，jsp之类的吧0 0
+<p style="text-decoration: line-through">（感觉学习成本太高的话还是换成php，jsp之类的吧0 0</p>
+（退个P我都写这么多了0 0

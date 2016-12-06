@@ -2,31 +2,53 @@ var pool = require('./index');
 
 var Topic = {};
 
-Topic.getByID = (topicID, callback) => {
+Topic.getAll = (courseID, callback) => {
     pool.getConnection((err, connection) => {
-        if (err) console.log(err);
-
-        var query = 'SELECT * FROM course WHERE id = ?';
-        connection.query(query, [topicID], (err, results, fields) => {
-            if (err) { 
+        if (err) {
+            console.log(err);
+            return;
+        }
+        var query = 'SELECT * from topic WHERE course_id = ?';
+        connection.query(query, [courseID], (err, results, fields) => {
+            if (err) {
                 console.log(err);
-                results[0] = null;
+                results = [];
             }
             connection.release();
+            callback(results);
+        });
+    })
+};
+
+Topic.getByID = (topicID, callback) => {
+    pool.getConnection((err, connection) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        var query = 'SELECT * FROM topic WHERE id = ? ORDER BY reply_time';
+        connection.query(query, [topicID], (err, results, fields) => {
+            if (err) {
+                console.log(err);
+                results = [];
+            }
             callback(results[0]);
+            connection.release();
         });
     });
 };
 
-Topic.getReply = (topicID) => {
+Topic.getReply = (topicID, callback) => {
     pool.getConnection((err, connection) => {
-        if (err) console.log(err);
-
+        if (err) {
+            console.log(err);
+            return;
+        }
         var query = 'SELECT * FROM topic_reply WHERE topic_id = ?';
         connection.query(query, [topicID], (err, results, fields) => {
             if (err) {
                 console.log(err);
-                results[0] = null;
+                results = [];
             }
             connection.release();
             callback(results);
@@ -34,4 +56,4 @@ Topic.getReply = (topicID) => {
     })
 }
 
-module.exports = Course;
+module.exports = Topic;

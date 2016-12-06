@@ -23,8 +23,9 @@ create table user (
     phone varchar(11)
 ) CHARACTER SET = utf8;
 insert into user values ('se_admin', '(>_0)', '2333', 'A', '', '', ''),
-                        ('12345678', '(>_0)', '2333', 'T', '', '', ''),
-                        ('中文', '(>_0)', '2333', 'S,TA', '', '', '');
+                        ('Yang', '(>_0)', '2333', 'T', '', '', ''),
+                        ('中文', '(>_0)', '2333', 'S,TA', '', '', ''),
+                        ('Mie', '(>_0)', '2333', 'S', '', '', '');
 
 # 教师姓名，总体介绍，教学风格，以往教学，科研成果，出版书籍，所获荣誉
 create table teacher (
@@ -40,6 +41,7 @@ create table teacher (
     foreign key (tea_id)
         references user(id) on update cascade
 ) CHARACTER SET = utf8;
+insert into teacher(tea_id, name) values ('Yang', '(>_0)');
 
 create table course (
     id int primary key AUTO_INCREMENT,
@@ -51,6 +53,11 @@ create table course (
     textbook text,
     homework_intro text
 ) CHARACTER SET = utf8;
+insert into course(title) values ('软件需求工程');
+insert into course(title) values ('软件工程管理');
+insert into course(title) values ('软件工程基础');
+insert into course(title) values ('软件测试与质量保证');
+
 
 # 课程在不同年份不同学期的班级
 create table class (
@@ -63,6 +70,7 @@ create table class (
     foreign key (course_id)
         references course(id) on update cascade
 ) CHARACTER SET = utf8;
+insert into class(course_id, year, semester) values ('1', '2016', '秋冬');
 
 # 多对多关系新建个表来表示吧。。
 create table stu_class (
@@ -74,6 +82,8 @@ create table stu_class (
     foreign key (class_id)
         references class(id) on update cascade
 ) CHARACTER SET = utf8;
+insert into stu_class values ('Mie', '1');
+
 
 create table tea_class (
     tea_id varchar(30),
@@ -84,6 +94,7 @@ create table tea_class (
     foreign key (class_id)
         references class(id) on update cascade
 ) CHARACTER SET = utf8;
+
 
 # 包括教师，学生上传的文件
 create table file (
@@ -184,15 +195,21 @@ create table announce (
 create table topic (
     id int AUTO_INCREMENT,
     creator_id varchar(30) not null,
+    course_id int not null,
     post_time datetime not null,
+    title varchar(50) not null,
+    last_reply_time datetime,
     content text,
     reply_num int, # 回复数
     click_num int, # 查看次数
     anonymity enum('0', '1'), # insert默认0
     primary key (id),
     foreign key (creator_id)
-        references user(id) on update cascade
+        references user(id) on update cascade,
+    foreign key (course_id)
+        references course(id) on update cascade
 ) CHARACTER SET = utf8;
+insert into topic(creator_id, course_id, post_time, title, content, reply_num) values ('Mie', 1, NOW(), '测试帖子的标题', '<p>测试</p>', 1);
 
 create table topic_reply (
     id int AUTO_INCREMENT,
@@ -207,3 +224,16 @@ create table topic_reply (
     foreign key (topic_id)
         references topic(id) on update cascade
 ) CHARACTER SET = utf8;
+insert into topic_reply(topic_id, creator_id, post_time, content, anonymity) values (1, 'Mie', NOW(), '<p>测试..</p>', '1');
+
+create table link (
+    course_id int not null,
+    content varchar(50) not null,
+    url varchar(100) not null,
+    foreign key (course_id)
+        references course(id) on update cascade
+);
+insert into link values (1, 'CC98软件工程版', 'http://www.cc98.org/list.asp?boardid=74'),
+                        (1, '浙江大学计算机学院中文网', 'http://cspo.zju.edu.cn/'),
+                        (1, '浙江大学教务系统', 'http://jwbinfosys.zju.edu.cn/default2.aspx'),
+                        (1, '浙江大学缘网', 'http://luckweb.057101.com/bt2/index.asp');

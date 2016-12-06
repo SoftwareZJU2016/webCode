@@ -1,0 +1,27 @@
+doctype html
+include components/head
+.container
+  include ../components/topbar
+  include components/nav
+  .wrapper.col3
+    #container
+      #content
+        article.type-page.hentry.clearfix
+          h1.post-title 发表新帖
+        form(action='', method='post')
+          p
+            label(for='name')
+              small 标题
+              | &nbsp&nbsp
+            input#name(type='text', name='name', value='', size='75%')
+          p
+            textarea#editor_id(name='content', style='height:300px;')
+          div
+            input(type='checkbox', value='checkbox')
+            | 匿名
+          p
+            input#submit(name='submit', type='submit', value='发表新帖')
+            | &nbsp&nbsp
+            input#submit(name='submit', type='submit', value='取消')
+      include components/sidebar
+  include ../components/footer

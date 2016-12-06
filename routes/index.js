@@ -33,7 +33,8 @@ router.route('/login')
     .post((req, res, next) => {
         var userID = req.body.userID,
             password = req.body.password,
-            type = req.body.type;
+            type = req.body.type,
+            courseID = req.body.courseID;
         User.getByIDAndType(userID, type, (user) => {
             if (!user) {
                 res.json({
@@ -52,6 +53,7 @@ router.route('/login')
                     req.session.userID = user.id;
                     req.session.username = user.name;
                     req.session.userType = user.type;
+                    req.session.courseID = courseID;
                     res.json({
                         code: 1,
                         msg: '登录成功',
@@ -63,6 +65,15 @@ router.route('/login')
                 }
             }
         });        
+    })
+
+router.route('/logout')
+    .get((req, res, next) => {
+        req.session.userID = null;
+        req.session.userType = null;
+        req.session.courseID = null;
+        req.session.username = null;
+        res.redirect('/login');
     })
 
 /* 测试一下文件比如静态页面的发送 */

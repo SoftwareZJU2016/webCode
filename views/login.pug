@@ -87,17 +87,17 @@ html
                   input.checkbox(type='checkbox')
                   | 记住密码
               .classChoose(style='display: none;')
-                input.chooseclass(type='radio', name='classType', value='软件需求工程')
+                input.chooseclass(type='radio', name='classType', value='1')
                 label(style='font-size: 18px;display: inline-block;width: 143.4px;') 软件需求工程
                 |  
-                input.chooseclass(type='radio', name='classType', value='软件工程管理')
+                input.chooseclass(type='radio', name='classType', value='2')
                 label(style='font-size: 18px') 软件工程管理
                 br
                 |  
-                input.chooseclass(type='radio', name='classType', value='软件质量保证与测试')
+                input.chooseclass(type='radio', name='classType', value='3')
                 label(style='font-size: 18px;display: inline-block;width: 180px;') 软件质量保证与测试
                 |  
-                input.chooseclass(type='radio', name='classType', value='其他课程')
+                input.chooseclass(type='radio', name='classType', value='4')
                 label(style='font-size: 18px') 其他课程
               .loginButton(align='center', style='display: none;text-align: right;')
                 button(style='height: 40px;width: 300px;font-size: 18px;background: #293C6B;color: white;', onclick='login()') 登录
@@ -173,7 +173,8 @@ html
         $.post('/login', {
           userID: $('#userID').val(),
           password: $('#passwrd').val(),
-          type: $('input[name="IDType"]:checked').val()
+          type: $('input[name="IDType"]:checked').val(),
+          courseID: $('input[name="classType"]:checked').val()
         }, function(data) {
           if (!data)
             alert('无法连接服务器！');

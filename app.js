@@ -9,6 +9,7 @@ var adminRoutes =  require('./routes/admin');
 var stuRoutes =  require('./routes/student');
 var teaRoutes =  require('./routes/teacher');
 var visRoutes =  require('./routes/visitor');
+var bbsRoutes = require('./routes/bbs');
 
 var app = express();
 
@@ -31,6 +32,7 @@ app.use('/admin', adminRoutes);
 app.use('/student', stuRoutes);
 app.use('/teacher', teaRoutes);
 app.use('/visitor', visRoutes);
+app.use('/bbs', bbsRoutes);
 
 var port = process.argv.length == 3 ? parseInt(process.argv[2], 10) : 3000;
 app.listen(port, () => {
