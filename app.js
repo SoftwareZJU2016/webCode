@@ -3,7 +3,12 @@ var session =  require('express-session');
 var pug =  require('pug');
 var bodyParser =  require('body-parser');
 var helmet =  require('helmet');
+/* Routes include */
 var routes =  require('./routes/index');
+var adminRoutes =  require('./routes/admin');
+var stuRoutes =  require('./routes/student');
+var teaRoutes =  require('./routes/teacher');
+var visRoutes =  require('./routes/visitor');
 
 var app = express();
 
@@ -20,7 +25,12 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
+/* use routes */
 app.use('/', routes);
+app.use('/admin', adminRoutes);
+app.use('/student', stuRoutes);
+app.use('/teacher', teaRoutes);
+app.use('/visitor', visRoutes);
 
 var port = process.argv.length == 3 ? parseInt(process.argv[2], 10) : 3000;
 app.listen(port, () => {
