@@ -1,13 +1,13 @@
 var pool = require('./index');
 
-var User = {};
+var Announce = {};
 
-User.getByIDAndType = (userID, userType, callback) => {
+Announce.getByID = (annoID, callback) => {
     pool.getConnection((err, connection) => {
         if (err) console.log(err);
 
-        var query = 'SELECT * FROM user WHERE id = ? and type = ?';
-        connection.query(query, [userID, userType], (err, results, fields) => {
+        var query = 'SELECT * FROM announce WHERE id = ?';
+        connection.query(query, [annoID], (err, results, fields) => {
             if (err) { 
                 console.log(err);
                 results[0] = null;
@@ -16,6 +16,6 @@ User.getByIDAndType = (userID, userType, callback) => {
             callback(results[0]);
         });
     });
-};
+}
 
-module.exports = User;
+module.exports = Announce;

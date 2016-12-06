@@ -5,7 +5,7 @@ var viewDir = 'admin/';
 
 /* 检测登录 */
 router.route((req, res, next) => {
-    if (!req.session.user) {
+    if (!req.session.userID) {
         req.session.message = '请先登录';
         res.redirect('/login');
     } else if (req.session.userType != 'A') {

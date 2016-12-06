@@ -1,14 +1,14 @@
 var pool = require('./index');
 
-var User = {};
+var Teacher = {};
 
-User.getByIDAndType = (userID, userType, callback) => {
+Teacher.getByID = (teaID, callback) => {
     pool.getConnection((err, connection) => {
         if (err) console.log(err);
 
-        var query = 'SELECT * FROM user WHERE id = ? and type = ?';
-        connection.query(query, [userID, userType], (err, results, fields) => {
-            if (err) { 
+        var query = 'SELECT * FROM teacher WHERE tea_id = ?';
+        connection.query(query, [teaID], (err, results, fields) => {
+            if (err) {
                 console.log(err);
                 results[0] = null;
             }
@@ -16,6 +16,6 @@ User.getByIDAndType = (userID, userType, callback) => {
             callback(results[0]);
         });
     });
-};
+}
 
-module.exports = User;
+module.exports = Teacher;

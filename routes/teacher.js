@@ -5,7 +5,7 @@ var viewDir = 'teacher/';
 
 /* 检测登录 */
 router.use((req, res, next) => {
-    if (!req.session.user) {
+    if (!req.session.userID) {
         req.session.message = '请先登录';
         res.redirect('/login');
     } else if (req.session.userType != 'T' || req.session.userType != 'A') {

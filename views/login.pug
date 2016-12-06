@@ -63,23 +63,23 @@ html
             .right(style='display: none;')
               .headline(align='center') 欢迎你
               .IDChoose(align='center')
-                input.chooseid(type='radio', name='IDType', value='student')
+                input.chooseid(type='radio', name='IDType', value='S')
                 label(style='font-size: 15px;display: inline-block;width: 50px;') 学生
-                input.chooseid(type='radio', name='IDType', value='teacher')
+                input.chooseid(type='radio', name='IDType', value='T')
                 label(style='font-size: 15px;display: inline-block;width: 50px;') 教师
-                input.chooseid(type='radio', name='IDType', value='visitor')
+                input.chooseid(type='radio', name='IDType', value='V')
                 label(style='font-size: 15px;display: inline-block;width: 50px;') 游客
-                input.chooseid(type='radio', name='IDType', value='admin')
+                input.chooseid(type='radio', name='IDType', value='A')
                 label(style='font-size: 15px;display: inline-block;width: 50px;') 管理员
               .account(style='display: none')
                 label(style='height: 50px;width: 80px;font-size: 25px;') 账号
-                input(type='text', style='height: 30px;width: 300px;')
-                br
+                input#userID(type='text', style='height: 30px;width: 300px;')
+                brs
                 br
                 |  
                 label(style='height: 50px;width: 80px;font-size: 25px;') 密码
                 |  
-                input#passwrd(type='text', style='height: 30px;width: 300px;')
+                input#passwrd(type='password', style='height: 30px;width: 300px;')
                 br
                 br
                 |  
@@ -170,20 +170,18 @@ html
         });
       });
       function login() {
-        var IDType = document.getElementsByName("IDType");
-        var value;
-        for (var i = 0; i < IDType.length; i++) {
-          if (IDType[i].checked == true)
-          value = IDType[i].value;
-        }
-        switch (value) {
-          case "teacher":
-            window.location.href = "teacher/classIntroduction";
-            break;
-          case "student":
-            window.location.href = "student/classIntroduction";
-            break;
-          case "admin":
-            window.location.href = "student/classIntroduction";
-            break;
-      }}
+        $.post('/login', {
+          userID: $('#userID').val(),
+          password: $('#passwrd').val(),
+          type: $('input[name="IDType"]:checked').val()
+        }, function(data) {
+          if (!data)
+            alert('无法连接服务器！');
+          else if (data.code == 0)
+            alert(data.msg);
+          else {
+            alert(data.msg);
+            window.location.href = '/';
+          }
+        })
+      }
