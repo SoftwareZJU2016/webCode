@@ -1,147 +1,147 @@
 doctype html
 head
-  title 软件工程教务系统
-  style.
-  meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
-  meta(http-equiv='imagetoolbar', content='no')
-  link(rel='stylesheet', href='../styles/layout.css', type='text/css')
-  script(type='text/javascript', src='../scripts/jquery-1.4.1.min.js')
-  script(type='text/javascript', src='../scripts/jquery.slidepanel.setup.js')
-  script(type='text/javascript', src='../scripts/jquery.cycle.min.js')
-  script(type='text/javascript', src='../scripts/jquery.cycle.setup.js')
+    title 软件工程教务系统
+    style.
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    meta(http-equiv='imagetoolbar', content='no')
+    link(rel='stylesheet', href='../styles/layout.css', type='text/css')
+    script(type='text/javascript', src='../scripts/jquery-1.4.1.min.js')
+    script(type='text/javascript', src='../scripts/jquery.slidepanel.setup.js')
+    script(type='text/javascript', src='../scripts/jquery.cycle.min.js')
+    script(type='text/javascript', src='../scripts/jquery.cycle.setup.js')
 .container
-  .wrapper.col0
-    #topbar
-      #slidepanel
-        .topbox
-          p.readmore1
-            a(href='guide') 查看网站指南»»»
-          h2 我的信息
-          p 游客访问记录等信息
-        .topbox.last
-          h2 登录
-          form(action='#', method='post')
-            fieldset
-              legend Pupils Login Form
-              label(for='pupilname')
-                | 帐号：
-                input#pupilname(type='text', name='pupilname', value='')
-              label(for='pupilpass')
-                | 密码：
-                input#pupilpass(type='password', name='pupilpass', value='')
-              label(for='pupilremember')
-                input#pupilremember.checkbox(type='checkbox', name='pupilremember', checked='checked')
-              p
-                input#pupillogin(type='submit', name='pupillogin', value='登录')
-                input#pupilreset(type='reset', name='pupilreset', value='登录主界面')
-        br.clear
-      #loginpanel
-        ul
-          li.left 登录看这里»
-          li#toggle.right
-            a#slideit(href='#slidepanel') 我要登录
-            a#closeit(style='display: none;', href='#slidepanel') 关闭
-      br.clear
-  .wrapper.col1
-    #header
-      #logo
-        h1
-          a(href='#') 软件工程教务系统
-        p Software Enginnering Education System
-      #topnav
-        nav
-          ul
-            li
-              a(href='classIntroduction', style='font-size: 20px;') 课程介绍
-            li
-              a(href='teacherIntroduction', style='font-size: 20px;') 教师介绍
-            li.active
-              a(href='courseResource', style='font-size: 20px;') 课件资料
-            li.last
-              a(href='feedback', style='font-size: 20px;') 游客反馈
-      br.clear
-  .wrapper.col3
-    #container
-      #content(style='height: 350px;')
-        h1 参考资料管理
-        table#table(summary='Summary Here', cellpadding='0', cellspacing='0')
-          thead
-            tr
-              th 上传时间
-              th 文件名称
-              th 文件大小
-              th 文件格式
-              th 操作
-          tbody
-            tr.light
-              td 第一周
-              td 用例图
-              td 1.pdf
-              td 2016.9.20
-              td
-                a(href='', onclick='del()') 预览
-                a(href='') 下载
-            tr.dark
-              td 第二周
-              td 类图
-              td 2.pdf
-              td 2016.9.27
-              td
-                a(href='') 预览
-                a(href='') 下载
-            tr.light
-              td 第三周
-              td 顺序图
-              td 3.pdf
-              td 2016.10.3
-              td
-                a(href='') 预览
-                a(href='') 下载
-            tr.dark
-              td 第四周
-              td 协作图
-              td 4.pdf
-              td 2016.10.10
-              td
-                a(href='') 预览
-                a(href='') 下载
-      #column
-        .subnav(style='position: fixed;')
-          h2 课件资料
-          ul
-            li
-              a(href='courseResource') 课件管理
-            li
-              a(href='courseResource_referencematerial') 参考资料管理
-            li
-              a(href='courseResource_goodhomework') 优秀作业
-            li
-              a(href='courseResource_video') 视音频资料
-      .clear
-  // #######################################################################################################
-  .wrapper.col4
-    #footer
-      .footbox
-        h2 友情链接
-        ul
-          li
-            a(href='http://www.cc98.org/list.asp?boardid=74') CC98软件工程版
-          li
-            a(href='http://cspo.zju.edu.cn/') 浙江大学计算机学院中文网
-          li
-            a(href='http://jwbinfosys.zju.edu.cn/default2.aspx') 浙江大学教务系统
-          li
-            a(href='http://luckweb.057101.com/bt2/index.asp') 浙江大学缘网
-      .footbox.last
-        h2 关于我们
-        ul
-          li
-            p 我们是浙江大学软件工程2014届的学生，这是为了我们更好学习课程内容而制作的网站，如果您有任何的意见，欢迎向我们反馈，我们会即使改进。
-      br.clear
-  // #######################################################################################################
-  .wrapper.col5
-    #copyright
-      p.fl_left
-        | Copyright © 2016 - All Rights Reserved - 
-        a(href='#') 软需第13开发团队
-      br.clear
+    .wrapper.col0
+        #topbar
+            #slidepanel
+                .topbox
+                    p.readmore1
+                        a(href='guide') 查看网站指南»»»
+                    h2 我的信息
+                    p 游客访问记录等信息
+                .topbox.last
+                    h2 登录
+                    form(action='#', method='post')
+                        fieldset
+                            legend Pupils Login Form
+                            label(for='pupilname')
+                                | 帐号：
+                                input#pupilname(type='text', name='pupilname', value='')
+                            label(for='pupilpass')
+                                | 密码：
+                                input#pupilpass(type='password', name='pupilpass', value='')
+                            label(for='pupilremember')
+                                input#pupilremember.checkbox(type='checkbox', name='pupilremember', checked='checked')
+                            p
+                                input#pupillogin(type='submit', name='pupillogin', value='登录')
+                                input#pupilreset(type='reset', name='pupilreset', value='登录主界面')
+                br.clear
+            #loginpanel
+                ul
+                    li.left 登录看这里»
+                    li#toggle.right
+                        a#slideit(href='#slidepanel') 我要登录
+                        a#closeit(style='display: none;', href='#slidepanel') 关闭
+            br.clear
+    .wrapper.col1
+        #header
+            #logo
+                h1
+                    a(href='#') 软件工程教务系统
+                p Software Enginnering Education System
+            #topnav
+                nav
+                    ul
+                        li
+                            a(href='classIntroduction', style='font-size: 20px;') 课程介绍
+                        li
+                            a(href='teacherIntroduction', style='font-size: 20px;') 教师介绍
+                        li.active
+                            a(href='courseResource', style='font-size: 20px;') 课件资料
+                        li.last
+                            a(href='feedback', style='font-size: 20px;') 游客反馈
+            br.clear
+    .wrapper.col3
+        #container
+            #content(style='height: 350px;')
+                h1 参考资料管理
+                table#table(summary='Summary Here', cellpadding='0', cellspacing='0')
+                    thead
+                        tr
+                            th 上传时间
+                            th 文件名称
+                            th 文件大小
+                            th 文件格式
+                            th 操作
+                    tbody
+                        tr.light
+                            td 第一周
+                            td 用例图
+                            td 1.pdf
+                            td 2016.9.20
+                            td
+                                a(href='', onclick='del()') 预览
+                                a(href='') 下载
+                        tr.dark
+                            td 第二周
+                            td 类图
+                            td 2.pdf
+                            td 2016.9.27
+                            td
+                                a(href='') 预览
+                                a(href='') 下载
+                        tr.light
+                            td 第三周
+                            td 顺序图
+                            td 3.pdf
+                            td 2016.10.3
+                            td
+                                a(href='') 预览
+                                a(href='') 下载
+                        tr.dark
+                            td 第四周
+                            td 协作图
+                            td 4.pdf
+                            td 2016.10.10
+                            td
+                                a(href='') 预览
+                                a(href='') 下载
+            #column
+                .subnav(style='position: fixed;')
+                    h2 课件资料
+                    ul
+                        li
+                            a(href='courseResource') 课件管理
+                        li
+                            a(href='courseResource_referencematerial') 参考资料管理
+                        li
+                            a(href='courseResource_goodhomework') 优秀作业
+                        li
+                            a(href='courseResource_video') 视音频资料
+            .clear
+    // #######################################################################################################
+    .wrapper.col4
+        #footer
+            .footbox
+                h2 友情链接
+                ul
+                    li
+                        a(href='http://www.cc98.org/list.asp?boardid=74') CC98软件工程版
+                    li
+                        a(href='http://cspo.zju.edu.cn/') 浙江大学计算机学院中文网
+                    li
+                        a(href='http://jwbinfosys.zju.edu.cn/default2.aspx') 浙江大学教务系统
+                    li
+                        a(href='http://luckweb.057101.com/bt2/index.asp') 浙江大学缘网
+            .footbox.last
+                h2 关于我们
+                ul
+                    li
+                        p 我们是浙江大学软件工程2014届的学生，这是为了我们更好学习课程内容而制作的网站，如果您有任何的意见，欢迎向我们反馈，我们会即使改进。
+            br.clear
+    // #######################################################################################################
+    .wrapper.col5
+        #copyright
+            p.fl_left
+                | Copyright © 2016 - All Rights Reserved - 
+                a(href='#') 软需第13开发团队
+            br.clear

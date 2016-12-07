@@ -14,7 +14,7 @@ input, textarea, select{font-size:12px; font-family:Verdana, Arial, Helvetica, s
 
 #container #respond{display: block; width:100%;}
 
-#container #respond input{width:170px; padding:2px; border:1px solid #CCCCCC; margin:5px 5px 0 0;}
+/*#container #respond input{width:170px; padding:2px; border:1px solid #CCCCCC; margin:5px 5px 0 0;}*/
 
 #container #respond textarea{width:98%; border:1px solid #CCCCCC; padding:2px; overflow:auto;}
 	

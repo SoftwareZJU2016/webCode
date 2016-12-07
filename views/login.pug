@@ -1,188 +1,195 @@
 doctype html
 html
-  head
-    title 登录-浙江大学软件工程教务系统
-    style.
-      .container{
-        width:850px;
-        height:420px;
-        margin-left: 20%;
-      }
-      .headline{
-        font-family: '宋体 Bold', '宋体 常规', '宋体';
-        font-weight: 700;
-        font-size: 36px;
-        color: #A0B;
-        height: 60px;
-        padding-top: 30px;
-      }
-      .left{
-        height: 400px;
-        width: 400px;
-        float: left;
-        padding: 25px;
-      }
-      .right{
-        /*border: 1px solid green;*/
-        height: 400px;
-        width: 400px;
-        float: left;
-      }
-        .IDChoose{
-        height:30px;
-        width: 100%;
-      }
-      .account{
-        height: 140px;
-        width: 100%;
-      }
-      .classChoose{
-        height: 50px;
-        width: 400px;
-      }
-      .loginButton{
-        height: 100px;
-        width: 400px;
-      }
-    script(src='jquery-3.1.1.js')
-    link(rel='stylesheet', href='styles/layout.css', type='text/css')
-  body
-    div
-      div(style='height: 510px;')
-        .wrapper.col1
-          #header
-            #logo
-              h1
-                a(href='#') 软件工程教务系统
-              p Software Enginnering Education System
-            br.clear
-        .container
-          .loginPanel
-            .left(align='center')
-              img#loginImg(src='ZJUnight.jpg', style='height: 350px;width: 350px;border-radius: 10px;display: none;')
-            .right(style='display: none;')
-              .headline(align='center') 欢迎你
-              .IDChoose(align='center')
-                input.chooseid(type='radio', name='IDType', value='S')
-                label(style='font-size: 15px;display: inline-block;width: 50px;') 学生
-                input.chooseid(type='radio', name='IDType', value='T')
-                label(style='font-size: 15px;display: inline-block;width: 50px;') 教师
-                input.chooseid(type='radio', name='IDType', value='V')
-                label(style='font-size: 15px;display: inline-block;width: 50px;') 游客
-                input.chooseid(type='radio', name='IDType', value='A')
-                label(style='font-size: 15px;display: inline-block;width: 50px;') 管理员
-              .account(style='display: none')
-                label(style='height: 50px;width: 80px;font-size: 25px;') 账号
-                input#userID(type='text', style='height: 30px;width: 300px;')
-                brs
-                br
-                |  
-                label(style='height: 50px;width: 80px;font-size: 25px;') 密码
-                |  
-                input#passwrd(type='password', style='height: 30px;width: 300px;')
-                br
-                br
-                |  
-                label
-                  input.checkbox(type='checkbox')
-                  | 记住密码
-              .classChoose(style='display: none;')
-                input.chooseclass(type='radio', name='classType', value='1')
-                label(style='font-size: 18px;display: inline-block;width: 143.4px;') 软件需求工程
-                |  
-                input.chooseclass(type='radio', name='classType', value='2')
-                label(style='font-size: 18px') 软件工程管理
-                br
-                |  
-                input.chooseclass(type='radio', name='classType', value='3')
-                label(style='font-size: 18px;display: inline-block;width: 180px;') 软件质量保证与测试
-                |  
-                input.chooseclass(type='radio', name='classType', value='4')
-                label(style='font-size: 18px') 其他课程
-              .loginButton(align='center', style='display: none;text-align: right;')
-                button(style='height: 40px;width: 300px;font-size: 18px;background: #293C6B;color: white;', onclick='login()') 登录
-                br
-                div(style='text-align: right;')
-                  a(href='#') 忘记密码
-              .visitorLogin(style='display: none;text-align: center;')
-                a(href='visitor/classIntroduction')
-                  button(style='height: 40px;width: 300px;font-size: 18px;background: #293C6B;color: white;') 游客访问
-      // #######################################################################################################
-      div
-        .wrapper.col4
-          #footer
-            .footbox
-              h2 友情链接
-              ul
-                li
-                  a(href='http://www.cc98.org/list.asp?boardid=74') CC98软件工程版
-                li
-                  a(href='http://cspo.zju.edu.cn/') 浙江大学计算机学院中文网
-                li
-                  a(href='http://jwbinfosys.zju.edu.cn/default2.aspx') 浙江大学教务系统
-                li
-                  a(href='http://luckweb.057101.com/bt2/index.asp') 浙江大学缘网
-            .footbox
-              h2 关于我们
-              ul
-                li
-                  p 我们是浙江大学软件工程2014届的学生，这是为了我们更好学习课程内容而制作的网站，如果您有任何的意见，欢迎向我们反馈，我们会即使改进。
-            br.clear
-      // #######################################################################################################
-      .wrapper.col5
-        #copyright
-          p.fl_left
-            | Copyright &copy; 2016 - All Rights Reserved - 
-            a(href='#') 软需第13开发团队
-          br.clear
-    script.
-      $(document).ready(function () {
-        $("#loginImg").fadeIn(800,function () {
-          $(".right").fadeIn(800);
-        });
-        var IDType = document.getElementsByName("IDType");
-        var value;
-        $(".chooseid").click(function () {
-          for (var i = 0; i < IDType.length; i++) {
-            if (IDType[i].checked == true)
-              value = IDType[i].value;
-          }
-          if(value == "visitor"){
-            $(".account").hide();
-            $(".classChoose").hide();
-            $(".loginButton").hide();
-            $(".visitorLogin").hide();
-            $(".visitorLogin").slideDown(500);}
-          else{
-            $(".visitorLogin").hide();
-            $(".account").hide();
-            $(".classChoose").hide();
-            $(".loginButton").hide();
-            $(".account").slideDown(500);
-          }
-        });
-        $("#passwrd").focus(function () {
-          if(value == "admin"){$(".loginButton").slideDown(500);}
-          else{$(".classChoose").slideDown(500);}
-        });
-        $(".chooseclass").click(function () {
-          $(".loginButton").slideDown(500);
-        });
-      });
-      function login() {
-        $.post('/login', {
-          userID: $('#userID').val(),
-          password: $('#passwrd').val(),
-          type: $('input[name="IDType"]:checked').val(),
-          courseID: $('input[name="classType"]:checked').val()
-        }, function(data) {
-          if (!data)
-            alert('无法连接服务器！');
-          else if (data.code == 0)
-            alert(data.msg);
-          else {
-            alert(data.msg);
-            window.location.href = '/';
-          }
-        })
-      }
+    head
+        title 登录-浙江大学软件工程教务系统
+        style.
+            .container{
+                width:850px;
+                height:420px;
+                margin-left: 20%;
+            }
+            .headline{
+                font-family: '宋体 Bold', '宋体 常规', '宋体';
+                font-weight: 700;
+                font-size: 36px;
+                color: #A0B;
+                height: 60px;
+                padding-top: 30px;
+            }
+            .left{
+                height: 400px;
+                width: 400px;
+                float: left;
+                padding: 25px;
+            }
+            .right{
+                /*border: 1px solid green;*/
+                height: 400px;
+                width: 400px;
+                float: left;
+            }
+                .IDChoose{
+                height:30px;
+                width: 100%;
+            }
+            .account{
+                height: 140px;
+                width: 100%;
+            }
+            .classChoose{
+                height: 50px;
+                width: 400px;
+            }
+            .loginButton{
+                height: 100px;
+                width: 400px;
+            }
+        script(src='jquery-3.1.1.js')
+        link(rel='stylesheet', href='styles/layout.css', type='text/css')
+    body
+        div
+            div(style='height: 510px;')
+                .wrapper.col1
+                    #header
+                        #logo
+                            h1
+                                a(href='#') 软件工程教务系统
+                            p Software Enginnering Education System
+                        br.clear
+                .container
+                    .loginPanel
+                        .left(align='center')
+                            img#loginImg(src='ZJUnight.jpg', style='height: 350px;width: 350px;border-radius: 10px;display: none;')
+                        .right(style='display: none;')
+                            .headline(align='center') 欢迎你
+                            .IDChoose(align='center')
+                                input.chooseid(type='radio', name='IDType', value='S')
+                                label(style='font-size: 15px;display: inline-block;width: 50px;') 学生
+                                input.chooseid(type='radio', name='IDType', value='T')
+                                label(style='font-size: 15px;display: inline-block;width: 50px;') 教师
+                                input.chooseid(type='radio', name='IDType', value='V')
+                                label(style='font-size: 15px;display: inline-block;width: 50px;') 游客
+                                input.chooseid(type='radio', name='IDType', value='A')
+                                label(style='font-size: 15px;display: inline-block;width: 50px;') 管理员
+                            .account(style='display: none')
+                                label(style='height: 50px;width: 80px;font-size: 25px;') 账号
+                                input#userID(type='text', style='height: 30px;width: 300px;')
+                                brs
+                                br
+                                |    
+                                label(style='height: 50px;width: 80px;font-size: 25px;') 密码
+                                |    
+                                input#passwrd(type='password', style='height: 30px;width: 300px;')
+                                br
+                                br
+                                |    
+                                label
+                                    input.checkbox(type='checkbox')
+                                    | 记住密码
+                            .classChoose(style='display: none;')
+                                input.chooseclass(type='radio', name='classType', value='1')
+                                label(style='font-size: 18px;display: inline-block;width: 143.4px;') 软件需求工程
+                                |    
+                                input.chooseclass(type='radio', name='classType', value='2')
+                                label(style='font-size: 18px') 软件工程管理
+                                br
+                                |    
+                                input.chooseclass(type='radio', name='classType', value='3')
+                                label(style='font-size: 18px;display: inline-block;width: 180px;') 软件质量保证与测试
+                                |    
+                                input.chooseclass(type='radio', name='classType', value='4')
+                                label(style='font-size: 18px') 其他课程
+                            .loginButton(align='center', style='display: none;text-align: right;')
+                                button(style='height: 40px;width: 300px;font-size: 18px;background: #293C6B;color: white;', onclick='login()') 登录
+                                br
+                                div(style='text-align: right;')
+                                    a(href='#') 忘记密码
+                            .visitorLogin(style='display: none;text-align: center;')
+                                a(href='visitor/classIntroduction')
+                                    button(style='height: 40px;width: 300px;font-size: 18px;background: #293C6B;color: white;') 游客访问
+            // #######################################################################################################
+            div
+                .wrapper.col4
+                    #footer
+                        .footbox
+                            h2 友情链接
+                            ul
+                                li
+                                    a(href='http://www.cc98.org/list.asp?boardid=74') CC98软件工程版
+                                li
+                                    a(href='http://cspo.zju.edu.cn/') 浙江大学计算机学院中文网
+                                li
+                                    a(href='http://jwbinfosys.zju.edu.cn/default2.aspx') 浙江大学教务系统
+                                li
+                                    a(href='http://luckweb.057101.com/bt2/index.asp') 浙江大学缘网
+                        .footbox
+                            h2 关于我们
+                            ul
+                                li
+                                    p 我们是浙江大学软件工程2014届的学生，这是为了我们更好学习课程内容而制作的网站，如果您有任何的意见，欢迎向我们反馈，我们会即使改进。
+                        br.clear
+            // #######################################################################################################
+            .wrapper.col5
+                #copyright
+                    p.fl_left
+                        | Copyright &copy; 2016 - All Rights Reserved - 
+                        a(href='#') 软需第13开发团队
+                    br.clear
+        script.
+            $(document).ready(function () {
+                $("#loginImg").fadeIn(800,function () {
+                    $(".right").fadeIn(800);
+                });
+                var IDType = document.getElementsByName("IDType");
+                var value;
+                $(".chooseid").click(function () {
+                    for (var i = 0; i < IDType.length; i++) {
+                        if (IDType[i].checked == true)
+                            value = IDType[i].value;
+                    }
+                    if(value == "visitor"){
+                        $(".account").hide();
+                        $(".classChoose").hide();
+                        $(".loginButton").hide();
+                        $(".visitorLogin").hide();
+                        $(".visitorLogin").slideDown(500);}
+                    else{
+                        $(".visitorLogin").hide();
+                        $(".account").hide();
+                        $(".classChoose").hide();
+                        $(".loginButton").hide();
+                        $(".account").slideDown(500);
+                    }
+                });
+                $("#passwrd").focus(function () {
+                    if(value == "admin"){$(".loginButton").slideDown(500);}
+                    else{$(".classChoose").slideDown(500);}
+                });
+                $(".chooseclass").click(function () {
+                    $(".loginButton").slideDown(500);
+                });
+            });
+            function login() {
+                var _userID = $('#userID').val();
+                    _password = $('#passwrd').val();
+                    _type = $('input[name="IDType"]:checked').val();
+                    _courseID = $('input[name="classType"]:checked').val();
+                if (!_userID || !_password || !_type || !_courseID) {
+                    alert('请填写登录信息！');
+                    return;
+                }
+
+                $.post('/login', {
+                    userID: _userID,
+                    password: _password,
+                    type: _type,
+                    courseID: _courseID
+                }, function(data) {
+                    if (data.code == 0) {
+                        alert(data.msg);
+                    } else if (data.code == 1){
+                        alert(data.msg);
+                        window.location.href = '/';
+                    }
+                });
+            }

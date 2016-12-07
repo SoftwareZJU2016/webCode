@@ -1,49 +1,75 @@
 doctype html
 include components/head
 .container
-  include ../components/topbar
-  include components/nav
-  .wrapper.col3
-    #container
-      #content
-        article.type-post.format-standard.hentry.clearfix
-          h1.post-title= topic.title
-          .post-meta.clearfix
-            span.date= topic.post_time.toLocaleString()
-            span.author= topic.creator_id
-            span.comments= topic.reply_num
-            if userType == 'A'
-                input#submit(name='submit', type='submit', value='删除')
-                input#submit(name='submit', type='submit', value='置顶/取消置顶')
-          div!= topic.content
+    include ../components/topbar
+    include components/nav
+    .wrapper.col3
+        #container
+            #content
+                article.type-post.format-standard.hentry.clearfix
+                    h1.post-title= topic.title
+                    .post-meta.clearfix
+                        span.date= topic.post_time.toLocaleString()
+                        - var author = topic.anonymity == 1 ? '匿名用户' : topic.creator_id
+                        span.author= author
+                        span.comments= topic.reply_num
+                        if userType == 'A'
+                                input#submit(name='submit', type='submit', value='删除')
+                                | &nbsp&nbsp
+                                input#submit(name='submit', type='submit', value='置顶/取消置顶')
+                    div#topic-content!= topic.content
 
-        div(style='height:20px;')
-        section#comments
-          h3#comments-title 评论区
-          ul.commentlist
-            each item, index in replys
-              li(class= (index%2 == 1) ? 'comment_odd' :'comment_even')
-                .floor
-                  span.name #{index+1}L
-                .author
-                  span.name= item.creator_id
-                  span.space &nbsp&nbsp&nbsp
-                  span.submitdate= item.post_time.toLocaleString()
-                p!= item.content
+                div(style='height:20px;')
+                section#comments
+                    h3#comments-title 评论区
+                    ul.commentlist
+                        each item, index in replys
+                            li(class= (index%2 == 1) ? 'comment_odd' :'comment_even')
+                                .floor
+                                    span.name #{index+1}L
+                                .author
+                                    span.name= item.creator_id
+                                    span.space &nbsp&nbsp&nbsp
+                                    span.submitdate= item.post_time.toLocaleString()
+                                p!= item.content
 
-          div(style='height:20px;')
-          #respond
-            h3 回复此贴
-            form#commentform(action='', method='post')
-              // TODO
-              div
-                textarea#editor_id(name='content', style='height:300px;')
-              div
-                input(type='checkbox', value='checkbox')
-                | 匿名
-              div
-                input#submit.btn(name='submit', type='submit', value='发表回复')
-                input#submit(name='submit', type='submit', value='取消')
-                
-      include components/sidebar
-  include ../components/footer
+                    div(style='height:20px;')
+                    #respond
+                    //form#commentform
+                    form
+                        h3 回复此贴
+
+                            div
+                                textarea#editor_id(name='content', style='height:300px;')
+                                textarea#tmp-editor(style='height:300px; width: 100%;')
+                            div
+                                input#anonymity(type='checkbox', value='1')
+                                | 匿名
+                            div
+                                input#submit-reply.btn(name='submit', type='button', value='发表回复')
+                                | &nbsp&nbsp
+                                input(name='submit', type='button', value='取消')
+                            script.
+                                $('#submit-reply').click(function() {
+                                    var _content = $('#tmp-editor').val(),
+                                            _anonymity = $('#anonymity')[0].checked ? 1 : 0;
+                                    if (!_content) {
+                                        alert('请填写回复信息!');
+                                        return;
+                                    }
+                                    $.post('', {
+                                        content: _content,
+                                        anonymity: _anonymity
+                                    }, function(data) {
+                                        if (!data)
+                                            alert('服务器出现错误！');
+                                        else if (data.code == 1) {
+                                            alert('回复成功！');
+                                            window.location.reload();
+                                        } else {
+                                            alert('回复失败');
+                                        }
+                                    });
+                                })
+            include components/sidebar
+    include ../components/footer

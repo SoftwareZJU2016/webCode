@@ -1,27 +1,54 @@
 doctype html
 include components/head
 .container
-  include ../components/topbar
-  include components/nav
-  .wrapper.col3
-    #container
-      #content
-        article.type-page.hentry.clearfix
-          h1.post-title 发表新帖
-        form(action='', method='post')
-          p
-            label(for='name')
-              small 标题
-              | &nbsp&nbsp
-            input#name(type='text', name='name', value='', size='75%')
-          p
-            textarea#editor_id(name='content', style='height:300px;')
-          div
-            input(type='checkbox', value='checkbox')
-            | 匿名
-          p
-            input#submit(name='submit', type='submit', value='发表新帖')
-            | &nbsp&nbsp
-            input#submit(name='submit', type='submit', value='取消')
-      include components/sidebar
-  include ../components/footer
+    include ../components/topbar
+    include components/nav
+    .wrapper.col3
+        #container
+            #content
+                article.type-page.hentry.clearfix
+                    h1.post-title 发表新帖
+                form
+                    p
+                        label(for='name')
+                            small 标题
+                            | &nbsp&nbsp
+                        input#name(type='text', name='name', value='', size='75%')
+                    p
+                        textarea#editor_id(name='content', style='height:300px;')
+                        textarea#tmp-editor(style='height:300px; width:100%;')
+                    div
+                        input#anonymity(type='checkbox', value='1')
+                        | 匿名
+                    p
+                        input#submit(name='submit', type='button', value='发表新帖')
+                        | &nbsp&nbsp
+                        input#submit(name='submit', type='button', value='取消')
+                    
+                    script.
+                        $('#submit').click(function() {
+                            var _title = $('#name').val(),
+                                    _content = $('#tmp-editor').val(),
+                                    _anonymity = $('#anonymity')[0].checked ? 1 : 0;
+                            if (!_title || ! _content) {
+                                alert('请填写完整帖子信息!');
+                                return;
+                            }
+                            $.post('/bbs/post', {
+                                title: _title,
+                                content: _content,
+                                anonymity: _anonymity
+                            }, function(data) {
+                                if (!data)
+                                    alert('服务器出现错误！');
+                                else if (data.code == 1) {
+                                    alert('帖子发表成功！');
+                                    window.location.href = '/bbs/topic/'+data.body.topicID;
+                                } else {
+                                    alert('发表失败');
+                                }
+                            });
+                        })
+                        
+            include components/sidebar
+    include ../components/footer

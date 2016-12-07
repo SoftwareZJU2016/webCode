@@ -1,41 +1,43 @@
 doctype html
 include components/head
 .container
-  include ../components/topbar
-  include components/nav
-  .wrapper.col3
-    #container
-      #content
-        .search-area-wrapper
-          .search-area.container
-            form#search-form.search-form.clearfix(method='get', action='#', autocomplete='off')
-              input#s.search-term.required(type='text', name='s', placeholder='搜索你想查找的帖子标题或作者', title='搜索')
-              input.search-btn(type='submit', value='Search')
-              #search-error-container
-              //TODO
+    include ../components/topbar
+    include components/nav
+    .wrapper.col3
+        #container
+            #content
+                .search-area-wrapper
+                    .search-area.container
+                        form#search-form.search-form.clearfix(method='get', action='#', autocomplete='off')
+                            input#s.search-term.required(type='text', name='s', placeholder='搜索你想查找的帖子标题或作者', title='搜索')
+                            input.search-btn(type='submit', value='Search')
+                            #search-error-container
+                            //TODO
 
-        each item in topics 
-          article.format-standard.type-post.hentry.clearfix
-            header.clearfix
-              h3.post-title
-                a(href='/bbs/topic/'+item.id)= item.title
-              .post-meta.clearfix
-                span.date= item.post_time.toLocaleString()
-                span.author= item.creator_id
-                span.comments= item.reply_num
-                if  userType == 'A'
-                  input#submit(name='submit', type='submit', value='删除')
-                  input#submit(name='submit', type='submit', value='置顶/取消置顶')
-            p!= item.content
-              a.readmore-link(href='/bbs/topic/'+item.id) Read more
+                each item in topics 
+                    article.format-standard.type-post.hentry.clearfix
+                        header.clearfix
+                            h3.post-title
+                                a(href='/bbs/topic/'+item.id)= item.title
+                            .post-meta.clearfix
+                                span.date= item.post_time.toLocaleString()
+                                span.author= item.anonymity == 1 ? '匿名用户' : item.creator_id
+                                span.comments= item.reply_num
+                                if    userType == 'A'
+                                    input#submit(name='submit', type='submit', value='删除')
+                                    | &nbsp&nbsp
+                                    input#submit(name='submit', type='submit', value='置顶/取消置顶')
+                        p#topic-content!= item.content.substr(0, 100)
+                            | ...
+                            a.readmore-link(href='/bbs/topic/'+item.id) Read more
 
-        #pagination
-          //TODO
-          a.btn.active(href='#') 1
-          a.btn(href='#') 2
-          a.btn(href='#') 3
-          a.btn(href='#') Next »
-          a.btn(href='#') Last »
+                #pagination
+                    //TODO
+                    a.btn.active(href='#') 1
+                    a.btn(href='#') 2
+                    a.btn(href='#') 3
+                    a.btn(href='#') Next »
+                    a.btn(href='#') Last »
 
-      include components/sidebar
-  include ../components/footer
+            include components/sidebar
+    include ../components/footer

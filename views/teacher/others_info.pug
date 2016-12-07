@@ -1,153 +1,153 @@
 doctype html
 head
-  title 软件工程教务系统
-  style.
-  meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
-  meta(http-equiv='imagetoolbar', content='no')
-  link(rel='stylesheet', href='../styles/layout.css', type='text/css')
-  script(type='text/javascript', src='../scripts/jquery-1.4.1.min.js')
-  script(type='text/javascript', src='../scripts/jquery.slidepanel.setup.js')
-  script(type='text/javascript', src='../scripts/jquery.cycle.min.js')
-  script(type='text/javascript', src='../scripts/jquery.cycle.setup.js')
-  script(charset='utf-8', src='../editor/kindeditor.js')
-  script(charset='utf-8', src='../editor/lang/zh-CN.js')
-  script.
-    KindEditor.ready(function(K) {
-      window.editor = K.create('#editor_id');
-    });
+    title 软件工程教务系统
+    style.
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    meta(http-equiv='imagetoolbar', content='no')
+    link(rel='stylesheet', href='../styles/layout.css', type='text/css')
+    script(type='text/javascript', src='../scripts/jquery-1.4.1.min.js')
+    script(type='text/javascript', src='../scripts/jquery.slidepanel.setup.js')
+    script(type='text/javascript', src='../scripts/jquery.cycle.min.js')
+    script(type='text/javascript', src='../scripts/jquery.cycle.setup.js')
+    script(charset='utf-8', src='../editor/kindeditor.js')
+    script(charset='utf-8', src='../editor/lang/zh-CN.js')
+    script.
+        KindEditor.ready(function(K) {
+            window.editor = K.create('#editor_id');
+        });
 .container
-  .wrapper.col0
-    #topbar
-      #slidepanel
-        .topbox
-          p.readmore1
-            a(href='guide') 查看网站指南»»»
-          h2 学生信息
-          p 学生姓名，学号，选课，教师，是否担任助教等信息
-        .topbox
-          h2 修改密码
-          form(action='#', method='post')
-            fieldset
-              legend Teachers Login Form
-              label(for='teachername')
-                | 输入新密码：
-                input#teachername(type='text', name='teachername', value='')
-              label(for='teacherpass')
-                | 确认密码：
-                input#teacherpass(type='password', name='teacherpass', value='')
-              p
-                input#teacherlogin(type='submit', name='teacherlogin', value='修改')
-                input#teacherreset(type='reset', name='teacherreset', value='清空')
-        .topbox.last
-          h2 切换用户
-          form(action='#', method='post')
-            fieldset
-              legend Pupils Login Form
-              label(for='pupilname')
-                | 帐号：
-                input#pupilname(type='text', name='pupilname', value='')
-              label(for='pupilpass')
-                | 密码：
-                input#pupilpass(type='password', name='pupilpass', value='')
-              label(for='pupilremember')
-                input#pupilremember.checkbox(type='checkbox', name='pupilremember', checked='checked')
-              p
-                input#pupillogin(type='submit', name='pupillogin', value='登录')
-                input#pupilreset(type='reset', name='pupilreset', value='注销')
-        br.clear
-      #loginpanel
-        ul
-          li.left 不懂看这里»
-          li#toggle.right
-            a#slideit(href='#slidepanel') 我的信息
-            a#closeit(style='display: none;', href='#slidepanel') 关闭
-      br.clear
-  // #######################################################################################################
-  .wrapper.col1
-    #header
-      #logo
-        h1
-          a(href='#') 软件工程教务系统
-        p Software Enginnering Education System
-      #topnav
-        nav
-          ul
-            li
-              a(href='classIntroduction', style='font-size: 20px;') 课程介绍
-            li
-              a(href='teacherIntroduction', style='font-size: 20px;') 教师介绍
-            li
-              a(href='courseResource', style='font-size: 20px;') 课件资料
-            li
-              a(href='homework', style='font-size: 20px;') 作业模块
-            li
-              a(href='BBS', style='font-size: 20px;') 论坛
-            li.lastActive
-              a(href='others_info', style='font-size: 20px;') 其他
-      br.clear
-  // #######################################################################################################
-  .wrapper.col3
-    #container
-      #content
-        form
-          label(for='name')
-            small 信息标题
-          input(type='text', name='', id='', value='', size='75%')
-          div(style='height:20px;')
-          label(for='name')
-            small 发送范围
-          input(type='radio', name='stux', value='', checked='')
-          | 全体学生
-          input(type='radio', name='stux', value='')
-          | 指定班级学生
-          input(type='radio', name='stux', value='')
-          | 指定学生
-          div(style='height:20px;')
-          label(for='name')
-            small 指定班级编号/学生姓名
-          input#name(type='text', name='name', value='', size='75%')
-          div(style='height:20px;')
-          label(for='name')
-            small 编辑信息内容
-          textarea#editor_id(name='content', style='height:300px;')
-          div(style='height:20px;')
-          form(action='others_info_succeed', method='post')
-            fieldset
-              p
-                input(type='submit', name='', id='', value='发布')
-      #column
-        .subnav(style='position: fixed')
-          h2 其他
-          ul
-            li
-              a(href='others_info') 信息发布
-            li
-              a(href='others_link') 编辑友情链接
-      .clear
-  // #######################################################################################################
-  .wrapper.col4
-    #footer
-      .footbox
-        h2 友情链接
-        ul
-          li
-            a(href='http://www.cc98.org/list.asp?boardid=74') CC98软件工程版
-          li
-            a(href='http://cspo.zju.edu.cn/') 浙江大学计算机学院中文网
-          li
-            a(href='http://jwbinfosys.zju.edu.cn/default2.aspx') 浙江大学教务系统
-          li
-            a(href='http://luckweb.057101.com/bt2/index.asp') 浙江大学缘网
-      .footbox.last
-        h2 关于我们
-        ul
-          li
-            p 我们是浙江大学软件工程2014届的学生，这是为了我们更好学习课程内容而制作的网站，如果您有任何的意见，欢迎向我们反馈，我们会即使改进。
-      br.clear
-  // #######################################################################################################
-  .wrapper.col5
-    #copyright
-      p.fl_left
-        | Copyright © 2016 - All Rights Reserved - 
-        a(href='#') 软需第13开发团队
-      br.clear
+    .wrapper.col0
+        #topbar
+            #slidepanel
+                .topbox
+                    p.readmore1
+                        a(href='guide') 查看网站指南»»»
+                    h2 学生信息
+                    p 学生姓名，学号，选课，教师，是否担任助教等信息
+                .topbox
+                    h2 修改密码
+                    form(action='#', method='post')
+                        fieldset
+                            legend Teachers Login Form
+                            label(for='teachername')
+                                | 输入新密码：
+                                input#teachername(type='text', name='teachername', value='')
+                            label(for='teacherpass')
+                                | 确认密码：
+                                input#teacherpass(type='password', name='teacherpass', value='')
+                            p
+                                input#teacherlogin(type='submit', name='teacherlogin', value='修改')
+                                input#teacherreset(type='reset', name='teacherreset', value='清空')
+                .topbox.last
+                    h2 切换用户
+                    form(action='#', method='post')
+                        fieldset
+                            legend Pupils Login Form
+                            label(for='pupilname')
+                                | 帐号：
+                                input#pupilname(type='text', name='pupilname', value='')
+                            label(for='pupilpass')
+                                | 密码：
+                                input#pupilpass(type='password', name='pupilpass', value='')
+                            label(for='pupilremember')
+                                input#pupilremember.checkbox(type='checkbox', name='pupilremember', checked='checked')
+                            p
+                                input#pupillogin(type='submit', name='pupillogin', value='登录')
+                                input#pupilreset(type='reset', name='pupilreset', value='注销')
+                br.clear
+            #loginpanel
+                ul
+                    li.left 不懂看这里»
+                    li#toggle.right
+                        a#slideit(href='#slidepanel') 我的信息
+                        a#closeit(style='display: none;', href='#slidepanel') 关闭
+            br.clear
+    // #######################################################################################################
+    .wrapper.col1
+        #header
+            #logo
+                h1
+                    a(href='#') 软件工程教务系统
+                p Software Enginnering Education System
+            #topnav
+                nav
+                    ul
+                        li
+                            a(href='classIntroduction', style='font-size: 20px;') 课程介绍
+                        li
+                            a(href='teacherIntroduction', style='font-size: 20px;') 教师介绍
+                        li
+                            a(href='courseResource', style='font-size: 20px;') 课件资料
+                        li
+                            a(href='homework', style='font-size: 20px;') 作业模块
+                        li
+                            a(href='BBS', style='font-size: 20px;') 论坛
+                        li.lastActive
+                            a(href='others_info', style='font-size: 20px;') 其他
+            br.clear
+    // #######################################################################################################
+    .wrapper.col3
+        #container
+            #content
+                form
+                    label(for='name')
+                        small 信息标题
+                    input(type='text', name='', id='', value='', size='75%')
+                    div(style='height:20px;')
+                    label(for='name')
+                        small 发送范围
+                    input(type='radio', name='stux', value='', checked='')
+                    | 全体学生
+                    input(type='radio', name='stux', value='')
+                    | 指定班级学生
+                    input(type='radio', name='stux', value='')
+                    | 指定学生
+                    div(style='height:20px;')
+                    label(for='name')
+                        small 指定班级编号/学生姓名
+                    input#name(type='text', name='name', value='', size='75%')
+                    div(style='height:20px;')
+                    label(for='name')
+                        small 编辑信息内容
+                    textarea#editor_id(name='content', style='height:300px;')
+                    div(style='height:20px;')
+                    form(action='others_info_succeed', method='post')
+                        fieldset
+                            p
+                                input(type='submit', name='', id='', value='发布')
+            #column
+                .subnav(style='position: fixed')
+                    h2 其他
+                    ul
+                        li
+                            a(href='others_info') 信息发布
+                        li
+                            a(href='others_link') 编辑友情链接
+            .clear
+    // #######################################################################################################
+    .wrapper.col4
+        #footer
+            .footbox
+                h2 友情链接
+                ul
+                    li
+                        a(href='http://www.cc98.org/list.asp?boardid=74') CC98软件工程版
+                    li
+                        a(href='http://cspo.zju.edu.cn/') 浙江大学计算机学院中文网
+                    li
+                        a(href='http://jwbinfosys.zju.edu.cn/default2.aspx') 浙江大学教务系统
+                    li
+                        a(href='http://luckweb.057101.com/bt2/index.asp') 浙江大学缘网
+            .footbox.last
+                h2 关于我们
+                ul
+                    li
+                        p 我们是浙江大学软件工程2014届的学生，这是为了我们更好学习课程内容而制作的网站，如果您有任何的意见，欢迎向我们反馈，我们会即使改进。
+            br.clear
+    // #######################################################################################################
+    .wrapper.col5
+        #copyright
+            p.fl_left
+                | Copyright © 2016 - All Rights Reserved - 
+                a(href='#') 软需第13开发团队
+            br.clear

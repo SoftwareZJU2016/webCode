@@ -33,6 +33,9 @@ app.use('/student', stuRoutes);
 app.use('/teacher', teaRoutes);
 app.use('/visitor', visRoutes);
 app.use('/bbs', bbsRoutes);
+app.get('*', function(req, res){
+  res.status(404).send('404 Not Found');
+});
 
 var port = process.argv.length == 3 ? parseInt(process.argv[2], 10) : 3000;
 app.listen(port, () => {

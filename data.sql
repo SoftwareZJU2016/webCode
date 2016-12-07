@@ -200,8 +200,8 @@ create table topic (
     title varchar(50) not null,
     last_reply_time datetime,
     content text,
-    reply_num int, # 回复数
-    click_num int, # 查看次数
+    reply_num int default 0, # 回复数
+    click_num int default 0, # 查看次数
     anonymity enum('0', '1'), # insert默认0
     primary key (id),
     foreign key (creator_id)
