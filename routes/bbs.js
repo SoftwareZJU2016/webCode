@@ -69,7 +69,7 @@ router.route('/topic/:id') // 对/bbs/topic/1这种链接的http请求，:id表�
         data.content = req.body.content;
         data.anonymity = req.body.anonymity;
         Topic.addReply(data, (_replyID) => {
-            if (_replyID)
+            if (_replyID) {
                 //这里把HTTP response设置成一种格式化字符串（json），
                 //前端发起ajax请求后会拿到这个json，而不是一个整个页面的HTML，就可以比较自由的操作了
                 res.json({ 
@@ -79,15 +79,35 @@ router.route('/topic/:id') // 对/bbs/topic/1这种链接的http请求，:id表�
                         replyID: _replyID 
                     }
                 });
-            else
+            } else {
                 res.json({
                     code: 0,
                     msg: '回复失败',
                     body: {}
                 });
+            }
         });
     })
 
+router.route('/topic/delete')
+    .post((req, res, next) => {
+        var topicID = req.body.topicID;
+        Topic.delete(topicID, (result) => {
+            if (result) {
+                res.json({
+                    code: 1,
+                    msg: '删帖成功',
+                    body: {}
+                });
+            } else {
+                res.json({
+                    code: 0,
+                    msg: '删帖失败',
+                    body: {}
+                });
+            }
+        })
+    })
 
 router.route('/post')
     .get((req, res, next) => {

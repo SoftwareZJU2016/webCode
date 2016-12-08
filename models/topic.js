@@ -118,4 +118,20 @@ Topic.addReply = (data, callback) => {
     })
 }
 
+Topic.delete = (topicID, callback) => {
+    pool.getConnection((err, connection) => {
+        var query = 'DELETE FROM topic WHERE id = ?';
+        connection.query(query, [topicID], (err, result, fields) => {
+            if (err) {
+                console.log(err);
+            } else if (result.affectedRow != 0) {
+                callback(true);
+            } else {
+                callback(false);
+            }
+            connection.release();
+        })
+    });
+}
+
 module.exports = Topic;

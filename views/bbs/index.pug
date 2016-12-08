@@ -23,10 +23,15 @@ include components/head
                                 span.date= item.post_time.toLocaleString()
                                 span.author= item.anonymity == 1 ? '匿名用户' : item.creator_id
                                 span.comments= item.reply_num
-                                if    userType == 'A'
-                                    input#submit(name='submit', type='submit', value='删除')
+                                if userType == 'A'
+                                    input#delete-topic(name='submit', type='submit', value='删除')
                                     | &nbsp&nbsp
                                     input#submit(name='submit', type='submit', value='置顶/取消置顶')
+                                    script.
+                                        $('#delete-topic').click(function() {
+                                            //confirm
+                                            //post
+                                        })
                         p#topic-content!= item.content.substr(0, 100)
                             | ...
                             a.readmore-link(href='/bbs/topic/'+item.id) Read more

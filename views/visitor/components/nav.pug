@@ -1,0 +1,18 @@
+.wrapper.col1
+    #header
+        #logo
+            h1
+                a(href='#') 软件工程教务系统
+            p Software Enginnering Education System
+        #topnav
+            nav
+                ul
+                    li(class=(navIndex==1) ? 'active' :'')
+                        a(href='classIntroduction', style='font-size: 20px;') 课程介绍
+                    li(class=(navIndex==2) ? 'active' :'')
+                        a(href='teacherIntroduction', style='font-size: 20px;') 教师介绍
+                    li(class=(navIndex==3) ? 'active' :'')
+                        a(href='courseResource', style='font-size: 20px;') 课件资料
+                    li(class=(navIndex==4) ? 'lastActive' :'last')
+                        a(href='feedback', style='font-size: 20px;') 游客反馈
+        br.clear

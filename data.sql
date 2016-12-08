@@ -118,7 +118,7 @@ create table file_course (
     foreign key (course_id)
         references course(id) on update cascade,
     foreign key (file_id)
-        references file(id) on update cascade
+        references file(id) on update cascade on delete cascade
 ) CHARACTER SET = utf8;
 
 # 课件（或者其他和class绑定的文件） 
@@ -131,7 +131,7 @@ create table file_class (
     foreign key (class_id)
         references class(id) on update cascade,
     foreign key (file_id)
-        references file(id) on update cascade
+        references file(id) on update cascade on delete cascade
 ) CHARACTER SET = utf8;
 
 create table homework (
@@ -156,9 +156,9 @@ create table file_homework (
     hw_id int,
     primary key (file_id, hw_id),
     foreign key (file_id)
-        references file(id) on update cascade,
+        references file(id) on update cascade on delete cascade,
     foreign key (hw_id)
-        references homework(id) on update cascade
+        references homework(id) on update cascade on delete cascade
 ) CHARACTER SET = utf8;
 
 # 学生提交
@@ -172,11 +172,11 @@ create table submit_homework (
     comment text,
     primary key (hw_id, stu_id),
     foreign key (hw_id)
-        references homework(id) on update cascade,
+        references homework(id) on update cascade on delete cascade,
     foreign key (stu_id)
         references user(id) on update cascade,
     foreign key (file_id)
-        references file(id) on update cascade
+        references file(id) on update cascade on delete cascade
 ) CHARACTER SET = utf8;
 
 create table announce (
@@ -222,7 +222,7 @@ create table topic_reply (
     foreign key (creator_id)
         references user(id) on update cascade,
     foreign key (topic_id)
-        references topic(id) on update cascade
+        references topic(id) on update cascade on delete cascade
 ) CHARACTER SET = utf8;
 insert into topic_reply(topic_id, creator_id, post_time, content, anonymity) values (1, 'Mie', NOW(), '<p>测试..</p>', '1');
 
@@ -231,7 +231,7 @@ create table link (
     content varchar(50) not null,
     url varchar(100) not null,
     foreign key (course_id)
-        references course(id) on update cascade
+        references course(id) on update cascade on delete cascade
 );
 insert into link values (1, 'CC98软件工程版', 'http://www.cc98.org/list.asp?boardid=74'),
                         (1, '浙江大学计算机学院中文网', 'http://cspo.zju.edu.cn/'),

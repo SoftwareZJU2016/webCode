@@ -1,29 +1,11 @@
+- var title = '教师介绍';
+- var navIndex = 2;
+
 doctype html
 include components/head
 div
     include ../components/topbar
-    .wrapper.col1
-        #header
-            #logo
-                h1
-                    a(href='#') 软件工程教务系统
-                p Software Enginnering Education System
-            #topnav
-                nav
-                    ul
-                        li
-                            a(href='classIntroduction', style='font-size: 20px;') 课程介绍
-                        li.active
-                            a(href='teacherIntroduction', style='font-size: 20px;') 教师介绍
-                        li
-                            a(href='courseResource', style='font-size: 20px;') 课件资料
-                        li
-                            a(href='homework', style='font-size: 20px;') 作业模块
-                        li
-                            a(href='BBS', style='font-size: 20px;') 论坛
-                        li.last
-                            a(href='inbox', style='font-size: 20px;') 收件
-            br.clear
+    include components/nav
     .wrapper.col3
         #container
             #content
