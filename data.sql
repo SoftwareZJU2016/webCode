@@ -2,6 +2,8 @@
 # 12/1 13:44 
 # 为topic和topic_reply增加了anonymity	enum(‘0’, ‘1’)表示匿名与否的属性
 # 其他略...
+# 对file，topic等一些可以删除的数据在引用时增加delete cascade
+# 增加feedback表，增加feedback表中的status属性表示反馈是否解决
 
 set names utf8;
 
@@ -237,3 +239,13 @@ insert into link values (1, 'CC98软件工程版', 'http://www.cc98.org/list.asp
                         (1, '浙江大学计算机学院中文网', 'http://cspo.zju.edu.cn/'),
                         (1, '浙江大学教务系统', 'http://jwbinfosys.zju.edu.cn/default2.aspx'),
                         (1, '浙江大学缘网', 'http://luckweb.057101.com/bt2/index.asp');
+
+create table feedback (
+    id int AUTO_INCREMENT,
+    title varchar(50) not null,
+    content text,
+    post_time datetime not null,
+    status enum('0', '1') default '0', # 0未解决，1解决了
+    primary key (id)
+) CHARACTER SET = utf8;
+insert into feedback(title, content, post_time) values ('你太强啦', '（但是我比你更强那么一点点0 0', NOW());
