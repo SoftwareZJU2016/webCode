@@ -4,6 +4,8 @@
 # 其他略...
 # 对file，topic等一些可以删除的数据在引用时增加delete cascade
 # 增加feedback表，增加feedback表中的status属性表示反馈是否解决
+# 12/14
+# 把 stu_class和tea_class合并成一张user表
 
 set names utf8;
 
@@ -75,27 +77,26 @@ create table class (
 insert into class(course_id, year, semester) values ('1', '2016', '秋冬');
 
 # 多对多关系新建个表来表示吧。。
-create table stu_class (
-    stu_id varchar(30),
+create table user_class (
+    user_id varchar(30),
     class_id int,
-    primary key (stu_id, class_id),
-    foreign key (stu_id)
+    primary key (user_id, class_id),
+    foreign key (user_id)
         references user(id) on update cascade,
     foreign key (class_id)
         references class(id) on update cascade
 ) CHARACTER SET = utf8;
-insert into stu_class values ('Mie', '1');
+insert into user_class values ('Mie', '1');
 
-
-create table tea_class (
-    tea_id varchar(30),
-    class_id int,
-    primary key (tea_id, class_id),
-    foreign key (tea_id)
-        references user(id) on update cascade,
-    foreign key (class_id)
-        references class(id) on update cascade
-) CHARACTER SET = utf8;
+#create table tea_class (
+#    tea_id varchar(30),
+#    class_id int,
+#    primary key (tea_id, class_id),
+#    foreign key (tea_id)
+#        references user(id) on update cascade,
+#    foreign key (class_id)
+#        references class(id) on update cascade
+#) CHARACTER SET = utf8;
 
 
 # 包括教师，学生上传的文件
