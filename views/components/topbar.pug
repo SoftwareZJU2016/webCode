@@ -35,17 +35,12 @@
                 form(action='#', method='post')
                     fieldset
                         legend Course Switch Form
-                        p 当前课程为：软件需求工程
+                        //p 当前课程为：软件需求工程
                         p 已选课程：
-                        label
-                            input(name="Course" type="radio" value="" style="width:25px;display:inline-block;")
-                            | 软件需求工程
-                        label
-                            input(name="Course" type="radio" value="" style="width:25px;display:inline-block;")
-                            | 软件工程管理
-                        label
-                            input(name="Course" type="radio" value="" style="width:25px;display:inline-block;")
-                            | 软件质量保证与测试
+                        each item in courses
+                            label
+                                input(name="Course" type="radio" value=item.id style="width:25px;display:inline-block;")
+                                | #{item.title}
                         p
                             input#courseswitch(type="submit" name="courseswitch" value="切换课程")
             br.clear

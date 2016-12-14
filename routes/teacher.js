@@ -16,8 +16,11 @@ router.use((req, res, next) => {
         if (req.method == 'GET') {
             Link.get(req.session.courseID, (links) => {
                 res.locals.links = links;
-                next();
-            })
+                User.getCourse(req.session.userID, req.session.userType, (courses) => {
+                    res.locals.courses = courses;
+                    next();
+                });
+            }); 
         } else {
             next();
         }

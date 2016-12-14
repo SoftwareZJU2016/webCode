@@ -10,46 +10,22 @@ include components/head
     .wrapper.col3
         #container
             #content
-                article.format-standard.type-post.hentry.clearfix
-                    header.clearfix
-                        h3.post-title
-                            a(href='visitorFeedback_detail') 反馈标题显示在这里
-                        .post-meta.clearfix
-                            span 反馈类型显示在这里
-                            span 未解决
-                            input#submit(name='submit', type='submit', style='visibility:visible;', value='设为已解决')
-                            // 后端宝宝们，请根据该条反馈的解决状态，设置这个按钮的visibility为可见或者隐藏
-                        // end of post meta
-                    p
-                        | Many of us work in an endless stream of tasks, browser tasks, social media, emails, meetings, rushing from one thing to another, never pausing and never ending. Then the day is over, and we are exhausted, and we often have very little to show for it. And we start the next . . . 
-                        a.readmore-link(href='visitorFeedback_detail') Read more
-                article.format-standard.type-post.hentry.clearfix
-                    header.clearfix
-                        h3.post-title
-                            a(href='visitorFeedback_detail') 反馈标题显示在这里
-                        .post-meta.clearfix
-                            span 反馈类型显示在这里
-                            span 未解决
-                            input#submit(name='submit', type='submit', style='visibility:visible;', value='设为已解决')
-                            // 后端宝宝们，请根据该条反馈的解决状态，设置这个按钮的visibility为可见或者隐藏
-                        // end of post meta
-                    p
-                        | Many of us work in an endless stream of tasks, browser tasks, social media, emails, meetings, rushing from one thing to another, never pausing and never ending. Then the day is over, and we are exhausted, and we often have very little to show for it. And we start the next . . . 
-                        a.readmore-link(href='visitorFeedback_detail') Read more
-                article.format-standard.type-post.hentry.clearfix
-                    header.clearfix
-                        h3.post-title
-                            a(href='visitorFeedback_detail') 反馈标题显示在这里
-                        .post-meta.clearfix
-                            span 反馈类型显示在这里
-                            span 已解决
-                            input#submit(name='submit', type='submit', style='visibility:hidden;', value='设为已解决')
-                            // 后端宝宝们，请根据该条反馈的解决状态，设置这个按钮的visibility为可见或者隐藏
-                        // end of post meta
-                    p
-                        | Many of us work in an endless stream of tasks, browser tasks, social media, emails, meetings, rushing from one thing to another, never pausing and never ending. Then the day is over, and we are exhausted, and we often have very little to show for it. And we start the next . . . 
-                        a.readmore-link(href='visitorFeedback_detail') Read more
+
+                each item in feedbacks
+                    article.format-standard.type-post.hentry.clearfix
+                        header.clearfix
+                            h3.post-title
+                                a(href='visitorFeedback/'+item.id)= item.title
+                            .post-meta.clearfix
+                                span 反馈类型显示在这里
+                                span= (item.status == 1) ? '已解决' : '未解决'
+                                input#submit(name='submit', type='submit', style='visibility:'+((item.status == 1)? 'hidden;' : 'visible;'), value='设为已解决')
+                        p!= item.content.substr(0, 50)
+                            | ...
+                            a.readmore-link(href='visitorFeedback/'+item.id) Read more
+                
                 #pagination
+                    //TODO
                     a.btn.active(href='#') 1
                     a.btn(href='#') 2
                     a.btn(href='#') 3

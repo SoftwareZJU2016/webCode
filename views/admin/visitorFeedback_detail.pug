@@ -1,4 +1,4 @@
--    var title = '游客反馈详细';
+- var title = '游客反馈详细';
 
 doctype html
 include components/head
@@ -11,16 +11,13 @@ include components/head
             #content
                 article.format-standard.type-post.hentry.clearfix
                     header.clearfix
-                        h3.post-title
-                            | 反馈标题显示在这里
+                        h3.post-title= feedback.title
                         div(style='height:20px;')
                         .post-meta.clearfix
                             span 反馈类型显示在这里
                             span 联系方式显示在这里
                             input#submit(name='submit', type='submit', value='设为已解决')
-                        // end of post meta
-                    p
-                        | 反馈内容显示在这里Many of us work in an endless stream of tasks, browser tasks, social media, emails, meetings, rushing from one thing to another, never pausing and never ending.
+                    p!= feedback.content
             #column
                 .subnav(style='position: fixed')
                     h2 游客反馈
@@ -28,5 +25,4 @@ include components/head
                         li
                             a(href='visitorFeedback') 反馈列表
             .clear
-    // #######################################################################################################
     include ../components/footer

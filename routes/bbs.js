@@ -20,9 +20,15 @@ router.use((req, res, next) => {
         if (req.method == 'GET') { //get访问的页面都需要获取友链数据
             Link.get(req.session.courseID, (links) => {
                 res.locals.links = links; //（res.locals比较特殊，在中间件里用于给后续操作传递数据
-                next(); //由于没有设置过res（上面那行不算），所以还可以继续操作，用next函数express会去找下一个与请求匹配的路由操作
-                //如果设置过HTTP response的值 express就会把res返回到客户端，后端就不能接着操作了
-            })
+                //js的函数执行是异步的 
+                //为了保证执行next()时courses信息是已经拿到的，把next()放在获取course函数的回调函数里执行
+                User.getCourse(req.session.userID, req.session.userType, (courses) => {
+                    res.locals.courses = courses; 
+                    next(); //由于没有设置过res（上面那行不算），所以还可以继续操作，用next函数express会去找下一个与请求匹配的路由操作
+                    //如果设置过HTTP response的值比如使用res.render(), res.json()
+                    //express就会把res返回到客户端(HTML或者JSON字符串），后端就不能接着操作了
+                });
+            }); 
         } else {
             next();
         }
@@ -52,6 +58,10 @@ router.route('/topic/:id') // 对/bbs/topic/1这种链接的http请求，:id表�
             type = req.session.userType,
             courseID = req.session.courseID;
         Topic.getByID(topicID, (_topic) => { 
+            if (!_topic) {
+                res.status(404).send('404 Not Found');
+                return;
+            }
             Topic.getReply(topicID, (_replys) => {
                 res.render(viewDir+'topic', {
                     userType: type,

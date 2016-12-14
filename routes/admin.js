@@ -2,6 +2,8 @@ var express = require('express');
 
 var Topic = require('../models/topic');
 var Link = require('../models/link');
+var Feedback = require('../models/feedback');
+var user = require('../models/user');
 
 var router = express.Router();
 var viewDir = 'admin/';
@@ -18,8 +20,11 @@ router.use((req, res, next) => {
         if (req.method == 'GET') {
             Link.get(req.session.courseID, (links) => {
                 res.locals.links = links;
-                next();
-            });
+                User.getCourse(req.session.userID, req.session.userType, (courses) => {
+                    res.locals.courses = courses;
+                    next();
+                });
+            }); 
         } else
             next();
     }
@@ -29,23 +34,36 @@ router.route('/guide')
     .get((req, res, next) => {
         var courseID = req.session.courseID;
         res.render(viewDir+'guide', {
-            links: res.locals.links
+            links: res.locals.links,
+            courses: res.locals.courses
         });
     })
 
 router.route('/visitorFeedback')
     .get((req, res, next) => {
         var courseID = req.session.courseID;
-        res.render(viewDir+'visitorFeedback', {
-            links: res.locals.links
+        Feedback.getAll((_feedbacks) => {
+            res.render(viewDir+'visitorFeedback', {
+                feedbacks: _feedbacks,
+                links: res.locals.links,
+                courses: res.locals.courses
+            });
         });
     })
 
-router.route('/visitorFeedback_detail')
+router.route('/visitorFeedback/:id')
     .get((req, res, next) => {
-        var courseID = req.session.courseID;
-        res.render(viewDir+'visitorFeedback_detail', {
-            links: res.locals.links
+        var feedbackID = req.params.id;
+        Feedback.get(feedbackID, (_feedback) => {
+            if (!_feedback) {
+                res.status(404).send('404 Not Found');
+                return;
+            }
+            res.render(viewDir+'visitorFeedback_detail', {
+                feedback: _feedback,
+                links: res.locals.links,
+                courses: res.locals.courses
+            });
         });
     })
 
@@ -53,7 +71,8 @@ router.route('/websiteGuide')
     .get((req, res, next) => {
         var courseID = req.session.courseID;
         res.render(viewDir+'websiteGuide', {
-            links: res.locals.links
+            links: res.locals.links,
+            courses: res.locals.courses
         });
     })
 
