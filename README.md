@@ -56,12 +56,94 @@ mysql -h localhost -u root -p < data.sql的路径
 
 用到的框架是[express](https://expressjs.com)
 
-**登录后在req中有下列数据可以用**
+## 分锅
+后端每个人都写一部分model和route，最好不要动别人负责的文件
+
+## views/route部分
+要做的事
++ 在模板里为动态数据布局（其实一般是由前端做的。。
++ 定义各页面路由行为
+
+模板参考views/bbs/里我写好的部分，也可以看[pug](https://pugjs.org)的文档
+
+可以参考我写的bbs.js部分，里面有一些注释
+
+上传文件，插入图片相关的功能以及其他感觉比较复杂的功能可以晚一点写
+
+文本编辑器先用textarea代替，参考bbs发帖/回帖部分
+
+如果需要用到别人还没写好的model功能就先编一个，通知一下对方需要什么API，等对方写好了替换掉
+
+**登录后在req对象里有下列数据可以用**
 + req.session.userID
 + req.session.userType
 + req.session.courseID
 + req.session.username
 
-#### 劝退
-<p style="text-decoration: line-through">（感觉学习成本太高的话还是换成php，jsp之类的吧0 0</p>
-（退个P我都写这么多了0 0
+**CR: student部分，bbs部分**
+
+**YP: admin部分，visitor部分**
+
+**YWM：teacher部分**
+
+### student 
+10个页面左右
+
+有些页面感觉可以合并。。反正写的人看着办吧0 0
+
+### teacher 
+18个页面左右
+
+有些页面感觉可以合并。。反正写的人看着办吧0 0
+
+### admin
+4个页面，查看游客反馈的页面似乎写好
+
+### visitor
+9个页面，一些页面可能可以合并
+
+### bbs
+基本功能里还有管理员删除帖子和置顶的功能没做，置顶功能需要改数据库设计
+
+## models部分
+1. 可以参考我写的topic.js部分，里面有一点注释
+2. 按data.sql里的表定义写，觉得数据库有问题就改，改的时候通知一下
+
+**YP: announce, class, course**
+
+**CR: link, teacher, topic，feedback**
+
+**YWM: file, homework, message, user**
+
+### annouce.js
+定义通知数据的操作
+
+### class.js
+定义班级数据的操作
+
+### course.js
+定义课程数据的操作
+
+### file.js
+定义文件数据的操作
+
+### homework.js
+定义作业数据的操作
+
+### link.js
+定义友情链接数据的操作
+
+### teacher.js
+定义教师数据的操作
+
+### topic.js
+定义帖子数据的操作
+
+### user.js
+定义用户数据的操作
+
+### feedback.js
+定义游客反馈数据的操作
+
+### message.js
+定义私信数据的操作
