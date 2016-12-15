@@ -5,7 +5,9 @@
 # 对file，topic等一些可以删除的数据在引用时增加delete cascade
 # 增加feedback表，增加feedback表中的status属性表示反馈是否解决
 # 12/14
-# 把 stu_class和tea_class合并成一张user表
+# 把 stu_class和tea_class合并成一张user_class表
+# 12.15
+# 增加message表，帖子topic表里增加top属性表示是否置顶
 
 set names utf8;
 
@@ -206,6 +208,7 @@ create table topic (
     reply_num int default 0, # 回复数
     click_num int default 0, # 查看次数
     anonymity enum('0', '1'), # insert默认0
+    top enum('0', '1') default '0', #是否置顶
     primary key (id),
     foreign key (creator_id)
         references user(id) on update cascade,
@@ -249,4 +252,20 @@ create table feedback (
     status enum('0', '1') default '0', # 0未解决，1解决了
     primary key (id)
 ) CHARACTER SET = utf8;
-insert into feedback(title, content, post_time) values ('你太强啦', '（但是我比你更强那么一点点0 0', NOW());
+insert into feedback(title, content, post_time) values ('你太强啦', '我太菜了', NOW());
+
+create table message (
+    id int AUTO_INCREMENT,
+    creator_id varchar(30),
+    reciever_id varchar(30),
+    class_id int,
+    course_id int,
+    title varchar(50) not null,
+    content text,
+    post_time datetime not null,
+    primary key (id),
+    foreign key (creator_id) references user(id) on update cascade,
+    foreign key (creator_id) references user(id) on update cascade,
+    foreign key (class_id) references class(id) on update cascade,
+    foreign key (course_id) references course(id) on update cascade
+) CHARACTER SET = utf8;
