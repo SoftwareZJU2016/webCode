@@ -1,4 +1,4 @@
-# 更新日志
+﻿# 更新日志
 # 12/1 13:44 
 # 为topic和topic_reply增加了anonymity	enum(‘0’, ‘1’)表示匿名与否的属性
 # 其他略...
@@ -207,7 +207,7 @@ create table topic (
     content text,
     reply_num int default 0, # 回复数
     click_num int default 0, # 查看次数
-    anonymity enum('0', '1'), # insert默认0
+    anonymity enum('0', '1') default '0', # insert默认0
     top enum('0', '1') default '0', #是否置顶
     primary key (id),
     foreign key (creator_id)
@@ -223,7 +223,7 @@ create table topic_reply (
     creator_id varchar(30) not null,
     post_time datetime not null,
     content text,
-    anonymity enum('0', '1'), # insert默认0
+    anonymity enum('0', '1') default '0', # insert默认0
     primary key (id, topic_id),
     foreign key (creator_id)
         references user(id) on update cascade,
