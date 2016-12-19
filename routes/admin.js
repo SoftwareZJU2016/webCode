@@ -3,7 +3,7 @@ var express = require('express');
 var Topic = require('../models/topic');
 var Link = require('../models/link');
 var Feedback = require('../models/feedback');
-var user = require('../models/user');
+var User = require('../models/user');
 
 var router = express.Router();
 var viewDir = 'admin/';

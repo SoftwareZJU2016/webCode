@@ -1,4 +1,4 @@
-doctype html
+﻿doctype html
 include components/head
 .container
     include ../components/topbar
@@ -28,7 +28,7 @@ include components/head
                                 .floor
                                     span.name #{index+1}L
                                 .author
-                                    span.name= item.creator_id
+                                    span.name= item.anonymity == 1 ? '匿名用户' : item.creator_id
                                     span.space &nbsp&nbsp&nbsp
                                     span.submitdate= item.post_time.toLocaleString()
                                 p!= item.content
