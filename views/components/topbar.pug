@@ -43,6 +43,7 @@
                                 | #{item.title}
                         p
                             input#courseswitch(type="submit" name="courseswitch" value="切换课程")
+                            input#exit(type="button" value="退出" onclick="logout()")
             br.clear
         #loginpanel
             ul
@@ -51,3 +52,7 @@
                     a#slideit(href='#slidepanel') 当前登录状态
                     a#closeit(style='display: none;', href='#slidepanel') 关闭
         br.clear
+        script.
+            function logout() {
+                window.location.href = "/logout";
+            }
