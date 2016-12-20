@@ -13,6 +13,15 @@ Feedback.get = (feedbackID, callback) => {
                 console.log(err);
                 results[0] = null;
             }
+            if(results[0].type == "0"){
+                results[0].type = "其他";
+            }else if(results[0].type == "1"){
+                results[0].type = "网站界面";
+            }else if(results[0].type == "2"){
+                results[0].type = "网站内容";
+            }else if(results[0].type == "3"){
+                results[0].type = "教学安排";
+            }
             connection.release();
             callback(results[0]);
         });
@@ -30,20 +39,31 @@ Feedback.getAll = (callback) => {
                 console.log(err);
                 results = [];
             }
+            for(i = 0; i < results.length; i++){
+                if(results[i].type == "0"){
+                    results[i].type = "其他";
+                }else if(results[i].type == "1"){
+                    results[i].type = "网站界面";
+                }else if(results[0].type == "2"){
+                    results[i].type = "网站内容";
+                }else if(results[i].type == "3"){
+                    results[i].type = "教学安排";
+                }
+            }
             connection.release();
             callback(results);
         });
     });
 }
 
-/*插入反馈，若没留联系方式则contact=""*/
-Feedback.add = function (title, content, contact) {
+/*插入反馈，若没留联系方式则contact=""，type请传入数字而不是字符串*/
+Feedback.add = function (title, content, contact, type) {
     pool.getConnection(function (err, connection) {
         if (err) console.log(err);
 
-        var query = 'insert into feedback(title, content, post_time, contact) values (?, ?, ?, ?);';
+        var query = 'insert into feedback(title, content, post_time, contact, type) values (?, ?, ?, ?, ?);';
         //js传递现在的时间进数据库
-        connection.query(query, [title, content, new Date(), contact], function(err, results, fields){
+        connection.query(query, [title, content, new Date(), contact, type], function(err, results, fields){
             if (err) {
                 console.log(err);
             }

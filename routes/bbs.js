@@ -57,12 +57,12 @@ router.route('/topic/:id') // 对/bbs/topic/1这种链接的http请求，:id表�
         var topicID = req.params.id, //获取到url里的帖子ID
             type = req.session.userType,
             courseID = req.session.courseID;
-        Topic.getByID(topicID, (_topic) => { 
+        Topic.getByID(topicID, function(_topic){ 
             if (!_topic) {
                 res.status(404).send('404 Not Found');
                 return;
             }
-            Topic.getReply(topicID, (_replys) => {
+            Topic.getReply(topicID, function(_replys){
                 res.render(viewDir+'topic', {
                     userType: type,
                     topic: _topic,

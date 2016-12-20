@@ -253,7 +253,8 @@ create table feedback (
     title varchar(50) not null,
     content text,
     post_time datetime not null,
-    contact varchar(30)
+    contact varchar(30),
+    type enum('0', '1', '2', '3') default '0', # 0其他， 1网站界面，2网站内容，3教学安排
     status enum('0', '1') default '0', # 0未解决，1解决了
     primary key (id)
 ) CHARACTER SET = utf8;
