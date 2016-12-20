@@ -2,7 +2,7 @@ var pool = require('./index');
 
 var Feedback = {};
 
-/*根据id得到一条反馈信息*/
+/*根据id得到一条反馈信息，反馈类型得到的是正确的文本内容*/
 Feedback.get = (feedbackID, callback) => {
     pool.getConnection((err, connection) => {
         if (err) console.log(err);
@@ -28,7 +28,7 @@ Feedback.get = (feedbackID, callback) => {
     });
 }
 
-/*按照最近更新时间，得出反馈列表*/
+/*按照最近更新时间，得出反馈列表，反馈类型得到的是正确的文本内容*/
 Feedback.getAll = (callback) => {
     pool.getConnection((err, connection) => {
         if (err) console.log(err);

@@ -10,6 +10,7 @@
 # 增加message表，帖子topic表里增加top属性表示是否置顶
 # 12.20
 # feedback表中contact属性选填，表示联系方式
+# feedback表中type属性，表示反馈类型
 
 
 set names utf8;
@@ -60,7 +61,8 @@ create table course (
     background text,
     assess text, # 考核
     textbook text,
-    homework_intro text
+    homework_intro text,
+    basic_request text,
 ) CHARACTER SET = utf8;
 insert into course(title) values ('软件需求工程');
 insert into course(title) values ('软件工程管理');
