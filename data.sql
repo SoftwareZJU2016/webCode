@@ -8,6 +8,9 @@
 # 把 stu_class和tea_class合并成一张user_class表
 # 12.15
 # 增加message表，帖子topic表里增加top属性表示是否置顶
+# 12.20
+# feedback表中contact属性选填，表示联系方式
+
 
 set names utf8;
 
@@ -244,11 +247,13 @@ insert into link values (1, 'CC98软件工程版', 'http://www.cc98.org/list.asp
                         (1, '浙江大学教务系统', 'http://jwbinfosys.zju.edu.cn/default2.aspx'),
                         (1, '浙江大学缘网', 'http://luckweb.057101.com/bt2/index.asp');
 
+# post_time为最后一次修改时间，修改包括插入和已阅读
 create table feedback (
     id int AUTO_INCREMENT,
     title varchar(50) not null,
     content text,
     post_time datetime not null,
+    contact varchar(30)
     status enum('0', '1') default '0', # 0未解决，1解决了
     primary key (id)
 ) CHARACTER SET = utf8;
