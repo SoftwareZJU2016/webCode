@@ -1,6 +1,8 @@
 var express = require('express');
 var Link = require('../models/link');
 var User = require('../models/user');
+var Course = require('../models/course')
+var Teacher = require('../models/teacher')
 
 var router = express.Router();
 var viewDir = 'student/';
@@ -30,18 +32,37 @@ router.use((req, res, next) => {
 
 router.route('/classIntroduction')
     .get((req, res, next) => {
-        res.render(viewDir+'classIntroduction', {
-            links: res.locals.links,
-            courses: res.locals.courses
+        Course.get(req.session.courseID, function (course_info) {
+            res.render(viewDir+'classIntroduction', {
+                links: res.locals.links,
+                courses: res.locals.courses,
+                description: course_info.description,
+                plan: course_info.plan,
+                background: course_info.background,
+                assess: course_info.assess,
+                textbook: course_info.textbook,
+                homework: course_info.homework_intro,
+                basic: course_info.basic_request,
+            });
         });
+
     })
 
-router.route('/courseResource')
+//error
+router.route('/teacherIntroduction')
     .get((req, res, next) => {
-        res.render(viewDir+'courseResource', {
-            links: res.locals.links,
-            courses: res.locals.courses
-        });
+        Teacher.getByID(req.session.teacherid, function (teacher_info) {
+            res.render(viewDir+'teacherIntroduction', {
+                links: res.locals.links,
+                courses: res.locals.courses,
+                intro: teacher_info.intro,
+                style: teacher_info.style,
+                previous: teacher_info.previous_teaching,
+                research: teacher_info.research,
+                book: teacher_info.book,
+                honor: teacher_info.honor,
+            });
+        })
     })
 
 router.route('/courseResource_goodhomework')
@@ -100,9 +121,9 @@ router.route('/inbox_detail')
         });
     })
 
-router.route('/teacherIntroduction')
+router.route('/courseResource')
     .get((req, res, next) => {
-        res.render(viewDir+'teacherIntroduction', {
+        res.render(viewDir+'courseResource', {
             links: res.locals.links,
             courses: res.locals.courses
         });

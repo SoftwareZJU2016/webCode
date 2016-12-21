@@ -2,8 +2,8 @@ var pool = require('./index');
 
 var Course = {};
 
-Course.getByID((courseID, callback) => {
-    pool.getConnection((err, connection) => {
+Course.get = function(courseID, callback){
+    pool.getConnection(function(err, connection){
         if (err) console.log(err);
 
         var query = 'SELECT * FROM course WHERE id = ?';
@@ -16,7 +16,7 @@ Course.getByID((courseID, callback) => {
             callback(results[0]);
         });
     });
-});
+};
 
 /*根据课程id更新 课程模块 课程简介*/
 Course.updateClassDescription = function (courseID, content, callback) {

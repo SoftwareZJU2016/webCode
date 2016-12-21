@@ -79,6 +79,10 @@ mysql -h localhost -u root -p < data.sql的路径
 + req.session.userType
 + req.session.courseID
 + req.session.username
++ req.session.classid：表示一个学生在选择课程登陆后，他所在班级的id
++ req.session.teacherid：表示一个学生在选择课程登陆后，他所在班级的老师的id
+（session这里假设一个班一个老师？没想好session这里，软管这种一个班多个老师的情况怎么搞，
+而且前端好像也没考虑一个班多个老师的情况，但是数据库中表定义是可以实现一个班多个老师的）
 
 **CR: student部分，bbs部分**
 

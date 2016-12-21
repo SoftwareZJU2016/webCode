@@ -40,7 +40,7 @@ router.route('/') //对/bbs首页的http请求
         var courseID = req.session.courseID,
             type = req.session.userType;
         //调用models目录下写好的数据库相关函数获取帖子信息（一定要用回调的形式，因为查询数据库是异步操作
-        Topic.getAll(courseID, (_topics) => {
+        Topic.getAll(courseID, function(_topics){
             res.render(viewDir+'index',  //将http response设置为渲染views/bbs/index.pug得到的HTML
                 { //第二个参数是一个对象，里面是填充到模板里的数据
                     userType: type, 

@@ -32,7 +32,11 @@ create table user (
     email varchar(50),
     phone varchar(11)
 ) CHARACTER SET = utf8;
-insert into user values ('se_admin', '(>_0)', '2333', 'A', '', '', ''),
+insert into user values ('cra', 'cra', '123', 'A', '', '', ''),
+                        ('crt', 'crt', '123', 'T', '', '', ''),
+                        ('crta', 'crta', '123', 'TA', '', '', ''),
+                        ('crs', 'crs', '123', 'S', '', '', ''),
+                        ('se_admin', '(>_0)', '2333', 'A', '', '', ''),
                         ('Yang', '(>_0)', '2333', 'T', '', '', ''),
                         ('中文', '(>_0)', '2333', 'S,TA', '', '', ''),
                         ('Mie', '(>_0)', '2333', 'S', '', '', '');
@@ -52,6 +56,7 @@ create table teacher (
         references user(id) on update cascade
 ) CHARACTER SET = utf8;
 insert into teacher(tea_id, name) values ('Yang', '(>_0)');
+insert into teacher(tea_id, name) values ('crt', 'crt');
 
 create table course (
     id int primary key AUTO_INCREMENT,
@@ -62,9 +67,9 @@ create table course (
     assess text, # 考核
     textbook text,
     homework_intro text,
-    basic_request text,
+    basic_request text
 ) CHARACTER SET = utf8;
-insert into course(title) values ('软件需求工程');
+insert into course(title, description, plan, background, assess, textbook, homework_intro, basic_request) values ('软件需求工程', '软需课程简介', '软需教学日历', '软需教学背景', '软需考核方式', '软需使用教材', '软需大作业介绍', '软需基础要求');
 insert into course(title) values ('软件工程管理');
 insert into course(title) values ('软件工程基础');
 insert into course(title) values ('软件测试与质量保证');
@@ -83,27 +88,30 @@ create table class (
 ) CHARACTER SET = utf8;
 insert into class(course_id, year, semester) values ('1', '2016', '秋冬');
 
-# 多对多关系新建个表来表示吧。。
+# 用户、课程、班级 多对多关系
 create table user_class (
     user_id varchar(30),
     class_id int,
-    primary key (user_id, class_id),
+    course_id int,
+    user_type set('A', 'T', 'S', 'TA') not null, # A: admin, T: teacher, S: student, TA: teacher assistant
+    primary key (user_id, class_id, course_id),
     foreign key (user_id)
-        references user(id) on update cascade,
-    foreign key (class_id)
-        references class(id) on update cascade
+        references user(id) on update cascade
 ) CHARACTER SET = utf8;
-insert into user_class values ('Mie', '1');
+insert into user_class values ('Mie', '1', '1', 'S');
+insert into user_class values ('crs', '2', '1', 'S');
+insert into user_class values ('crt', '2', '1', 'T');
 
-#create table tea_class (
-#    tea_id varchar(30),
-#    class_id int,
-#    primary key (tea_id, class_id),
-#    foreign key (tea_id)
-#        references user(id) on update cascade,
-#    foreign key (class_id)
-#        references class(id) on update cascade
-#) CHARACTER SET = utf8;
+
+# create table tea_class (
+#     tea_id varchar(30),
+#     class_id int,
+#     primary key (tea_id, class_id),
+#     foreign key (tea_id)
+#         references user(id) on update cascade,
+#     foreign key (class_id)
+#         references class(id) on update cascade
+# ) CHARACTER SET = utf8;
 
 
 # 包括教师，学生上传的文件

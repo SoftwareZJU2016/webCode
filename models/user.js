@@ -43,4 +43,47 @@ User.getCourse = (userID, userType, callback) => {
     })
 }
 
+/*学生获得他选取的这门课的class_id*/
+User.GetClass = (userID, userType, courseID, callback) =>{
+    pool.getConnection((err, connection) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        var sql = 'SELECT * FROM user_class WHERE user_id = ? and course_id = ? and user_type = ?';
+        connection.query(sql, [userID, courseID, userType], (err, results, fields) => {
+            if (err) {
+                console.log(err);
+                results = [];
+            }
+            callback(results[0]);
+            connection.release();
+        })
+
+    })
+}
+
+/*学生获得他选取的这门课的老师的id*/
+User.studentGetTeacher = (courseID, classID, callback) =>{
+    pool.getConnection((err, connection) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        var sql = 'SELECT * FROM user_class WHERE course_id = ? and class_id = ? and user_type = ?';
+        connection.query(sql, [courseID, classID, "T"], (err, results, fields) => {
+            if (err) {
+                console.log(err);
+                return ;
+            }
+            callback(results[0]);
+            connection.release();
+        })
+
+    })
+}
+
+
+
 module.exports = User;

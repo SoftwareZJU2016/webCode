@@ -29,12 +29,13 @@ router.route('/login')
             });
         }
     })
+    //学生登陆以后，只有一门课程，进而可以确定老师和班级
     .post((req, res, next) => {
         var userID = req.body.userID,
             password = req.body.password,
             type = req.body.type,
             courseID = req.body.courseID;
-        User.getByIDAndType(userID, type, (user) => {
+        User.getByIDAndType(userID, type, function(user){
             if (!user) {
                 res.json({
                     code: 0,
@@ -53,14 +54,35 @@ router.route('/login')
                     req.session.username = user.name;
                     req.session.userType = user.type;
                     req.session.courseID = courseID;
-                    res.json({
-                        code: 1,
-                        msg: '登录成功',
-                        body: {
-                            name: user.name,
-                            type: user.type
-                        }
-                    });
+                    if(type == "S"){
+
+                        User.GetClass(user.id, "S", courseID, function (classinfo) {
+                            req.session.classid = classinfo.class_id;
+                            User.studentGetTeacher(courseID, classinfo.class_id, function (teacherinfo) {
+                                //没有写异常处理，如果一个学生在没有老师的班就gg
+                                req.session.teacherid = teacherinfo.user_id;
+
+                                console.log(req.session);
+                                res.json({
+                                    code: 1,
+                                    msg: '登录成功',
+                                    body: {
+                                        name: user.name,
+                                        type: user.type
+                                    }
+                                });
+                            })
+                        })
+                    }else{
+                        res.json({
+                            code: 1,
+                            msg: '登录成功',
+                            body: {
+                                name: user.name,
+                                type: user.type
+                            }
+                        });
+                    }
                 }
             }
         });        
@@ -95,5 +117,6 @@ function checkLogin(req, res, next) {
     } else
         next();
 }
+
 
 module.exports = router;
