@@ -1,5 +1,6 @@
 var express = require('express');
 var Link = require('../models/link');
+var User = require('../models/user');
 
 var router = express.Router();
 var viewDir = 'teacher/';
@@ -9,7 +10,7 @@ router.use((req, res, next) => {
     if (!req.session.userID) {
         req.session.message = '请先登录';
         res.redirect('/login');
-    } else if (req.session.userType != 'T' || req.session.userType != 'A') {
+    } else if (req.session.userType != 'T' && req.session.userType != 'A') {
         req.session.message = '请先以教师身份登录';
         res.redirect('/login');
     } else {
