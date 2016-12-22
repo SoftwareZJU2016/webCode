@@ -69,28 +69,101 @@ script.
             $("#textEdit6").fadeIn();
         })
         $("#saveBtn1").click(function () {
-            $("#editBtn1").fadeIn(1000);
-            $("#textEdit1").hide();
+            var content = $("#editor_id1").val();
+            $.post('/teacher/classIntroduction', {
+                edit_id: 1,
+                content: content,
+            }, function (data) {
+                if(data.code == 1){
+                    alert(data.msg);
+                    window.location.href = "/teacher/classIntroduction";
+                }else{
+                    alert(data.msg);
+                }
+                
+            })
+            //$("#editBtn1").fadeIn(1000);
+            //$("#textEdit1").hide();
         })
         $("#saveBtn2").click(function () {
-            $("#editBtn2").fadeIn(1000);
-            $("#textEdit2").hide();
+            var content = $("#editor_id2").val();
+            $.post('/teacher/classIntroduction', {
+                edit_id: 2,
+                content: content,
+            }, function (data) {
+                if (data.code == 1) {
+                    alert(data.msg);
+                    window.location.href = "/teacher/classIntroduction";
+                } else {
+                    alert(data.msg);
+                }
+            })
+            //$("#editBtn2").fadeIn(1000);
+            //$("#textEdit2").hide();
         })
         $("#saveBtn3").click(function () {
-            $("#editBtn3").fadeIn(1000);
-            $("#textEdit3").hide();
+            var content = $("#editor_id3").val();
+            $.post('/teacher/classIntroduction', {
+                edit_id: 3,
+                content: content,
+            }, function (data) {
+                if (data.code == 1) {
+                    alert(data.msg);
+                    window.location.href = "/teacher/classIntroduction";
+                } else {
+                    alert(data.msg);
+                }
+            })
+            //$("#editBtn3").fadeIn(1000);
+            //$("#textEdit3").hide();
         })
         $("#saveBtn4").click(function () {
-            $("#editBtn4").fadeIn(1000);
-            $("#textEdit4").hide();
+            var content = $("#editor_id4").val();
+            $.post('/teacher/classIntroduction', {
+                edit_id: 4,
+                content: content,
+            }, function (data) {
+                if (data.code == 1) {
+                    alert(data.msg);
+                    window.location.href = "/teacher/classIntroduction";
+                } else {
+                    alert(data.msg);
+                }
+            })
+            //$("#editBtn4").fadeIn(1000);
+            //$("#textEdit4").hide();
         })
         $("#saveBtn5").click(function () {
-            $("#editBtn5").fadeIn(1000);
-            $("#textEdit5").hide();
+            var content = $("#editor_id5").val();
+            $.post('/teacher/classIntroduction', {
+                edit_id: 5,
+                content: content,
+            }, function (data) {
+                if (data.code == 1) {
+                    alert(data.msg);
+                    window.location.href = "/teacher/classIntroduction";
+                } else {
+                    alert(data.msg);
+                }
+            })
+            //$("#editBtn5").fadeIn(1000);
+            //$("#textEdit5").hide();
         })
         $("#saveBtn6").click(function () {
-            $("#editBtn6").fadeIn(1000);
-            $("#textEdit6").hide();
+            var content = $("#editor_id6").val();
+            $.post('/teacher/classIntroduction', {
+                edit_id: 6,
+                content: content,
+            }, function (data) {
+                if (data.code == 1) {
+                    alert(data.msg);
+                    window.location.href = "/teacher/classIntroduction";
+                } else {
+                    alert(data.msg);
+                }
+            })
+            //$("#editBtn6").fadeIn(1000);
+            //$("#textEdit6").hide();
         })
     })
 div
@@ -101,8 +174,7 @@ div
             #content
                 h1(id='课程简介') 课程简介
                 img.imgr(src='../images/demo/imgr.gif', alt='', width='125', height='125')
-                p
-                    | Aliquatjusto quisque nam consequat doloreet vest orna partur scetur portortis nam. Metadipiscing eget facilis elit sagittis felisi eger id justo maurisus convallicitur.
+                p #{description}
                 p
                     | Dapiensociis temper donec auctortortis cumsan et curabitur condis lorem loborttis leo. Ipsumcommodo libero nunc at in velis tincidunt pellentum tincidunt vel lorem.
                 img.imgl(src='../images/demo/imgl.gif', alt='', width='125', height='125')
@@ -117,7 +189,7 @@ div
                         button(style='background-color: #293C6B;color: white') 编辑
                     #textEdit1(style='display: none;')
                         div(style='width:300px; margin-left:0px; margin-top:0px;')
-                            textarea#editor_id1(name='content1', style='width:500px; ')
+                            textarea#editor_id1(name='content1', style='width:500px;') #{description}
                         #saveBtn1(style='text-align: left;height: 80px;padding-top: 20px;')
                             button(style='background-color: #293C6B;color: white') 保存
                 h2(id='教学日历') 教学日历
@@ -148,8 +220,7 @@ div
                     button(style='background-color: #293C6B;color: white') 编辑
                 h1(id='教学背景') 教学背景
                 img.imgr(src='images/demo/imgr.gif', alt='', width='125', height='125')
-                p
-                    | Aliquatjusto quisque nam consequat doloreet vest orna partur scetur portortis nam. Metadipiscing eget facilis elit sagittis felisi eger id justo maurisus convallicitur.
+                p #{background}
                 p
                     | Dapiensociis    et curabitur condis lorem loborttis leo. Ipsumcommodo libero nunc at in velis tincidunt pellentum tincidunt vel lorem.
                 img.imgl(src='images/demo/imgl.gif', alt='', width='125', height='125')
@@ -164,13 +235,12 @@ div
                         button(style='background-color: #293C6B;color: white') 编辑
                     #textEdit2(style='display: none;')
                         div(style='width:300px; margin-left:0px; margin-top:0px;')
-                            textarea#editor_id2(name='content2', style='width:500px; ')
+                            textarea#editor_id2(name='content2', style='width:500px; ') #{background}
                         #saveBtn2(style='text-align: left;height: 80px;padding-top: 20px;')
                             button(style='background-color: #293C6B;color: white') 保存
                 h1(id='考核方式') 考核方式
                 img.imgr(src='images/demo/imgr.gif', alt='', width='125', height='125')
-                p
-                    | Aliquatjusto quisque nam consequat doloreet vest orna partur scetur portortis nam. Metadipiscing eget facilis elit sagittis felisi eger id justo maurisus convallicitur.
+                p #{assess}
                 p
                     | Dapiensociis    et curabitur condis lorem loborttis leo. Ipsumcommodo libero nunc at in velis tincidunt pellentum tincidunt vel lorem.
                 img.imgl(src='images/demo/imgl.gif', alt='', width='125', height='125')
@@ -185,13 +255,12 @@ div
                         button(style='background-color: #293C6B;color: white') 编辑
                     #textEdit3(style='display: none;')
                         div(style='width:300px; margin-left:0px; margin-top:0px;')
-                            textarea#editor_id3(name='content3', style='width:500px; ')
+                            textarea#editor_id3(name='content3', style='width:500px; ') #{assess}
                         #saveBtn3(style='text-align: left;height: 80px;padding-top: 20px;')
                             button(style='background-color: #293C6B;color: white') 保存
                 h1(id='使用教材') 使用教材
                 img.imgr(src='images/demo/imgr.gif', alt='', width='125', height='125')
-                p
-                    | Aliquatjusto quisque nam consequat doloreet vest orna partur scetur portortis nam. Metadipiscing eget facilis elit sagittis felisi eger id justo maurisus convallicitur.
+                p #{textbook}
                 p
                     | Dapiensociis    et curabitur condis lorem loborttis leo. Ipsumcommodo libero nunc at in velis tincidunt pellentum tincidunt vel lorem.
                 img.imgl(src='images/demo/imgl.gif', alt='', width='125', height='125')
@@ -206,13 +275,12 @@ div
                         button(style='background-color: #293C6B;color: white') 编辑
                     #textEdit4(style='display: none;')
                         div(style='width:300px; margin-left:0px; margin-top:0px;')
-                            textarea#editor_id4(name='content4', style='width:500px; ')
+                            textarea#editor_id4(name='content4', style='width:500px; ') #{textbook}
                         #saveBtn4(style='text-align: left;height: 80px;padding-top: 20px;')
                             button(style='background-color: #293C6B;color: white') 保存
                 h1(id='大作业介绍') 大作业介绍
                 img.imgr(src='images/demo/imgr.gif', alt='', width='125', height='125')
-                p
-                    | Aliquatjusto quisque nam consequat doloreet vest orna partur scetur portortis nam. Metadipiscing eget facilis elit sagittis felisi eger id justo maurisus convallicitur.
+                p #{homework}
                 p
                     | Dapiensociis temper donec auctortortis cumsan et curabitur condis lorem loborttis leo. Ipsumcommodo libero nunc at in velis tincidunt pellentum tincidunt vel lorem.
                 img.imgl(src='images/demo/imgl.gif', alt='', width='125', height='125')
@@ -227,13 +295,12 @@ div
                         button(style='background-color: #293C6B;color: white') 编辑
                     #textEdit5(style='display: none;')
                         div(style='width:300px; margin-left:0px; margin-top:0px;')
-                            textarea#editor_id5(name='content5', style='width:500px; ')
+                            textarea#editor_id5(name='content5', style='width:500px; ') #{homework}
                         #saveBtn5(style='text-align: left;height: 80px;padding-top: 20px;')
                             button(style='background-color: #293C6B;color: white') 保存
                 h1(id='基础要求') 基础要求
                 img.imgr(src='images/demo/imgr.gif', alt='', width='125', height='125')
-                p
-                    | Aliquatjusto quisque nam consequat doloreet vest orna partur scetur portortis nam. Metadipiscing eget facilis elit sagittis felisi eger id justo maurisus convallicitur.
+                p #{basic}
                 p
                     | Dapiensociis    et curabitur condis lorem loborttis leo. Ipsumcommodo libero nunc at in velis tincidunt pellentum tincidunt vel lorem.
                 img.imgl(src='images/demo/imgl.gif', alt='', width='125', height='125')
@@ -248,7 +315,7 @@ div
                         button(style='background-color: #293C6B;color: white') 编辑
                     #textEdit6(style='display: none;')
                         div(style='width:300px; margin-left:0px; margin-top:0px;')
-                            textarea#editor_id6(name='content5', style='width:500px; ')
+                            textarea#editor_id6(name='content5', style='width:500px; ') #{basic}
                         #saveBtn6(style='text-align: left;height: 80px;padding-top: 20px;')
                             button(style='background-color: #293C6B;color: white') 保存
             #column

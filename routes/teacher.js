@@ -1,6 +1,7 @@
 var express = require('express');
 var Link = require('../models/link');
 var User = require('../models/user');
+var Course = require('../models/course')
 
 var router = express.Router();
 var viewDir = 'teacher/';
@@ -51,17 +52,126 @@ router.route('/BBS_post')
 
 router.route('/classIntroduction')
     .get((req, res, next) => {
-        res.render(viewDir+'classIntroduction', {
-            links: res.locals.links
+        var courseID = req.session.courseID;
+        Course.get(courseID, function (course_info) {
+            res.render(viewDir+'classIntroduction', {
+                links: res.locals.links,
+                courses: res.locals.courses,
+                description: course_info.description,
+                plan: course_info.plan,
+                background: course_info.background,
+                assess: course_info.assess,
+                textbook: course_info.textbook,
+                homework: course_info.homework_intro,
+                basic: course_info.basic_request,
+            });
         });
+
+    })
+    .post((req, res, next) => {
+        var courseID = req.session.courseID;
+        var edit_id = req.body.edit_id;
+        var content = req.body.content;
+
+        if(edit_id == 1){
+            Course.updateClassDescription(courseID, content, function (success) {
+                if(success){
+                    res.json({
+                        code: 1,
+                        msg: '课程简介更新成功',
+                        body: {}
+                    })
+                }else{
+                    res.json({
+                        code: 0,
+                        msg: '课程简介更新失败',
+                        body: {}
+                    })
+                }
+            })
+        }else if(edit_id == 2){
+            Course.updateClassBackground(courseID, content, function (success) {
+                if(success){
+                    res.json({
+                        code: 1,
+                        msg: '教学背景更新成功',
+                        body: {}
+                    })
+                }else{
+                    res.json({
+                        code: 0,
+                        msg: '教学背景更新失败',
+                        body: {}
+                    })
+                }
+            })
+        }else if(edit_id == 3){
+            Course.updateClassAssess(courseID, content, function (success) {
+                if(success){
+                    res.json({
+                        code: 1,
+                        msg: '考核方式更新成功',
+                        body: {}
+                    })
+                }else{
+                    res.json({
+                        code: 0,
+                        msg: '考核方式更新失败',
+                        body: {}
+                    })
+                }
+            })
+        }else if(edit_id == 4){
+            Course.updateClassTextbook(courseID, content, function (success) {
+                if(success){
+                    res.json({
+                        code: 1,
+                        msg: '使用教材更新成功',
+                        body: {}
+                    })
+                }else{
+                    res.json({
+                        code: 0,
+                        msg: '使用教材更新失败',
+                        body: {}
+                    })
+                }
+            })
+        }else if(edit_id == 5){
+            Course.updateClassHomework(courseID, content, function (success) {
+                if(success){
+                    res.json({
+                        code: 1,
+                        msg: '大作业介绍更新成功',
+                        body: {}
+                    })
+                }else{
+                    res.json({
+                        code: 0,
+                        msg: '大作业介绍更新失败',
+                        body: {}
+                    })
+                }
+            })
+        }else if(edit_id == 6){
+            Course.updateClassBasicRequest(courseID, content, function (success) {
+                if(success){
+                    res.json({
+                        code: 1,
+                        msg: '基础要求更新成功',
+                        body: {}
+                    })
+                }else{
+                    res.json({
+                        code: 0,
+                        msg: '基础要求更新失败',
+                        body: {}
+                    })
+                }
+            })
+        }
     })
 
-router.route('/classIntroduction_for_visitor')
-    .get((req, res, next) => {
-        res.render(viewDir+'classIntroduction_for_visitor', {
-            links: res.locals.links
-        });
-    })
 
 router.route('/courseResource')
     .get((req, res, next) => {
@@ -161,11 +271,5 @@ router.route('/teacherIntroduction')
         });
     })
 
-router.route('/teacherIntroduction_for_visitor')
-    .get((req, res, next) => {
-        res.render(viewDir+'teacherIntroduction_for_visitor', {
-            links: res.locals.links
-        });
-    })
 
 module.exports = router;

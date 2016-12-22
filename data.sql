@@ -281,7 +281,9 @@ create table message (
     post_time datetime not null,
     primary key (id),
     foreign key (creator_id) references user(id) on update cascade,
-    foreign key (creator_id) references user(id) on update cascade,
-    foreign key (class_id) references class(id) on update cascade,
-    foreign key (course_id) references course(id) on update cascade
+    foreign key (creator_id) references user(id) on update cascade
 ) CHARACTER SET = utf8;
+insert into message(creator_id, reciever_id, class_id, course_id, title, content, post_time)
+    values('crt', 'crs', '2', '1', 'uml考试', '2016.1.8早上8：00——9：00uml考试，闭卷，考完试进行答辩', NOW());
+insert into message(creator_id, reciever_id, class_id, course_id, title, content, post_time)
+    values('crt', 'crs', '2', '1', '答辩须知', '2016.1.8早上8：00——9：00uml考试，考完试进行答辩，答辩要求展示网站和ppt，抽签决定顺序', NOW());

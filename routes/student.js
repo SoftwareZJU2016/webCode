@@ -3,6 +3,7 @@ var Link = require('../models/link');
 var User = require('../models/user');
 var Course = require('../models/course')
 var Teacher = require('../models/teacher')
+var Message = require('../models/message')
 
 var router = express.Router();
 var viewDir = 'student/';
@@ -107,18 +108,28 @@ router.route('/homework')
 
 router.route('/inbox')
     .get((req, res, next) => {
-        res.render(viewDir+'inbox', {
-            links: res.locals.links,
-            courses: res.locals.courses
-        });
+        Message.getAll(req.session.userID, req.session.classid, req.session.courseID, function (message) {
+            //console.log(message);
+            res.render(viewDir+'inbox', {
+                links: res.locals.links,
+                courses: res.locals.courses,
+                messages: message,
+            });
+        })
     })
 
-router.route('/inbox_detail')
+//有一点bug，css加载不出来
+router.route('/inbox/:id')
     .get((req, res, next) => {
-        res.render(viewDir+'inbox_detail', {
-            links: res.locals.links,
-            courses: res.locals.courses
-        });
+        var messageID = req.params.id;
+        Message.getByID(messageID, function (message) {
+            console.log(message);
+            res.render(viewDir+'inbox_detail', {
+                links: res.locals.links,
+                courses: res.locals.courses,
+                message: message
+            });
+        })
     })
 
 router.route('/courseResource')

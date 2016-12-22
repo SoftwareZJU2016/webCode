@@ -54,24 +54,44 @@ router.route('/login')
                     req.session.username = user.name;
                     req.session.userType = user.type;
                     req.session.courseID = courseID;
+                    //console.log(req.session);
                     if(type == "S"){
 
                         User.GetClass(user.id, "S", courseID, function (classinfo) {
-                            req.session.classid = classinfo.class_id;
-                            User.studentGetTeacher(courseID, classinfo.class_id, function (teacherinfo) {
-                                //没有写异常处理，如果一个学生在没有老师的班就gg
-                                req.session.teacherid = teacherinfo.user_id;
-
-                                console.log(req.session);
+                            if(classinfo){
+                                req.session.classid = classinfo.class_id;
+                                User.studentGetTeacher(courseID, classinfo.class_id, function (teacherinfo) {
+                                    if(teacherinfo){
+                                        req.session.teacherid = teacherinfo.user_id;
+                                        res.json({
+                                            code: 1,
+                                            msg: '登录成功',
+                                            body: {
+                                                name: user.name,
+                                                type: user.type
+                                            }
+                                        });
+                                    }else {
+                                        res.json({
+                                            code: 0,
+                                            msg: '该学生尚未被分配教师',
+                                            body: {
+                                                name: user.name,
+                                                type: user.type
+                                            }
+                                        });
+                                    }
+                                })
+                            }else{
                                 res.json({
-                                    code: 1,
-                                    msg: '登录成功',
+                                    code: 0,
+                                    msg: '该学生尚未被分配班级',
                                     body: {
                                         name: user.name,
                                         type: user.type
                                     }
                                 });
-                            })
+                            }
                         })
                     }else{
                         res.json({

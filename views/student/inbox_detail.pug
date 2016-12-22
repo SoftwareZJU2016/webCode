@@ -1,6 +1,3 @@
--var title = '收件箱';
-- var navIndex = 5;
-
 doctype html
 include components/head
 .container
@@ -9,12 +6,12 @@ include components/head
     .wrapper.col3
         #container
             #content
-                h1 信息标题显示在这里
+                h1 #{message.title}
                 .post-meta.clearfix
-                    span.type 发送范围显示在这里
-                    span.comments 发送指定的班级或学生显示在这里或者为空
+                    span.type #{message.creator_id}
+                    span.comments #{message.post_time.toLocaleString()}
                 p
-                    | 信息内容显示在这里Many of us work in an endless stream of tasks, browser tasks, social media, emails, meetings, rushing from one thing to another, never pausing and never ending. Then the day is over, and we are exhausted, and we often have very little to show for it. And we start the next day, ready for a mindless stream of tasks and distractions.
+                    | #{message.content}
             #column
                 .subnav(style='position: fixed')
                     h2 收件箱
