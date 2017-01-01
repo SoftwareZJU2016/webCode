@@ -1,6 +1,7 @@
 var pool = require('./index');
 
 var Class = {};
+module.exports = Class;
 
 Class.getByID = (classID, callback) => {
     pool.getConnection((err, connection) => {
@@ -18,4 +19,18 @@ Class.getByID = (classID, callback) => {
     });
 }
 
-module.exports = Class;
+Class.addFile = (fileID, classID, callback) => {
+    pool.getConnection((err, connection) => {
+        if (err) console.log(err);
+
+        var query = 'INSERT INTO file_class(file_id, class_id) \
+                     VALUES(?, ?)';
+        connection.query(query, [fileID, classID], (err, results, fields) => {
+            if (err) { 
+                console.log(err);
+            }
+            callback(results.affectedRows == 0 ? false : true);
+            connection.release();
+        });
+    });
+}

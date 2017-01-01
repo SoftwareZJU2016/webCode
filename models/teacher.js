@@ -18,6 +18,28 @@ Teacher.getByID = (teaID, callback) => {
     });
 }
 
+Teacher.update = (teacherID, index, content, callback) => {
+    switch (index) {
+        case '1':
+            Teacher.updateTeacherIntro(teacherID, content, callback);
+            break;
+        case '2':
+            Teacher.updateTeacherStyle(teacherID, content, callback);
+            break;
+        case '3':
+            Teacher.updateTeacherPre(teacherID, content, callback);
+        case '4':
+            Teacher.updateTeacherResearch(teacherID, content, callback);
+            break;
+        case '5':
+            Teacher.updateTeacherBook(teacherID, content, callback);
+            break;
+        case '6':
+            Teacher.updateTeacherHonor(teacherID, content, callback);
+            break;
+    }
+}
+
 /*根据教师id更新 教师模块 总体介绍*/
 Teacher.updateTeacherIntro = function (teacherID, content, callback) {
     pool.getConnection(function (err, connection) {

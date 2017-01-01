@@ -87,6 +87,7 @@ create table class (
         references course(id) on update cascade
 ) CHARACTER SET = utf8;
 insert into class(course_id, year, semester) values ('1', '2016', '秋冬');
+insert into class(course_id, year, semester) values ('2', '2016', '秋冬');
 
 # 用户、课程、班级 多对多关系
 create table user_class (
@@ -121,6 +122,7 @@ create table file (
     upload_time datetime not null,
     name varchar(100) not null,
     filepath varchar(100) not null,
+    size int not null,
     mark varchar(10), # 备用...
     primary key (id),
     foreign key (uploader_id)
@@ -144,7 +146,7 @@ create table file_course (
 create table file_class (
     class_id int,
     file_id int,
-    public enum('0', '1'), # 0 不公开 1 公开 insert操作的时候默认用1吧
+    public enum('0', '1') default '1', # 0 不公开 1 公开 insert操作的时候默认用1吧
     share enum('0', '1'), # 备用...也许多个班级可以共享课件0 0
     foreign key (class_id)
         references class(id) on update cascade,
@@ -246,13 +248,16 @@ create table topic_reply (
 insert into topic_reply(topic_id, creator_id, post_time, content, anonymity) values (1, 'Mie', NOW(), '<p>测试..</p>', '1');
 
 create table link (
+    id int AUTO_INCREMENT,
     course_id int not null,
     content varchar(50) not null,
     url varchar(100) not null,
+    primary key (id),
     foreign key (course_id)
         references course(id) on update cascade on delete cascade
 );
-insert into link values (1, 'CC98软件工程版', 'http://www.cc98.org/list.asp?boardid=74'),
+insert into link(course_id, content, url) 
+                values (1, 'CC98软件工程版', 'http://www.cc98.org/list.asp?boardid=74'),
                         (1, '浙江大学计算机学院中文网', 'http://cspo.zju.edu.cn/'),
                         (1, '浙江大学教务系统', 'http://jwbinfosys.zju.edu.cn/default2.aspx'),
                         (1, '浙江大学缘网', 'http://luckweb.057101.com/bt2/index.asp');

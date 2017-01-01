@@ -158,4 +158,20 @@ Course.updateClassBasicRequest = function (courseID, content, callback) {
     })
 }
 
+Course.addFile = (fileID, courseID, type, callback) => {
+    pool.getConnection((err, connection) => {
+        if (err) console.log(err);
+
+        var query = 'INSERT INTO file_course(file_id, course_id, type) \
+                     VALUES(?, ?, ?)';
+        connection.query(query, [fileID, courseID, type], (err, results, fields) => {
+            if (err) { 
+                console.log(err);
+            }
+            callback(results.affectedRows == 0 ? false : true);
+            connection.release();
+        });
+    });
+}
+
 module.exports = Course;

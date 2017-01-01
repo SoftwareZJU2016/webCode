@@ -3,66 +3,10 @@
 
 doctype html
 include components/head
-    script(type='text/javascript').
-        function $(eleStr){
-            switch(eleStr.substr(0,1)){
-                case "#":
-                    return document.getElementById(eleStr.substr(1));
-                    break;
-                case ".":
-                    return document.getElementsByClassName(eleStr.substr(1));
-                    break;
-                case "_":
-                    return document.getElementsByName(eleStr.substr(1));
-                    break;
-                default:
-                    return document.getElementsByTagName(eleStr);
-                    break;
-            }
-        }
-        onload = function(){
-            doOperator();
-        }
-        function doOperator(){
-            var updatelinks =$(".updatelink");
-            var updatenames =$(".updatename");
-            var dels =$(".del");
-            for (var i = 0; i < dels.length; i++) {
-                dels[i].onclick = function(){
-                    if(confirm("是否确定删除？")){    //提示是否删除
-                        //var row = this.parentNode.parentNode; //取到tr对象
-                        //row.parentNode.removeChild(row);    //移除tr
-                        $("#table").deleteRow(this.parentNode.parentNode.rowIndex);
-                    }
-                }
-                updatenames[i].onclick = function(){
-                    var operatorCell = this.parentNode.parentNode.getElementsByTagName("td")[0]; //取到要操作的td对象
-                    //1.修改按钮上有两个功能：修改，确定修改
-                    if(this.value == "修改名称"){
-                        this.value = "确定";
-                        operatorCell.innerHTML ="<input value='"+operatorCell.innerHTML+"'/>";//把内容变成文本框
-                        //做修改操作
-                    }else{
-                        operatorCell.innerHTML =operatorCell.getElementsByTagName("input")[0].value;//把文本框变成内容
-                        this.value = "修改名称";
-                        //做确定修改
-                    }
-                }
-                updatelinks[i].onclick = function(){
-                    var operatorCell = this.parentNode.parentNode.getElementsByTagName("td")[1]; //取到要操作的td对象
-                    //1.修改按钮上有两个功能：修改，确定修改
-                    if(this.value == "修改网址"){
-                            this.value = "确定";
-                            operatorCell.innerHTML ="<input value='"+operatorCell.innerHTML+"'/>";//把内容变成文本框
-                            //做修改操作
-                    }else{
-                            operatorCell.innerHTML =operatorCell.getElementsByTagName("input")[0].value;//把文本框变成内容
-                            this.value = "修改网址";
-                            //做确定修改
-                    }
-                }
-            }
-        }
+style.
+    a:hover {
+        text-decoration: none!important;
+    }
 .container
     include ../components/topbar
     include components/nav
@@ -77,26 +21,28 @@ include components/head
                             th 链接网址
                             th 操作
                     tbody
-                        tr.light
-                            td 浙江大学图书馆
-                            td http://libweb.zju.edu.cn/libweb/
-                            td
-                                input.del(type='button', value='删除')
-                                input.updatename(type='button', value='修改名称')
-                                input.updatelink(type='button', value='修改网址')
-                            // 后端宝宝们，这里是js实现的删除修改效果，注意还要把数据库里的也删掉或修改
-                        tr.dark
-                            td 浙江大学计算机学院
-                            td http://cspo.zju.edu.cn/
-                            td
-                                input.del(type='button', value='删除')
-                                input.updatename(type='button', value='修改名称')
-                                input.updatelink(type='button', value='修改网址')
-                            // 后端宝宝们，这里是js实现的删除修改效果，注意还要把数据库里的也删掉或修改
-                form(action='others_addlink', method='post')
+                        each item, index in links
+                            tr.link-info(class=(index%2 == 0) ? 'dark' : 'light')
+                                td.linkid(style='display: none;')= item.id
+                                td= item.content
+                                td= item.url
+                                td
+                                    input.del(type='button', value='删除')
+                                    input.updatename(type='button', value='修改名称')
+                                    input.updatelink(type='button', value='修改网址')
+                h1 添加友情链接
+                form
+                    p
+                        label(for='content')
+                            small 链接名称
+                        input(type='text', name='content', size='75%')
+                    p
+                        label(for='url')
+                            small 链接网址
+                        input(type='text', name='url', size='75%')
                     fieldset
                         p
-                            input(type='submit', name='', id='', value='添加友情链接')
+                            input#submit(type='button', value='添加友情链接')
             #column
                 .subnav(style='position: fixed')
                     h2 其他
@@ -106,4 +52,40 @@ include components/head
                         li
                             a(href='others_link') 编辑友情链接
             .clear
+            <script src="/jquery-3.1.1.js"></script> 
+            script.
+                $('#submit').click(function() {
+                    var content = $('[name="content"]').val();
+                    var url = $('[name="url"]').val();
+                    if (content == '' || url == '') {
+                        alert('请填写链接信息！');
+                        return;
+                    } else {
+                        $.post('others_link', {
+                            op: 'add',
+                            content: content,
+                            url: url
+                        }, function(data) {
+                            alert(data.msg)
+                            if (data.code == 1) 
+                                window.location.reload();
+                        })
+                    }
+                });
+
+                $('.link-info').each(function(i, e){
+                    var id = parseInt($(e).find('.linkid').html());
+                    console.log(id)
+                    $(e).find('.del').click(function() {
+                        $.post('others_link', {
+                            op: 'del',
+                            id: id
+                        }, function(data) {
+                            alert(data.msg)
+                            if (data.code == 1) 
+                                window.location.reload();
+                        })
+                    })
+                })
+
     include ../components/footer

@@ -1,10 +1,31 @@
 var express = require('express');
+var multer  = require('multer');
 var Link = require('../models/link');
 var User = require('../models/user');
-var Course = require('../models/course')
+var Course = require('../models/course');
+var Teacher = require('../models/teacher');
+var File = require('../models/file');
+var Class = require('../models/class');
+var Message = require('../models/message');
 
 var router = express.Router();
 var viewDir = 'teacher/';
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/uploads/');
+    },
+    filename: function (req, file, cb) {
+        var array = file.originalname.split('.');
+        var name = array.slice(0, array.length-1);
+        if (array.length == 1)
+            cb(null, file.originalname + '-' + Date.now());
+        else {
+            cb(null, name.join() + '-' + Date.now() + '.' + array[array.length-1]);
+        }    
+    }
+})
+var upload = multer({ storage: storage });
 
 /* 检测登录 */
 router.use((req, res, next) => {
@@ -29,27 +50,6 @@ router.use((req, res, next) => {
     }
 });
 
-router.route('/BBS')
-    .get((req, res, next) => {
-        res.render(viewDir+'BBS', {
-            links: res.locals.links
-        });
-    })
-
-router.route('/BBS_article')
-    .get((req, res, next) => {
-        res.render(viewDir+'BBS_article', {
-            links: res.locals.links
-        });
-    })
-
-router.route('/BBS_post')
-    .get((req, res, next) => {
-        res.render(viewDir+'BBS_post', {
-            links: res.locals.links
-        });
-    })
-
 router.route('/classIntroduction')
     .get((req, res, next) => {
         var courseID = req.session.courseID;
@@ -72,7 +72,6 @@ router.route('/classIntroduction')
         var courseID = req.session.courseID;
         var edit_id = req.body.edit_id;
         var content = req.body.content;
-
         if(edit_id == 1){
             Course.updateClassDescription(courseID, content, function (success) {
                 if(success){
@@ -172,34 +171,59 @@ router.route('/classIntroduction')
         }
     })
 
-
 router.route('/courseResource')
     .get((req, res, next) => {
-        res.render(viewDir+'courseResource', {
-            links: res.locals.links
-        });
+        File.getClassFiles(req.session.classid, classFiles => {
+            File.getCourseFiles(req.session.courseID, courseFiles => {
+                var refmtl = [], goodhomework = [], media = [];
+                courseFiles.forEach((e, i) => {
+                    switch (e.type) {
+                        case '1':
+                            refmtl.push(e); break;
+                        case '2':
+                            goodhomework.push(e); break;
+                        case '3':
+                            media.push(e); break;
+                    }
+                });
+                res.render(viewDir+'courseResource', {
+                    slides: classFiles,
+                    refmtl: refmtl,
+                    goodhomework: goodhomework,
+                    media: media,
+                    links: res.locals.links
+                });
+            })
+        })
     })
 
-router.route('/courseResource_goodhomework')
-    .get((req, res, next) => {
-        res.render(viewDir+'courseResource_goodhomework', {
-            links: res.locals.links
-        });
-    })
-
-router.route('/courseResource_referencematerial')
-    .get((req, res, next) => {
-        res.render(viewDir+'courseResource_referencematerial', {
-            links: res.locals.links
-        });
-    })
-
-router.route('/courseResource_video')
-    .get((req, res, next) => {
-        res.render(viewDir+'courseResource_video', {
-            links: res.locals.links
-        });
-    })
+router.post('/courseResource/upload', upload.single('file'), (req, res, next) => {
+    File.add(req.session.userID, req.file.originalname, req.file.path, req.file.size, fileID => {
+        if (!fileID) {
+            res.json({
+                code: 0,
+                msg: '课程资料更新失败',
+                body: {}
+            })
+        } else if (req.body.type != 0) {
+            Course.addFile(fileID, req.session.courseID, req.body.type, success => {
+                res.json({
+                    code: success ? 1 : 0,
+                    msg: '课程资料更新'+ (success ? '成功' : '失败'),
+                    body: {}
+                })
+            })
+        } else {
+            Class.addFile(fileID, req.session.classid, success => {
+                res.json({
+                    code: success ? 1 : 0,
+                    msg: '班级资料更新'+ (success ? '成功' : '失败'),
+                    body: {}
+                })
+            })
+        }
+    });
+})
 
 router.route('/guide')
     .get((req, res, next) => {
@@ -243,23 +267,56 @@ router.route('/others_addlink')
         });
     })
 
+router.route('/others_link')
+    .get((req, res, next) => {
+        res.render(viewDir+'others_link', {
+            links: res.locals.links
+        });
+    })
+    .post((req, res, next) => {
+        if (req.body.op == 'add') {
+            Link.add(req.session.courseID, req.body.content, req.body.url, success => {
+                res.json({
+                    code: success ? 1 : 0,
+                    msg: '添加链接' + (success ? '成功' : '失败'),
+                    body: {}
+                })
+            })
+        } else if (req.body.op == 'del') {
+            Link.delete(req.body.id, success => {
+                res.json({
+                    code: success ? 1 : 0,
+                    msg: '删除链接' + (success ? '成功' : '失败'),
+                    body: {}
+                })
+            })
+        }
+    })
+
 router.route('/others_info')
     .get((req, res, next) => {
         res.render(viewDir+'others_info', {
             links: res.locals.links
         });
     })
+    .post((req, res, next) => {
+        var courseID = null;
+        var classID = req.body.classID == '' ? null : req.body.classID;
+        var reciever = req.body.reciever == '' ? null : req.body.reciever;
+        if (classID == null && reciever == null)
+            courseID = req.session.courseID;
+        Message.add(courseID, classID, reciever, req.session.userID, req.body.title, req.body.content, success => {
+            res.json({
+                code: success ? 1 : 0,
+                msg: '信息发送' + (success ? '成功' : '失败'),
+                body: {}
+            });
+        })
+    })
 
 router.route('/others_info_succeed')
     .get((req, res, next) => {
         res.render(viewDir+'others_info_succeed', {
-            links: res.locals.links
-        });
-    })
-
-router.route('/link')
-    .get((req, res, next) => {
-        res.render(viewDir+'link', {
             links: res.locals.links
         });
     })
@@ -270,6 +327,27 @@ router.route('/teacherIntroduction')
             links: res.locals.links
         });
     })
+    .post((req, res, next) => {
+        var teacherID = req.session.userID;
+        var edit_id = req.body.edit_id;
+        var content = req.body.content;
+        Teacher.update(teacherID, edit_id, content, function (success) {
+            if(success){
+                res.json({
+                    code: 1,
+                    msg: '教师信息更新成功',
+                    body: {}
+                })
+            } else {
+                res.json({
+                    code: 0,
+                    msg: '教师信息更新失败',
+                    body: {}
+                })
+            }
+        })
+    })
+
 
 
 module.exports = router;

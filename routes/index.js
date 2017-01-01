@@ -93,7 +93,21 @@ router.route('/login')
                                 });
                             }
                         })
-                    }else{
+                    }else if (type == 'T'){
+                        User.GetClass(user.id, "T", courseID, function (classinfo) {
+                            if(classinfo){
+                                req.session.classid = classinfo.class_id;
+                                res.json({
+                                    code: 1,
+                                    msg: '登录成功',
+                                    body: {
+                                        name: user.name,
+                                        type: user.type
+                                    }
+                                });
+                            }
+                        })
+                    } else {
                         res.json({
                             code: 1,
                             msg: '登录成功',

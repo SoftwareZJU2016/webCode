@@ -76,7 +76,7 @@ Link.add = function (courseID, name, url, callback) {
             console.log(err);
             return ;
         }
-        var sql = 'INSERT INTO link VALUES (?, ?, ?)';
+        var sql = 'INSERT INTO link(course_id, content, url) VALUES (?, ?, ?)';
         connection.query(sql, [courseID, name, url], function(err, result, fields){
             if(err){
                 console.log(err);
@@ -93,14 +93,14 @@ Link.add = function (courseID, name, url, callback) {
 }
 
 /*删除一门课的某个友情链接*/
-Link.delete = function (courseID, name, url, callback) {
+Link.delete = function (id, callback) {
     pool.getConnection(function (err, connection) {
         if(err) {
             console.log(err);
             return ;
         }
-        var sql = 'DELETE FROM link WHERE course_id = ? and url = ? and content = ?';
-        connection.query(sql, [courseID, url, name], function(err, result, fields){
+        var sql = 'DELETE FROM link WHERE id = ?';
+        connection.query(sql, [id], function(err, result, fields){
             if(err){
                 console.log(err);
                 return ;

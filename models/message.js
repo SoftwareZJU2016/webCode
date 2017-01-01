@@ -35,4 +35,19 @@ Message.getByID = function (messageID, callback) {
     });
 }
 
+Message.add = (courseID, classID, recieverID, creatorID, title, content, callback) => {
+    pool.getConnection((err, connection) => {
+        if (err) console.log(err);
+        var query = 'INSERT INTO message VALUES (0, ?, ?, ?, ?, ?, ?, NOW())';
+        connection.query(query, [creatorID, recieverID, classID, courseID, title, content], (err, results, fields) => {
+            if (err) {
+                console.log(err);
+                results = null;
+            }
+            connection.release();
+            callback(results.affectedRows == 0 ? false : true);
+        });
+    });
+}
+
 module.exports = Message;

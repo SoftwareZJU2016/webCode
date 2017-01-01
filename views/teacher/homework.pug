@@ -59,23 +59,6 @@ include components/head
                 div(align='right')
                     a(href='homework_assign_addNew')
                         button(onclick='') 新增
-                    script.
-                        function addNew() {
-                            var table=document.getElementById("table");
-                            var newTr=table.insertRow(table.rows.length);
-                            var td1=newTr.insertCell(0);
-                            var td2=newTr.insertCell(1);
-                            var td3=newTr.insertCell(2);
-                            var td4=newTr.insertCell(3);
-                            var td5=newTr.insertCell(4);
-                            var td6=newTr.insertCell(5);
-                            td1.innerHTML="<input style='width: 50px;'>";
-                            td2.innerHTML="<input style='width: 50px;'>";
-                            td3.innerHTML='<input type="file" style="width: 170px;">';
-                            td4.innerHTML='<input type="date">';
-                            td5.innerHTML='<input type="date">';
-                            td6.innerHTML='<a href="">删除</a> <a href="">修改</a>'
-                        }
             #column
                 .subnav(style='position: fixed;')
                     h2 作业模块

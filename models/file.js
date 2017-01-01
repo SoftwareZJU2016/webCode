@@ -1,6 +1,7 @@
 var pool = require('./index');
 
 var File = {};
+module.exports = File;
 
 File.getByID = (fileID, callback) => {
     pool.getConnection((err, connection) => {
@@ -18,4 +19,53 @@ File.getByID = (fileID, callback) => {
     });
 }
 
-module.exports = File;
+File.add = (uploader, name, path, size, callback) => {
+    pool.getConnection((err, connection) => {
+        if (err) console.log(err);
+
+        var query = 'INSERT INTO file(uploader_id, upload_time, name, filepath, size) \
+                     VALUES(?, NOW(), ?, ?, ?)';
+        connection.query(query, [uploader, name, path, size], (err, results, fields) => {
+            if (err) { 
+                console.log(err);
+                results = null;
+            }
+            connection.release();
+            callback(results.insertId);
+        });
+    });
+}
+
+File.getCourseFiles = (courseID, callback) => {
+    pool.getConnection((err, connection) => {
+        if (err) console.log(err);
+
+        var query = 'SELECT * FROM file, file_course WHERE course_id = ? and file.id = file_course.file_id';
+        connection.query(query, [courseID], (err, results, fields) => {
+            if (err) { 
+                console.log(err);
+                results = null;
+            }
+            connection.release();
+            callback(results);
+        });
+    });
+}
+
+File.getClassFiles = (classID, callback) => {
+    pool.getConnection((err, connection) => {
+        if (err) console.log(err);
+
+        var query = 'SELECT * FROM file, file_class WHERE class_id = ? \
+                     and file.id = file_class.file_id';
+        connection.query(query, [classID], (err, results, fields) => {
+            if (err) { 
+                console.log(err);
+                results = null;
+            }
+            connection.release();
+            callback(results);
+        });
+    });
+}
+
