@@ -118,7 +118,6 @@ router.route('/inbox')
         })
     })
 
-//有一点bug，css加载不出来
 router.route('/inbox/:id')
     .get((req, res, next) => {
         var messageID = req.params.id;
