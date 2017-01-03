@@ -34,7 +34,7 @@ Announce.add = (creator_id, title, content, callback) => {
         });
     });
 }
-
+//得到最近的announce
 Announce.getRecentRecord = (creator_id, callback) => {
  pool.getConnection((err, connection) => {
         if (err) console.log(err);
