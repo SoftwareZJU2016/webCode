@@ -35,6 +35,18 @@ router.route('/login')
             password = req.body.password,
             type = req.body.type,
             courseID = req.body.courseID;
+        if (type == 'V') {
+            req.session.userID = userID;
+            req.session.username = '游客';
+            req.session.userType = type;
+            req.session.courseID = courseID;
+            res.json({
+                code: 1,
+                msg: '登录成功',
+                body: {}
+            });
+            return;
+        }
         User.getByIDAndType(userID, type, function(user){
             if (!user) {
                 res.json({
@@ -54,7 +66,6 @@ router.route('/login')
                     req.session.username = user.name;
                     req.session.userType = user.type;
                     req.session.courseID = courseID;
-                    //console.log(req.session);
                     if(type == "S"){
 
                         User.GetClass(user.id, "S", courseID, function (classinfo) {

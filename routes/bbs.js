@@ -23,6 +23,7 @@ router.use((req, res, next) => {
                 //js的函数执行是异步的 
                 //为了保证执行next()时courses信息是已经拿到的，把next()放在获取course函数的回调函数里执行
                 User.getCourse(req.session.userID, req.session.userType, (courses) => {
+                    console.log(courses)
                     res.locals.courses = courses; 
                     next(); //由于没有设置过res（上面那行不算），所以还可以继续操作，用next函数express会去找下一个与请求匹配的路由操作
                     //如果设置过HTTP response的值比如使用res.render(), res.json()
@@ -43,6 +44,7 @@ router.route('/') //对/bbs首页的http请求
         Topic.getAll(courseID, function(_topics){
             res.render(viewDir+'index',  //将http response设置为渲染views/bbs/index.pug得到的HTML
                 { //第二个参数是一个对象，里面是填充到模板里的数据
+                    courses: res.locals.courses,
                     userType: type, 
                     topics: _topics,
                     links: res.locals.links
@@ -64,6 +66,7 @@ router.route('/topic/:id') // 对/bbs/topic/1这种链接的http请求，:id表�
             }
             Topic.getReply(topicID, function(_replys){
                 res.render(viewDir+'topic', {
+                    courses: res.locals.courses,
                     userType: type,
                     topic: _topic,
                     replys: _replys,

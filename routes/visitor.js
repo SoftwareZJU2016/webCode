@@ -1,5 +1,6 @@
 var express = require('express');
 var Link = require('../models/link');
+var User = require('../models/user');
 
 var router = express.Router();
 var viewDir = 'visitor/';

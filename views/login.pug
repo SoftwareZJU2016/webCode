@@ -149,10 +149,9 @@ html
                     }
                     if(value == "V"){
                         $(".account").hide();
-                        $(".classChoose").hide();
                         $(".loginButton").hide();
-                        $(".visitorLogin").hide();
-                        $(".visitorLogin").slideDown(500);}
+                        $(".classChoose").slideDown(500);
+                    }
                     else{
                         $(".visitorLogin").hide();
                         $(".account").hide();
@@ -162,23 +161,25 @@ html
                     }
                 });
                 $("#passwrd").focus(function () {
-                    if(value == "A"){$(".loginButton").slideDown(500);}
-                    else{$(".classChoose").slideDown(500);}
+                    $(".classChoose").slideDown(500);
                 });
                 $(".chooseclass").click(function () {
                     $(".loginButton").slideDown(500);
                 });
             });
             function login() {
-                var _userID = $('#userID').val();
+                var _type = $('input[name="IDType"]:checked').val();
+                var _userID = 'visitor', _password = '';
+                var _courseID = $('input[name="classType"]:checked').val();
+                if (_type == 'S' || _type == 'T' || _type == 'A') {
+                    _userID = $('#userID').val();
                     _password = $('#passwrd').val();
-                    _type = $('input[name="IDType"]:checked').val();
-                    _courseID = $('input[name="classType"]:checked').val();
-                if (!_userID || !_password || !_type || !_courseID) {
-                    alert('请填写登录信息！');
-                    return;
+                    if (!_userID || !_password || !_courseID) {
+                        alert('请填写登录信息！');
+                        return;
+                    }
                 }
-
+                
                 $.post('/login', {
                     userID: _userID,
                     password: _password,
