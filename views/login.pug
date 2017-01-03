@@ -147,7 +147,7 @@ html
                         if (IDType[i].checked == true)
                             value = IDType[i].value;
                     }
-                    if(value == "visitor"){
+                    if(value == "V"){
                         $(".account").hide();
                         $(".classChoose").hide();
                         $(".loginButton").hide();
@@ -162,7 +162,7 @@ html
                     }
                 });
                 $("#passwrd").focus(function () {
-                    if(value == "admin"){$(".loginButton").slideDown(500);}
+                    if(value == "A"){$(".loginButton").slideDown(500);}
                     else{$(".classChoose").slideDown(500);}
                 });
                 $(".chooseclass").click(function () {
