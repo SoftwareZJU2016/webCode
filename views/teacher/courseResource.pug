@@ -26,7 +26,7 @@ div
                                     td #{item.size} bytes
                                     td= item.upload_time.toLocaleString()
                                     td
-                                        a(href='', onclick='del()') 删除
+                                        a(href='', onclick='del('+#{item.id}+')') 删除
                                         a(href='') 隐藏
                                     td
                                         a(href='', onclick='del()') 删除
@@ -52,7 +52,7 @@ div
                                     td #{item.size} bytes
                                     td= item.upload_time.toLocaleString()
                                     td
-                                        a(href='', onclick='del()') 删除
+                                        a(href='', onclick='del('+#{item.id}+')') 删除
                                         a(href='') 隐藏
                                     td
                                         a(href='', onclick='del()') 删除
@@ -78,7 +78,7 @@ div
                                     td #{item.size} bytes
                                     td= item.upload_time
                                     td
-                                        a(href='', onclick='del()') 删除
+                                        a(href='', onclick='del('+#{item.id}+')') 删除
                                         a(href='') 隐藏
                                     td
                                         a(href='', onclick='del()') 删除
@@ -104,7 +104,7 @@ div
                                     td #{item.size} bytes
                                     td= item.upload_time.toLocaleString()
                                     td
-                                        a(href='', onclick='del()') 删除
+                                        a(href='', onclick='del('+#{item.id}+')') 删除
                                         a(href='') 隐藏
                                     td
                                         a(href='', onclick='del()') 删除
@@ -129,6 +129,7 @@ div
             script.
                 $('.item').each(function(i, e) {
                     var upload = $(e).find('.upload');
+                    var delete = 
                     upload.click(function() {
                         var fd = new FormData();    
                         var file = $(e).find('.file')[0].files[0];
