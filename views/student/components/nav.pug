@@ -1,3 +1,33 @@
+style.
+    #topnav li {
+        position: relative;
+    }
+    #teac-list:hover .teac-container {
+        display: inline-block;
+    }
+    .teac-container {
+        position: absolute;
+        display: none;
+        top: 150%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        z-index: 1;
+    }
+    .teac {
+        display: block;
+        position: relative;
+        padding: 15px 0;
+    }
+    #header li.active .teac {
+        color: #fff;
+        border-bottom-color: #2D3134;
+    }
+    #header li .teac:hover {
+        color: #02ACEE;
+        background-color: #2D3134;
+        border-bottom-color: #02ACEE;
+    }
 .wrapper.col1
     #header
         #logo
@@ -9,8 +39,11 @@
                 ul
                     li(class=(navIndex==1) ? 'active': '')
                         a(href='classIntroduction', style='font-size: 20px;') 课程介绍
-                    li(class=(navIndex==2) ? 'active': '')
-                        a(href='teacherIntroduction', style='font-size: 20px;') 教师介绍
+                    li#teac-list(class=(navIndex==2) ? 'active': '')
+                        a(href='#', style='font-size: 20px;') 教师介绍
+                        each item in teachers
+                            .teac-container
+                                a.teac(href='teacherIntroduction/'+item.id)= item.name
                     li(class=(navIndex==3) ? 'active': '')
                         a(href='courseResource', style='font-size: 20px;') 课件资料
                     li(class=(navIndex==4) ? 'active': '')

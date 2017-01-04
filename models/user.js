@@ -71,13 +71,13 @@ User.studentGetTeacher = (courseID, classID, callback) =>{
             console.log(err);
             return;
         }
-        var sql = 'SELECT * FROM user_class WHERE course_id = ? and class_id = ? and user_type = ?';
+        var sql = 'SELECT * FROM user_class, user WHERE course_id = ? and class_id = ? and user_type = ? and user_class.user_id = user.id';
         connection.query(sql, [courseID, classID, "T"], (err, results, fields) => {
             if (err) {
                 console.log(err);
                 return ;
             }
-            callback(results[0]);
+            callback(results);
             connection.release();
         })
 
