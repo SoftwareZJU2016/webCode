@@ -3,13 +3,14 @@ var pool = require('./index');
 var File = {};
 module.exports = File;
 
-File.getByID = (fileID, callback) => {
+File.getByID = function(fileID, callback){
     pool.getConnection((err, connection) => {
         if (err) console.log(err);
 
-        var query = 'SELECT * FROM file WHERE id = ?';
-        connection.query(query, [fileID], (err, results, fields) => {
-            if (err) { 
+        //这个函数有bug，sql语句执行以后进不去函数
+        var sql = 'SELECT * FROM file WHERE id = ?';
+        connection.query(sql, [fileID], function(err, results, fields){
+            if (err) {
                 console.log(err);
                 results[0] = null;
             }

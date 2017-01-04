@@ -17,9 +17,21 @@ include components/head
                             h3.post-title
                                 a(href='visitorFeedback/'+item.id)= item.title
                             .post-meta.clearfix
-                                span 反馈类型显示在这里
+
+                                - var type
+                                - if(item.type == "0")
+                                -   type = "其他"
+                                - if(item.type == "1")
+                                -   type = "网站界面"
+                                - if(item.type == "2")
+                                -   type = "网站内容"
+                                - if(item.type == "3")
+                                -   type = "教学安排"
+
+                                span= type
                                 span= (item.status == 1) ? '已解决' : '未解决'
-                                input#submit(name='submit', type='submit', style='visibility:'+((item.status == 1)? 'hidden;' : 'visible;'), value='设为已解决')
+                                <!--solve函数调用不了，bug，尴尬-->
+                                input(name='submit', type='button', onclick="solve(#{item.id})", style='visibility:'+((item.status == 1)? 'hidden;' : 'visible;'), value='设为已解决')
                         p!= item.content.substr(0, 50)
                             | ...
                             a.readmore-link(href='visitorFeedback/'+item.id) Read more
@@ -38,4 +50,17 @@ include components/head
                         li
                             a(href='visitorFeedback') 反馈列表
             .clear
+    script.
+        function solve(id) {
+            var path = '/admin/visitorFeedback/'+id;
+            alert(path);
+            $.post(path, {
+
+            }, function (data) {
+                if(data.code == 0){
+                    alert("操作失败");
+                }
+            })
+        }
+
     include ../components/footer

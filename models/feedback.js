@@ -57,7 +57,7 @@ Feedback.getAll = (callback) => {
 }
 
 /*插入反馈，若没留联系方式则contact=""，type请传入数字而不是字符串*/
-Feedback.add = function (title, content, contact, type) {
+Feedback.add = function (title, content, contact, type, callback) {
     pool.getConnection(function (err, connection) {
         if (err) console.log(err);
 

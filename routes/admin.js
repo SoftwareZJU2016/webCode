@@ -66,6 +66,23 @@ router.route('/visitorFeedback/:id')
             });
         });
     })
+    .post(function (req, res, next) {
+        var id = req.params.id;
+        Feedback.deal(id, function (success) {
+            if(success){
+                res.json({
+                    code: 1,
+                    body: {}
+                })
+            }else{
+                res.json({
+                    code: 0,
+                    body: {}
+                })
+            }
+
+        })
+    })
 
 router.route('/websiteGuide')
     .get((req, res, next) => {

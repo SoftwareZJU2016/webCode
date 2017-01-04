@@ -15,32 +15,52 @@ include components/head
     .wrapper.col3
         #container
             #content
-                form(action='feedback_succeed', method='post')
+                form(method='post')
                     p
                         label(for='')
                             small 反馈类型
-                        select
-                            option(value='网站界面') 网站界面
-                            option(value='网站内容') 网站内容
-                            option(value='教学安排') 教学安排
-                            option(value='其他') 其他
+                        select#type
+                            option(value='1') 网站界面
+                            option(value='2') 网站内容
+                            option(value='3') 教学安排
+                            option(value='0') 其他
                     p
                         label(for='')
                             small 反馈标题
-                        input(type='text', name='', id='', value='', size='75%')
+                        input#title(type='text', name='', value='', size='75%')
                     p
                         label(for='')
                             small 反馈内容
                         br
                     p
-                        textarea#editor_id(name='content', style='height:300px;')
+                        textarea#editor_id(name='content', style='width:509px;height:200px;')
                     p
                         label(for='n')
                             small 联系方式
-                        input(type='text', name='', id='', value='', size='75%')
+                        input#contact(type='text', name='', value='', size='75%')
                     p
-                        input#submit(name='submit', type='submit', value='提交反馈')
-                        input#submit(name='submit', type='submit', value='取消')
+                        input#submit(type='button', value='提交反馈')
+                        input#cancel(type='button', value='取消' onclick='flush()')
             #column
             .clear
+    script.
+        $('#submit').click(function () {
+            var type = $('#type').val();
+            var title = $('#title').val();
+            var content = $('#editor_id').val();
+            var contact = $('#contact').val();
+
+            $.post('/visitor/feedback', {
+                type: type,
+                title: title,
+                content: content,
+                contact: contact
+            }, function (data) {
+                alert(data.msg);
+            })
+        })
+
+        function flush() {
+            window.location.href = "/visitor/feedback";
+        }
     include ../components/footer

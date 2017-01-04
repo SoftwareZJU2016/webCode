@@ -1,6 +1,7 @@
 var express = require('express');
 var Link = require('../models/link');
 var User = require('../models/user');
+var Feedback = require('../models/feedback');
 
 var router = express.Router();
 var viewDir = 'visitor/';
@@ -60,13 +61,30 @@ router.route('/feedback')
             links: res.locals.links
         });
     })
+    .post(function (req, res, next) {
+        var title = req.body.title,
+            content = req.body.content,
+            contact = req.body.contact,
+            type = req.body.type;
+        
+        Feedback.add(title, content, contact, type, function (success) {
+            if(success){
+                res.json({
+                    code: 1,
+                    msg: '插入成功',
+                    body: {}
+                })
+            }else{
+                res.json({
+                    code: 0,
+                    msg: '插入反馈失败',
+                    body: {}
+                })
+            }
+        })
 
-router.route('/feedback_succeed')
-    .get((req, res, next) => {
-        res.render(viewDir+'feedback_succeed', {
-            links: res.locals.links
-        });
     })
+
 
 router.route('/guide')
     .get((req, res, next) => {

@@ -86,8 +86,8 @@ create table class (
     foreign key (course_id)
         references course(id) on update cascade
 ) CHARACTER SET = utf8;
-insert into class(course_id, year, semester) values ('1', '2016', '秋冬');
-insert into class(course_id, year, semester) values ('2', '2016', '秋冬');
+insert into class(course_id, year, semester) values ('1', '2015', '秋冬');
+insert into class(course_id, year, semester) values ('1', '2016', '秋');
 
 # 用户、课程、班级 多对多关系
 create table user_class (
@@ -128,6 +128,7 @@ create table file (
     foreign key (uploader_id)
         references user(id) on update cascade
 ) CHARACTER SET = utf8;
+insert into file values(2, 'crt', NOW(), 'first_ppt.pdf', '/public/test.pdf', 98, 'marked');
 
 # 以往优秀成果/参考资料/视音频资料/宣传版课件，（教学课件不和course绑定,和class绑定）
 create table file_course (
@@ -153,6 +154,7 @@ create table file_class (
     foreign key (file_id)
         references file(id) on update cascade on delete cascade
 ) CHARACTER SET = utf8;
+insert into file_class(class_id, file_id) values(2, 2);
 
 create table homework (
     id int AUTO_INCREMENT,
