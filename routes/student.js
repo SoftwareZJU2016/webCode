@@ -22,7 +22,10 @@ router.use((req, res, next) => {
                 res.locals.links = links;
                 User.getCourse(req.session.userID, req.session.userType, (courses) => {
                     res.locals.courses = courses;
-                    next();
+                    User.studentGetTeacher(req.session.courseID, req.session.classid, function(teachers) {
+                        res.locals.teachers = teachers;
+                        next();
+                    })
                 });
             }); 
         } else {
@@ -37,6 +40,7 @@ router.route('/classIntroduction')
             res.render(viewDir+'classIntroduction', {
                 links: res.locals.links,
                 courses: res.locals.courses,
+                teachers: res.locals.teachers,
                 description: course_info.description,
                 plan: course_info.plan,
                 background: course_info.background,
@@ -50,12 +54,13 @@ router.route('/classIntroduction')
     })
 
 //error
-router.route('/teacherIntroduction')
+router.route('/teacherIntroduction/:id')
     .get((req, res, next) => {
-        Teacher.getByID(req.session.teacherid, function (teacher_info) {
+        Teacher.getByID(req.params.id, function (teacher_info) {
             res.render(viewDir+'teacherIntroduction', {
                 links: res.locals.links,
                 courses: res.locals.courses,
+                teachers: res.locals.teachers,
                 intro: teacher_info.intro,
                 style: teacher_info.style,
                 previous: teacher_info.previous_teaching,
@@ -70,7 +75,8 @@ router.route('/courseResource_goodhomework')
     .get((req, res, next) => {
         res.render(viewDir+'courseResource_goodhomework', {
             links: res.locals.links,
-            courses: res.locals.courses
+            courses: res.locals.courses,
+            teachers: res.locals.teachers,
         });
     })
 
@@ -78,7 +84,8 @@ router.route('/courseResource_referencematerial')
     .get((req, res, next) => {
         res.render(viewDir+'courseResource_referencematerial', {
             links: res.locals.links,
-            courses: res.locals.courses
+            courses: res.locals.courses,
+            teachers: res.locals.teachers,
         });
     })
 
@@ -86,7 +93,8 @@ router.route('/courseResource_video')
     .get((req, res, next) => {
         res.render(viewDir+'courseResource_video', {
             links: res.locals.links,
-            courses: res.locals.courses
+            courses: res.locals.courses,
+            teachers: res.locals.teachers,
         });
     })
 
@@ -94,7 +102,8 @@ router.route('/guide')
     .get((req, res, next) => {
         res.render(viewDir+'guide', {
             links: res.locals.links,
-            courses: res.locals.courses
+            courses: res.locals.courses,
+            teachers: res.locals.teachers,
         });
     })
 
@@ -102,7 +111,8 @@ router.route('/homework')
     .get((req, res, next) => {
         res.render(viewDir+'homework', {
             links: res.locals.links,
-            courses: res.locals.courses
+            courses: res.locals.courses,
+            teachers: res.locals.teachers,
         });
     })
 
@@ -113,6 +123,7 @@ router.route('/inbox')
             res.render(viewDir+'inbox', {
                 links: res.locals.links,
                 courses: res.locals.courses,
+                teachers: res.locals.teachers,
                 messages: message,
             });
         })
@@ -126,6 +137,7 @@ router.route('/inbox/:id')
             res.render(viewDir+'inbox_detail', {
                 links: res.locals.links,
                 courses: res.locals.courses,
+                teachers: res.locals.teachers,
                 message: message
             });
         })
@@ -135,7 +147,8 @@ router.route('/courseResource')
     .get((req, res, next) => {
         res.render(viewDir+'courseResource', {
             links: res.locals.links,
-            courses: res.locals.courses
+            courses: res.locals.courses,
+            teachers: res.locals.teachers,
         });
     })
 
