@@ -19,7 +19,12 @@ include components/head
                             th 文件格式
                             th 操作
                     tbody
-                        tr.light
+                        - var i = 0
+                        each item in messages
+                            - if (i % 2 == 0)
+                                tr.light
+                            - else
+                                tr.dark
                             td 第一周
                             td 用例图
                             td 1.pdf
@@ -27,30 +32,7 @@ include components/head
                             td
                                 a(href='', onclick='del()') 预览
                                 a(href='') 下载
-                        tr.dark
-                            td 第二周
-                            td 类图
-                            td 2.pdf
-                            td 2016.9.27
-                            td
-                                a(href='') 预览
-                                a(href='') 下载
-                        tr.light
-                            td 第三周
-                            td 顺序图
-                            td 3.pdf
-                            td 2016.10.3
-                            td
-                                a(href='') 预览
-                                a(href='') 下载
-                        tr.dark
-                            td 第四周
-                            td 协作图
-                            td 4.pdf
-                            td 2016.10.10
-                            td
-                                a(href='') 预览
-                                a(href='') 下载
+                            - i++
             #column
                 .subnav(style='position: fixed;')
                     h2 课件资料

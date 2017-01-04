@@ -4,6 +4,7 @@ var User = require('../models/user');
 var Course = require('../models/course')
 var Teacher = require('../models/teacher')
 var Message = require('../models/message')
+var File = require('../models/file')
 
 var router = express.Router();
 var viewDir = 'student/';
@@ -133,10 +134,35 @@ router.route('/inbox/:id')
 
 router.route('/courseResource')
     .get((req, res, next) => {
-        res.render(viewDir+'courseResource', {
-            links: res.locals.links,
-            courses: res.locals.courses
-        });
+        File.getClassFiles(req.session.classid, function (resources) {
+            res.render(viewDir+'courseResource', {
+                links: res.locals.links,
+                courses: res.locals.courses,
+                resources: resources
+            });
+        })
     })
+
+//文件预览
+router.route('/view/:id')
+    .get(function (req, res, next) {
+
+        //var fileID = req.params.id;
+    })
+
+//文件下载
+router.route('/download/:id')
+    .get(function (req, res, next) {
+        var fileID = req.params.id;
+        File.getByID(fileID, function (file) {
+            res.download(file.pathname, file.name, function (err) {
+                if(err){
+                    //未处理
+                }
+            })
+        })
+    })
+
+
 
 module.exports = router;
