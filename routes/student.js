@@ -8,6 +8,7 @@ var File = require('../models/file')
 
 var router = express.Router();
 var viewDir = 'student/';
+var abosoluteDir = "/Users/crcrcry/Documents/Git/Software-zju/webCode/";
 
 /* check login */
 router.use((req, res, next) => {
@@ -159,23 +160,28 @@ router.route('/courseResource')
 //文件预览
 router.route('/view/:id')
     .get(function (req, res, next) {
+        var fileID = req.params.id;
 
-        //var fileID = req.params.id;
+        //例子：res.redirect("/test.pdf"); 注意：可以预览public/test.pdf，注意redirect中/不可省，也不是\
+        File.getByID(fileID, function (file) {
+            var filepath = file.pathname.substr(6);
+            res.redirect(filepath);
+        })
     })
 
 //文件下载
 router.route('/download/:id')
     .get(function (req, res, next) {
         var fileID = req.params.id;
+        //例子：res.download(abosoluteDir+"/public/test.pdf", "mytest.pdf", function (err){});
         File.getByID(fileID, function (file) {
-            res.download(file.pathname, file.name, function (err) {
+            res.download(abosoluteDir+file.pathname, file.name, function (err) {
                 if(err){
                     //未处理
                 }
             })
         })
     })
-
 
 
 module.exports = router;
