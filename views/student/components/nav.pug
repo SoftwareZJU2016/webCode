@@ -38,18 +38,18 @@ style.
             nav
                 ul
                     li(class=(navIndex==1) ? 'active': '')
-                        a(href='classIntroduction', style='font-size: 20px;') 课程介绍
+                        a(href='/student/classIntroduction', style='font-size: 20px;') 课程介绍
                     li#teac-list(class=(navIndex==2) ? 'active': '')
                         a(href='#', style='font-size: 20px;') 教师介绍
                         each item in teachers
                             .teac-container
-                                a.teac(href='teacherIntroduction/'+item.id)= item.name
+                                a.teac(style='font-size:15px' href='/student/teacherIntroduction/'+item.id)= item.name
                     li(class=(navIndex==3) ? 'active': '')
-                        a(href='courseResource', style='font-size: 20px;') 课件资料
+                        a(href='/student/courseResource', style='font-size: 20px;') 课件资料
                     li(class=(navIndex==4) ? 'active': '')
-                        a(href='homework', style='font-size: 20px;') 作业模块
+                        a(href='/student/homework', style='font-size: 20px;') 作业模块
                     li
                         a(href='/bbs', style='font-size: 20px;') 论坛
                     li(class=(navIndex==5) ? 'lasActive': 'last')
-                        a(href='inbox', style='font-size: 20px;') 收件
+                        a(href='/student/inbox', style='font-size: 20px;') 收件
         br.clear
