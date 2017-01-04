@@ -7,6 +7,7 @@ var Teacher = require('../models/teacher');
 var File = require('../models/file');
 var Class = require('../models/class');
 var Message = require('../models/message');
+var Homework = require('../models/homework');
 
 var router = express.Router();
 var viewDir = 'teacher/';
@@ -41,7 +42,10 @@ router.use((req, res, next) => {
                 res.locals.links = links;
                 User.getCourse(req.session.userID, req.session.userType, (courses) => {
                     res.locals.courses = courses;
-                    next();
+                    Class.getTeaClass(req.session.userID, req.session.courseID, classes => {
+                        res.locals.classes = classes;
+                        next();
+                    })
                 });
             }); 
         } else {
@@ -56,6 +60,7 @@ router.route('/classIntroduction')
         Course.get(courseID, function (course_info) {
             res.render(viewDir+'classIntroduction', {
                 links: res.locals.links,
+                classes: res.locals.classes,
                 courses: res.locals.courses,
                 description: course_info.description,
                 plan: course_info.plan,
@@ -187,6 +192,7 @@ router.route('/courseResource')
                     }
                 });
                 res.render(viewDir+'courseResource', {
+                    classes: res.locals.classes,
                     slides: classFiles,
                     refmtl: refmtl,
                     goodhomework: goodhomework,
@@ -225,6 +231,16 @@ router.post('/courseResource/upload', upload.single('file'), (req, res, next) =>
     });
 })
 
+router.post('/courseResource/delete', (req, res, next) => {
+    File.delete(req.body.fileID, (success) => {
+        res.json({
+            code: success ? 1 : 0,
+            msg: '文件删除' + (success ? '成功' : '失败'),
+            body: {}
+        })
+    })
+})
+
 router.route('/guide')
     .get((req, res, next) => {
         res.render(viewDir+'guide', {
@@ -232,30 +248,77 @@ router.route('/guide')
         });
     })
 
-router.route('/homework')
+router.route('/homework/:classID/list')
     .get((req, res, next) => {
-        res.render(viewDir+'homework', {
-            links: res.locals.links
-        });
+        var section = (res.locals.classes.find(e => {
+            return e.id == req.params.classID;
+        })).section;
+        Homework.getClassHomework(req.params.classID, homeworks => {
+            res.render(viewDir+'homework', {
+                classID: req.params.classID,
+                section: section,
+                classes: res.locals.classes,
+                homeworks: homeworks,
+                links: res.locals.links
+            });
+        })
+    })
+    .post(upload.single('file'), (req, res, next) => {
+        File.add(req.session.userID, req.file.originalname, req.file.path, req.file.size, fileID => {        
+            Homework.add(req.params.classID, req.session.userID, req.body.dueTime, req.body.title, req.body.content, fileID, success => {
+                res.json({
+                    code: success ? 1 : 0,
+                    msg: '作业发布' + (success ? '成功' : '失败'),
+                    body: {}
+                })
+            });
+        })
     })
 
-router.route('/homework_assign_addNew')
+router.route('/homework/:classID/correct')
     .get((req, res, next) => {
-        res.render(viewDir+'homework_assign_addNew', {
-            links: res.locals.links
-        });
+        var section = (res.locals.classes.find(e => {
+            return e.id == req.params.classID;
+        })).section;
+        Homework.getClassHomework(req.params.classID, homeworks => {
+            Homework.getClassAllSubmit(req.params.classID, submits => {
+                homeworks.forEach(e => {
+                    e.submitNum = 0;
+                    submits.forEach(_e => {
+                        if (_e.id == e.id)
+                            e.submitNum++;
+                    });
+                });
+                res.render(viewDir+'homework_correct', {
+                    section: section,
+                    homeworks: homeworks,
+                    classes: res.locals.classes,
+                    links: res.locals.links
+                });
+            })
+        })
+        
     })
 
-router.route('/homework_correct')
+router.route('/homework/:classID/correct/:hwID')
     .get((req, res, next) => {
-        res.render(viewDir+'homework_correct', {
-            links: res.locals.links
-        });
+        var section = (res.locals.classes.find(e => {
+            return e.id == req.params.classID;
+        })).section;
+        Homework.getClassSubmitHomework(req.params.classID, req.params.hwID, homeworks => {
+            res.render(viewDir+'homework_submit', {
+                section: section,
+                homeworks: homeworks,
+                classes: res.locals.classes,
+                links: res.locals.links
+            });
+        })
     })
 
-router.route('/homework_duplicate')
+router.route('/homework/:classID/duplicate')
     .get((req, res, next) => {
         res.render(viewDir+'homework_duplicate', {
+            classes: res.locals.classes,
             links: res.locals.links
         });
     })
@@ -270,7 +333,8 @@ router.route('/others_addlink')
 router.route('/others_link')
     .get((req, res, next) => {
         res.render(viewDir+'others_link', {
-            links: res.locals.links
+            classes: res.locals.classes,
+            links: res.locals.links,
         });
     })
     .post((req, res, next) => {
@@ -296,6 +360,7 @@ router.route('/others_link')
 router.route('/others_info')
     .get((req, res, next) => {
         res.render(viewDir+'others_info', {
+            classes: res.locals.classes,
             links: res.locals.links
         });
     })
@@ -323,9 +388,19 @@ router.route('/others_info_succeed')
 
 router.route('/teacherIntroduction')
     .get((req, res, next) => {
-        res.render(viewDir+'teacherIntroduction', {
-            links: res.locals.links
-        });
+        Teacher.getByID(req.session.userID, teacher => {
+            res.render(viewDir+'teacherIntroduction', {
+                name: req.session.username,
+                intro: teacher.intro,
+                style: teacher.style,
+                previous: teacher.previous_teaching,
+                research: teacher.research,
+                book: teacher.book,
+                honor: teacher.honor,
+                classes: res.locals.classes,
+                links: res.locals.links
+            });
+        })
     })
     .post((req, res, next) => {
         var teacherID = req.session.userID;
@@ -347,7 +422,5 @@ router.route('/teacherIntroduction')
             }
         })
     })
-
-
 
 module.exports = router;
