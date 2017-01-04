@@ -69,3 +69,19 @@ File.getClassFiles = (classID, callback) => {
     });
 }
 
+File.delete = (fileID, callback) => {
+    pool.getConnection((err, connection) => {
+        if (err) console.log(err);
+
+        var query = 'DELETE FROM file WHERE id = ?';
+        connection.query(query, [fileID], (err, results, fields) => {
+            if (err) { 
+                console.log(err);
+                results = null;
+            }
+            connection.release();
+            callback(results.affectedRows == 1 ? true : false);
+        });
+    });
+} 
+
