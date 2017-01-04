@@ -1,3 +1,33 @@
+style.
+    #topnav li {
+        position: relative;
+    }
+    #class-list:hover .class-container {
+        display: inline-block;
+    }
+    .class-container {
+        position: absolute;
+        display: none;
+        top: 150%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        z-index: 1;
+    }
+    .class {
+        display: block;
+        position: relative;
+        padding: 15px 0;
+    }
+    #header li.active .class {
+        color: #fff;
+        border-bottom-color: #2D3134;
+    }
+    #header li .class:hover {
+        color: #02ACEE;
+        background-color: #2D3134;
+        border-bottom-color: #02ACEE;
+    }
 .wrapper.col1
     #header
         #logo
@@ -8,15 +38,18 @@
             nav
                 ul
                     li(class=(navIndex==1) ? 'active' : '')
-                        a(href='classIntroduction', style='font-size: 20px;') 课程介绍
+                        a(href='/teacher/classIntroduction', style='font-size: 20px;') 课程介绍
                     li(class=(navIndex==2) ? 'active' : '')
-                        a(href='teacherIntroduction', style='font-size: 20px;') 教师介绍
+                        a(href='/teacher/teacherIntroduction', style='font-size: 20px;') 教师介绍
                     li(class=(navIndex==3) ? 'active' : '')
-                        a(href='courseResource', style='font-size: 20px;') 课件资料
-                    li(class=(navIndex==4) ? 'active' : '')
-                        a(href='homework', style='font-size: 20px;') 作业模块
+                        a(href='/teacher/courseResource', style='font-size: 20px;') 课件资料
+                    li#class-list(class=(navIndex==4) ? 'active': '')
+                        a(href='#', style='font-size: 20px;') 作业模块
+                        each item in classes
+                            .class-container
+                                a.class(style='font-size:15px' href='/teacher/homework/'+item.id + '/list')= item.section
                     li
                         a(href='/bbs', style='font-size: 20px;') 论坛
                     li(class=(navIndex==6) ? 'lastActive' : 'last')
-                        a(href='others_info', style='font-size: 20px;') 其他
+                        a(href='/teacher/others_info', style='font-size: 20px;') 其他
         br.clear

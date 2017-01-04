@@ -5,69 +5,92 @@ doctype html
 include components/head
 .container
     include ../components/topbar
-    include components/nav    
+    include components/nav
     .wrapper.col3
         #container
             #content(style='height: 350px;')
-                h1 作业布置
+                h1  #{section}班级作业
                 table#table(summary='Summary Here', cellpadding='0', cellspacing='0')
                     thead
                         tr
-                            th 作业时间
+                            th 作业编号
                             th 作业名称
-                            th 文件名称
-                            th 上传时间
-                            th 作业上传截止日期
+                            th 作业说明
+                            th 附件
+                            th 发布时间
+                            th 截止日期
                             th 操作
                     tbody
+                        each homework, index in homeworks
+                            tr(class=(index%2 == 0) ? 'dark':'light' )
+                                td= index+1
+                                td= homework.title
+                                td= homework.content
+                                td= homework.name
+                                td= homework.post_time.toLocaleString()
+                                td= homework.due_time.toLocaleString()
+                                td
+                                    button(onclick='del(' + homework.id + ')') 删除
+                h1 发布新作业
+                table(summary='Summary Here', cellpadding='0', cellspacing='0')
+                    thead
+                        tr
+                            th 作业名称
+                            th 作业描述
+                            th 作业附件
+                            th 作业上传截止日期
+                    tbody
                         tr.light
-                            td 第一周
-                            td 用例图
-                            td 1.pdf
-                            td 2016.9.20
-                            td 2016.10.20
                             td
-                                a(href='', onclick='del()') 删除
-                                a(href='') 修改
-                        tr.dark
-                            td 第二周
-                            td 类图
-                            td 2.pdf
-                            td 2016.9.27
-                            td 2016.10.20
+                                input(style='width: 50px;' name='title')
                             td
-                                a(href='') 删除
-                                a(href='') 修改
-                        tr.light
-                            td 第三周
-                            td 顺序图
-                            td 3.pdf
-                            td 2016.10.3
-                            td 2016.10.20
+                                input(style='width: 50px;' name='content')
                             td
-                                a(href='') 删除
-                                a(href='') 修改
-                        tr.dark
-                            td 第四周
-                            td 协作图
-                            td 4.pdf
-                            td 2016.10.10
-                            td 2016.10.20
+                                input(type='file', style='width: 170px;', name='file')
                             td
-                                a(href='') 删除
-                                a(href='') 修改
+                                input(type='date' name='dueTime')
                 div(align='right')
-                    a(href='homework_assign_addNew')
-                        button(onclick='') 新增
+                    button#submit 发布作业
             #column
                 .subnav(style='position: fixed;')
                     h2 作业模块
                     ul
                         li
-                            a(href='homework') 作业布置
+                            a(href='list') 作业列表
                         li
-                            a(href='homework_correct') 作业批改
+                            a(href='correct') 作业批改
                         li
-                            a(href='homework_duplicate') 作业查重
+                            a(href='duplicate') 作业查重
             .clear
+            <script src="/jquery-3.1.1.js"></script> 
+            script.
+                $('#submit').click(function() {
+                    var fd = new FormData();    
+                    var file = $('[name="file"]')[0].files[0];
+                    var title = $('[name="title"]').val();
+                    var content = $('[name="content"]').val();
+                    var dueTime = $('[name="dueTime"]').val();
+                    if (!file || !title || !dueTime) {
+                        alert('请填写作业完整信息！');
+                        return;
+                    }
+                    fd.append('file', file);
+                    fd.append('title', title);
+                    fd.append('content', content);
+                    fd.append('dueTime', dueTime);
+                    $.ajax({
+                        url: '',
+                        data: fd,
+                        processData: false,
+                        contentType: false,
+                        type: 'POST',
+                        success: function(data){
+                            alert(data.msg);
+                            if (data.code == 1)
+                                window.location.reload();
+                        }
+                    });
+                });
+
+                function del()
     include ../components/footer

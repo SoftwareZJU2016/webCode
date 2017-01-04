@@ -39,10 +39,32 @@ include components/head
                     h2 作业模块
                     ul
                         li
-                            a(href='homework') 作业布置
+                            a(href='list') 作业列表
                         li
-                            a(href='homework_correct') 作业批改
+                            a(href='correct') 作业批改
                         li
-                            a(href='homework_duplicate') 作业查重
+                            a(href='duplicate') 作业查重
             .clear
+            script.
+                upload.click(function() {
+                    var fd = new FormData();    
+                    var file = $('.file')[0].files[0];
+                    if (!file) {
+                        alert('请选择文件');
+                        return;
+                    }
+                    fd.append('file', file);
+                    $.ajax({
+                        url: '/teacher/courseResource/upload',
+                        data: fd,
+                        processData: false,
+                        contentType: false,
+                        type: 'POST',
+                        success: function(data){
+                            alert(data.msg);
+                            if (data.code == 1)
+                                window.location.reload();
+                        }
+                    });
+                })
     include ../components/footer

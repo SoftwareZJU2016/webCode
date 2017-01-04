@@ -3,6 +3,7 @@ var express = require('express');
 var User = require('../models/user');
 var Topic = require('../models/topic');
 var Link = require('../models/link');
+var Class = require('../models/class');
 
 var router = express.Router();
 
@@ -27,6 +28,11 @@ router.use((req, res, next) => {
                     if (req.session.userType == 'S') {
                         User.studentGetTeacher(req.session.courseID, req.session.classid, function(teachers) {
                             res.locals.teachers = teachers;
+                            next();
+                        })
+                    } else if (req.session.userType == 'T') {
+                        Class.getTeaClass(req.session.userID, req.session.courseID, classes => {
+                            res.locals.classes = classes;
                             next();
                         })
                     } else {

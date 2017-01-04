@@ -34,3 +34,20 @@ Class.addFile = (fileID, classID, callback) => {
         });
     });
 }
+
+Class.getTeaClass = (teaID, courseID, callback) => {
+    pool.getConnection((err, connection) => {
+        if (err) console.log(err);
+
+        var query = 'SELECT * FROM user_class, class WHERE user_class.user_id = ? AND\
+                     user_class.course_id = ? AND class.id = user_class.class_id';
+        connection.query(query, [teaID, courseID], (err, results, fields) => {
+            if (err) { 
+                console.log(err);
+                results = [];
+            }
+            callback(results);
+            connection.release();
+        });
+    });
+}

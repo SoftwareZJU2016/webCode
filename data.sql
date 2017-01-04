@@ -81,13 +81,15 @@ create table class (
     course_id int,
     year int not null,
     semester varchar(10) not null,
+    section varchar(20) not null,
     no int, # 给班级编个号？
+    end enum('0', '1') default '0',
     primary key (id, course_id),
     foreign key (course_id)
         references course(id) on update cascade
 ) CHARACTER SET = utf8;
-insert into class(course_id, year, semester) values ('1', '2016', '秋冬');
-insert into class(course_id, year, semester) values ('2', '2016', '秋冬');
+insert into class(course_id, year, semester, section) values ('1', '2016', '秋冬', '周一第6、7、8节');
+insert into class(course_id, year, semester, section) values ('2', '2016', '秋冬', '周五第3、4、5节');
 
 # 用户、课程、班级 多对多关系
 create table user_class (
@@ -163,11 +165,14 @@ create table homework (
     due_time datetime not null,
     title varchar(30) not null,
     content text, # 选择题怎么建表？
+    file_id int,
     primary key (id),
     foreign key (creator_id)
         references user(id) on update cascade,
     foreign key (class_id)
-        references class(id) on update cascade
+        references class(id) on update cascade,
+    foreign key (file_id)
+        references file(id)
 ) CHARACTER SET = utf8;
 
 # 发布作业时添加的附件，与homework是多对一关系可以不建表，比如在file中增加hw_id属性

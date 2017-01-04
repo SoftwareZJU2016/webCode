@@ -2,10 +2,10 @@ style.
     #topnav li {
         position: relative;
     }
-    #teac-list:hover .teac-container {
+    #submenu-list:hover .submenu-container {
         display: inline-block;
     }
-    .teac-container {
+    .submenu-container {
         position: absolute;
         display: none;
         top: 150%;
@@ -14,16 +14,16 @@ style.
         text-align: center;
         z-index: 1;
     }
-    .teac {
+    .submenu {
         display: block;
         position: relative;
         padding: 15px 0;
     }
-    #header li.active .teac {
+    #header li.active .submenu {
         color: #fff;
         border-bottom-color: #2D3134;
     }
-    #header li .teac:hover {
+    #header li .submenu:hover {
         color: #02ACEE;
         background-color: #2D3134;
         border-bottom-color: #02ACEE;
@@ -48,11 +48,11 @@ style.
                     else if userType == 'S'
                         li
                             a(href='/student/classIntroduction', style='font-size: 20px;') 课程介绍
-                        li#teac-list(class=(navIndex==2) ? 'active': '')
+                        li#submenu-list(class=(navIndex==2) ? 'active': '')
                             a(href='#', style='font-size: 20px;') 教师介绍
                             each item in teachers
-                                .teac-container
-                                    a.teac(href='/student/teacherIntroduction/'+item.id)= item.name
+                                .submenu-container
+                                    a.submenu(href='/student/teacherIntroduction/'+item.id)= item.name
                         li
                             a(href='/student/courseResource', style='font-size: 20px;') 课件资料
                         li
@@ -69,10 +69,13 @@ style.
                             a(href='/teacher/teacherIntroduction', style='font-size: 20px;') 教师介绍
                         li
                             a(href='/teacher/courseResource', style='font-size: 20px;') 课件资料
-                        li
-                            a(href='/teacher/homework', style='font-size: 20px;') 作业模块
+                        li#submenu-list(class=(navIndex==2) ? 'active': '')
+                            a(href='#', style='font-size: 20px;') 作业模块
+                            each item in classes
+                                .submenu-container
+                                    a.submenu(href='/teacher/homework/'+item.id+'/list')= item.section
                         li.active
                             a(href='/bbs', style='font-size: 20px;') 论坛
                         li.last
-                            a(href='/teacher/inbox', style='font-size: 20px;') 收件
+                            a(href='/teacher/other_link', style='font-size: 20px;') 其他
         br.clear
