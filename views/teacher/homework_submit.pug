@@ -20,10 +20,10 @@ include components/head
                             th 操作
                     tbody
                         each item, index in homeworks
-                            tr(class= (index%2==0) ? 'dark' : 'light')
+                            tr.sub-item(class= (index%2==0) ? 'dark' : 'light')
                                 td= index+1
                                 td= item.name
-                                td= item.stu_id
+                                td.stu= item.stu_id
                                 td= item.submit_time.toLocaleString()
                                 td
                                     button.download 下载
@@ -42,4 +42,29 @@ include components/head
                             a(href='../duplicate') 作业查重
             .clear
             <script src="/jquery-3.1.1.js"></script>
+            script.
+                $('.sub-item').each(function(e) {
+                    var correct = $(e).find('.correct');
+                    var stuID = $(e).find('.stu').html();
+                    correct.click(function() {
+                        var scoreTmp = window.promot("请输入分数");
+                        var comment = window.promot("请输入评价");
+                        var score = parseInt(scoreTmp);
+                        if (isNaN(score)|| score > 100 || score < 0) {
+                            alert('请输入正确的分数！');
+                            return;
+                        } else {
+                            $.post('', {
+                                score: score,
+                                comment: comment,
+                                stuID: stuID
+                            }, function(data) {
+                                alert(data.msg);
+                                if (data.msg == 1) {
+                                    window.location.reload();
+                                }
+                            })
+                        }
+                    })
+                })
     include ../components/footer

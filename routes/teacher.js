@@ -314,6 +314,13 @@ router.route('/homework/:classID/correct/:hwID')
             });
         })
     })
+    .post((req, res, next) => {
+        res.json({
+            code: 0,
+            msg: '复习去了不写了= =',
+            body: {}
+        })
+    })
 
 router.route('/homework/:classID/duplicate')
     .get((req, res, next) => {
