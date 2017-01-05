@@ -1,14 +1,32 @@
 var express = require('express');
+var multer  = require('multer');
 var Link = require('../models/link');
 var User = require('../models/user');
 var Course = require('../models/course')
 var Teacher = require('../models/teacher')
 var Message = require('../models/message')
 var File = require('../models/file')
+var Homework = require('../models/homework')
 
 var router = express.Router();
 var viewDir = 'student/';
 var abosoluteDir = "/Users/crcrcry/Documents/Git/Software-zju/webCode/";
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/uploads/');
+    },
+    filename: function (req, file, cb) {
+        var array = file.originalname.split('.');
+        var name = array.slice(0, array.length-1);
+        if (array.length == 1)
+            cb(null, file.originalname + '-' + Date.now());
+        else {
+            cb(null, name.join() + '-' + Date.now() + '.' + array[array.length-1]);
+        }    
+    }
+})
+var upload = multer({ storage: storage });
 
 /* check login */
 router.use((req, res, next) => {
@@ -63,6 +81,7 @@ router.route('/teacherIntroduction/:id')
                 links: res.locals.links,
                 courses: res.locals.courses,
                 teachers: res.locals.teachers,
+                name: teacher_info.name,
                 intro: teacher_info.intro,
                 style: teacher_info.style,
                 previous: teacher_info.previous_teaching,
@@ -111,10 +130,41 @@ router.route('/guide')
 
 router.route('/homework')
     .get((req, res, next) => {
-        res.render(viewDir+'homework', {
-            links: res.locals.links,
-            courses: res.locals.courses,
-            teachers: res.locals.teachers,
+        Homework.getClassHomework(req.session.classid, homeworks => {
+            Homework.getStuAllSubmit(req.session.classid, req.session.userID, submits => {
+                homeworks.forEach(e => {
+                    var submit = submits.find(_e => {
+                        return _e.hw_id == e.id
+                    });
+                    e.status = submit ? '已提交' : '未提交';
+                })
+                res.render(viewDir+'homework', {
+                    classes: res.locals.classes,
+                    homeworks: homeworks,
+                    teachers: res.locals.teachers,
+                    courses: res.locals.courses,
+                    links: res.locals.links
+                });
+            })
+        });
+    })
+    .post(upload.single('file'), (req, res, next) => {
+        File.add(req.session.userID, req.file.originalname, req.file.path, req.file.size, fileID => {
+            if (!fileID) {
+                res.json({
+                    code: 0,
+                    msg: '提交作业失败',
+                    body: {}
+                });
+                return;
+            }
+            Homework.submit(req.body.hwID, req.session.userID, fileID, success => {
+                res.json({
+                    code: success ? 1 : 0,
+                    msg: '作业提交' + (success ? '成功' : '失败'),
+                    body: {}
+                });
+            });
         });
     })
 

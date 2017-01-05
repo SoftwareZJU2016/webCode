@@ -9,84 +9,24 @@ div
     .wrapper.col3
         #container
             #content
-                h1(id='总体介绍') 总体介绍
-                img.imgr(src='images/demo/imgr.gif', alt='', width='125', height='125')
-                p
-                    | #{intro}
-                p
-                    | Dapiensociis temper donec auctortortis cumsan et curabitur condis lorem loborttis leo. Ipsumcommodo libero nunc at in velis tincidunt pellentum tincidunt vel lorem.
-                img.imgl(src='images/demo/imgl.gif', alt='', width='125', height='125')
-                p
-                    | This is a W3C compliant free website template from . This template is distributed using a .
-                p
-                    | You can use and modify the template for both personal and commercial use. You must keep all copyright information and credit links in the template and associated files. For more CSS templates visit .
-                p
-                    | Portortornec condimenterdum eget consectetuer condis consequam pretium pellus sed mauris enim. Puruselit mauris nulla hendimentesque elit semper nam a sapien urna sempus.
-                h1(id='教学风格') 教学风格
-                img.imgr(src='images/demo/imgr.gif', alt='', width='125', height='125')
-                p
-                    | #{style}
-                p
-                    | Dapiensociis    et curabitur condis lorem loborttis leo. Ipsumcommodo libero nunc at in velis tincidunt pellentum tincidunt vel lorem.
-                img.imgl(src='images/demo/imgl.gif', alt='', width='125', height='125')
-                p
-                    | This is a W3C compliant free website template from    This template is distributed using a .
-                p
-                    | You can use and modify the template for both personal and commercial use. You must keep all copyright information and credit links in the template and associated files. For more CSS templates visit .
-                p
-                    | Portortornec condimenterdum eget consectetuer condis consequam pretium pellus sed mauris enim. Puruselit mauris nulla hendimentesque elit semper nam a sapien urna sempus.
-                h1(id='以往教学') 以往教学
-                img.imgr(src='images/demo/imgr.gif', alt='', width='125', height='125')
-                p
-                    | #{previous}
-                p
-                    | Dapiensociis    et curabitur condis lorem loborttis leo. Ipsumcommodo libero nunc at in velis tincidunt pellentum tincidunt vel lorem.
-                img.imgl(src='images/demo/imgl.gif', alt='', width='125', height='125')
-                p
-                    | This is a W3C compliant free website template from . This template is distributed using a .
-                p
-                    | You can use and modify the template for both personal and commercial use. You must keep all copyright information and credit links in the template and associated files. For more CSS templates visit .
-                p
-                    | Portortornec condimenterdum eget consectetuer condis consequam pretium pellus sed mauris enim. Puruselit mauris nulla hendimentesque elit semper nam a sapien urna sempus.
-                h1(id='科研成果') 科研成果
-                img.imgr(src='images/demo/imgr.gif', alt='', width='125', height='125')
-                p
-                    | #{research}
-                p
-                    | Dapiensociis    et curabitur condis lorem loborttis leo. Ipsumcommodo libero nunc at in velis tincidunt pellentum tincidunt vel lorem.
-                img.imgl(src='images/demo/imgl.gif', alt='', width='125', height='125')
-                p
-                    | This is a W3C compliant free website template from . This template is distributed using a >Website Template Licence.
-                p
-                    | You can use and modify the template for both personal and commercial use. You must keep all copyright information and credit links in the template and associated files. For more CSS templates visit .
-                p
-                    | Portortornec condimenterdum eget consectetuer condis consequam pretium pellus sed mauris enim. Puruselit mauris nulla hendimentesque elit semper nam a sapien urna sempus.
-                h1(id='出版书籍') 出版书籍
-                img.imgr(src='images/demo/imgr.gif', alt='', width='125', height='125')
-                p
-                    | #{book}
-                p
-                    | Dapiensociis temper donec auctortortis cumsan et curabitur condis lorem loborttis leo. Ipsumcommodo libero nunc at in velis tincidunt pellentum tincidunt vel lorem.
-                img.imgl(src='images/demo/imgl.gif', alt='', width='125', height='125')
-                p
-                    | This is a W3C compliant free website template from . This template is distributed using a .
-                p
-                    | You can use and modify the template for both personal and commercial use. You must keep all copyright information and credit links in the template and associated files. For more CSS templates visit .
-                p
-                    | Portortornec condimenterdum eget consectetuer condis consequam pretium pellus sed mauris enim. Puruselit mauris nulla hendimentesque elit semper nam a sapien urna sempus.
-                h1(id='所获荣誉') 所获荣誉
-                img.imgr(src='images/demo/imgr.gif', alt='', width='125', height='125')
-                p
-                    | #{honor}
-                p
-                    | Dapiensociis    et curabitur condis lorem loborttis leo. Ipsumcommodo libero nunc at in velis tincidunt pellentum tincidunt vel lorem.
-                img.imgl(src='images/demo/imgl.gif', alt='', width='125', height='125')
-                p
-                    | This is a W3C compliant free website template from . This template is distributed using a .
-                p
-                    | You can use and modify the template for both personal and commercial use. You must keep all copyright information and credit links in the template and associated files. For more CSS templates visit .
-                p
-                    | Portortornec condimenterdum eget consectetuer condis consequam pretium pellus sed mauris enim. Puruselit mauris nulla hendimentesque elit semper nam a sapien urna sempus.
+                div#intro.item
+                    h1(id="总体介绍") #{name}老师总体介绍
+                    div.data !{intro}
+                div#style.item
+                    h1(id="教学风格") 教学风格
+                    div.data !{style}
+                div#previous.item
+                    h1(id="以往教学") 以往教学
+                    div.data !{previous}
+                div#research.item
+                    h1(id="科研成果") 科研成果
+                    div.data !{research}
+                div#book.item
+                    h1(id="出版书籍") 出版书籍
+                    div.data !{book}
+                div#honor.item
+                    h1(id="所获荣誉") 所获荣誉
+                    div.data !{honor}
             #column
                 .subnav(style='position: fixed;')
                     h2 课程介绍

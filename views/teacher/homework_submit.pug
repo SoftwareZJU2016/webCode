@@ -26,16 +26,20 @@ include components/head
                                 td= item.stu_id
                                 td= item.submit_time.toLocaleString()
                                 td
-                                    button#correct 批改
+                                    button.download 下载
+                                    if item.name.includes('.pdf')
+                                        button.preview 预览
+                                    button.correct 批改
             #column
                 .subnav(style='position: fixed;')
                     h2 作业模块
                     ul
                         li
-                            a(href='list') 作业列表
+                            a(href='../list') 作业列表
                         li
-                            a(href='correct') 作业批改
+                            a(href='../correct') 作业批改
                         li
-                            a(href='duplicate') 作业查重
+                            a(href='../duplicate') 作业查重
             .clear
+            <script src="/jquery-3.1.1.js"></script>
     include ../components/footer

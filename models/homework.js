@@ -34,13 +34,28 @@ Homework.add = (classID, userID, dueTime, title, content, fileID, callback) => {
     });
 }
 
-Homework.delete = (classID, userID, dueTime, title, content, fileID, callback) => {
+Homework.submit = (hwID, stuID, fileID, callback) => {
     pool.getConnection((err, connection) => {
         if (err) console.log(err);
 
-        var query = 'INSERT INTO homework(class_id, creator_id, post_time, due_time, title, content, file_id) \
-                     VALUES (?, ?, NOW(), ?, ?, ?, ?)';
-        connection.query(query, [classID, userID, dueTime, title, content, fileID], (err, results, fields) => {
+        var query = 'INSERT INTO submit_homework(hw_id, stu_id, file_id, submit_time) \
+                     VALUES (?, ?, ?, NOW())';
+        connection.query(query, [hwID, stuID, fileID], (err, results, fields) => {
+            if (err) { 
+                console.log(err);
+            }
+            callback(results.affectedRows != 0 ? true : false);
+            connection.release();
+        });
+    });
+}
+
+Homework.delete = (hwID, callback) => {
+    pool.getConnection((err, connection) => {
+        if (err) console.log(err);
+
+        var query = 'DELETE FROM homework WHERE id = ? ';
+        connection.query(query, [hwID], (err, results, fields) => {
             if (err) { 
                 console.log(err);
             }
@@ -91,8 +106,8 @@ Homework.getStuAllSubmit = (classID, stuID, callback) => {
         if (err) console.log(err);
 
         var query = 'SELECT * FROM homework, submit_homework, file WHERE homework.id = submit_homework.hw_id AND submit_homework.file_id = file.id \
-                     AND homework.class_id = ? AND submit_homework.stu_id = ? AND homework.id = ?';
-        connection.query(query, [classID, stuID, hwID], (err, results, fields) => {
+                     AND homework.class_id = ? AND submit_homework.stu_id = ?';
+        connection.query(query, [classID, stuID], (err, results, fields) => {
             if (err) {
                 console.log(err);
                 results = [];

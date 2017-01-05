@@ -24,7 +24,7 @@ include components/head
                                 tr.light
                             - else
                                 tr.dark
-                            td #{item.upload_time}
+                            td #{item.upload_time.toLocaleString()}
                             td #{item.name}
                             td #{item.size}
                             td
