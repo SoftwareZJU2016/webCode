@@ -32,14 +32,17 @@ create table user (
     email varchar(50),
     phone varchar(11)
 ) CHARACTER SET = utf8;
-insert into user values ('cra', 'cra', '123', 'A', '', '', ''),
-                        ('crt', 'crt', '123', 'T', '', '', ''),
-                        ('crta', 'crta', '123', 'TA', '', '', ''),
-                        ('crs', 'crs', '123', 'S', '', '', ''),
+insert into user values ('3140100000', '陈然', '123456', 'S', '', '', ''),
+                        ('3140100001', '杨逸杰', '123456', 'S', '', '', ''),
+                        ('3140100002', '金鹏', '123456', 'S', '', '', ''),
+                        ('3140100003', '张昌琳', '123456', 'S', '', '', ''),
+                        ('3140100004', '杨璞', '123456', 'S', '', '', ''),
+                        ('3140100005', '杨伟民', '123456', 'S', '', '', ''),
+                        ('T001', '邢卫', '123456', 'T', '', '', ''),
+                        ('T002', '林海', '1234567', 'T', '', '', ''),
+                        ('admin', '管理员', '123456', 'A', '', '', ''),
                         ('se_admin', '(>_0)', '2333', 'A', '', '', ''),
-                        ('Yang', '(>_0)', '2333', 'T', '', '', ''),
-                        ('中文', '(>_0)', '2333', 'S,TA', '', '', ''),
-                        ('Mie', '(>_0)', '2333', 'S', '', '', '');
+                        ('3140100006', '助教杨', '123456', 'S,TA', '', '', '');
 
 # 教师姓名，总体介绍，教学风格，以往教学，科研成果，出版书籍，所获荣誉
 create table teacher (
@@ -55,8 +58,8 @@ create table teacher (
     foreign key (tea_id)
         references user(id) on update cascade
 ) CHARACTER SET = utf8;
-insert into teacher(tea_id, name) values ('Yang', '(>_0)');
-insert into teacher(tea_id, name) values ('crt', 'crt');
+insert into teacher(tea_id, name) values ('T001', '邢卫');
+insert into teacher(tea_id, name) values ('T002', '林海');
 
 create table course (
     id int primary key AUTO_INCREMENT,
@@ -101,21 +104,16 @@ create table user_class (
     foreign key (user_id)
         references user(id) on update cascade
 ) CHARACTER SET = utf8;
-insert into user_class values ('Mie', '1', '1', 'S');
-insert into user_class values ('crs', '2', '1', 'S');
-insert into user_class values ('crt', '2', '1', 'T');
-
-
-# create table tea_class (
-#     tea_id varchar(30),
-#     class_id int,
-#     primary key (tea_id, class_id),
-#     foreign key (tea_id)
-#         references user(id) on update cascade,
-#     foreign key (class_id)
-#         references class(id) on update cascade
-# ) CHARACTER SET = utf8;
-
+insert into user_class values ('3140100000', '1', '1', 'S'),
+                              ('3140100001', '1', '1', 'S'),
+                              ('3140100002', '1', '1', 'S'),
+                              ('3140100003', '2', '1', 'S'),
+                              ('3140100004', '2', '1', 'S'),
+                              ('3140100005', '2', '1', 'S'),
+                              ('T001', '1', '1', 'T'),
+                              ('T001', '2', '1', 'T'),
+                              ('T002', '1', '1', 'T'),
+                              ('T002', '2', '1', 'T');
 
 # 包括教师，学生上传的文件
 create table file (
@@ -235,7 +233,7 @@ create table topic (
     foreign key (course_id)
         references course(id) on update cascade
 ) CHARACTER SET = utf8;
-insert into topic(creator_id, course_id, post_time, title, content, reply_num) values ('Mie', 1, NOW(), '测试帖子的标题', '<p>测试</p>', 1);
+insert into topic(creator_id, course_id, post_time, title, content) values ('3140100005', 1, NOW(), '请问各位感觉UML考试的难度如何？', '感觉我太菜了都不会做啊，希望老师改卷手下留情');
 
 create table topic_reply (
     id int AUTO_INCREMENT,
@@ -250,7 +248,12 @@ create table topic_reply (
     foreign key (topic_id)
         references topic(id) on update cascade on delete cascade
 ) CHARACTER SET = utf8;
-insert into topic_reply(topic_id, creator_id, post_time, content, anonymity) values (1, 'Mie', NOW(), '<p>测试..</p>', '1');
+insert into topic_reply(topic_id, creator_id, post_time, content, anonymity) values (1, '3140100003', NOW(), '实在是太简单啦', '0');
+insert into topic_reply(topic_id, creator_id, post_time, content, anonymity) values (1, '3140100000', NOW(), '仰慕0 0', '1');
+insert into topic_reply(topic_id, creator_id, post_time, content, anonymity) values (1, '3140100001', NOW(), '仰慕0 0', '0');
+insert into topic_reply(topic_id, creator_id, post_time, content, anonymity) values (1, '3140100002', NOW(), '仰慕0 0', '0');
+insert into topic_reply(topic_id, creator_id, post_time, content, anonymity) values (1, '3140100004', NOW(), '仰慕0 0', '1');
+insert into topic_reply(topic_id, creator_id, post_time, content, anonymity) values (1, '3140100005', NOW(), '仰慕0 0', '1');
 
 create table link (
     id int AUTO_INCREMENT,
@@ -278,7 +281,7 @@ create table feedback (
     status enum('0', '1') default '0', # 0未解决，1解决了
     primary key (id)
 ) CHARACTER SET = utf8;
-insert into feedback(title, content, post_time) values ('你太强啦', '我太菜了', NOW());
+insert into feedback(title, content, post_time) values ('关于前端的建议', '有些地方比较粗糙，如果能多增加一些细节会更好一些', NOW());
 
 create table message (
     id int AUTO_INCREMENT,
@@ -294,6 +297,6 @@ create table message (
     foreign key (creator_id) references user(id) on update cascade
 ) CHARACTER SET = utf8;
 insert into message(creator_id, reciever_id, class_id, course_id, title, content, post_time)
-    values('crt', 'crs', '2', '1', 'uml考试', '2016.1.8早上8：00——9：00uml考试，闭卷，考完试进行答辩', NOW());
+    values('T001', '3140100000', '1', '1', 'uml考试', '2016.1.8早上8：00——9：00uml考试，闭卷，考完试进行答辩', NOW());
 insert into message(creator_id, reciever_id, class_id, course_id, title, content, post_time)
-    values('crt', 'crs', '2', '1', '答辩须知', '2016.1.8早上8：00——9：00uml考试，考完试进行答辩，答辩要求展示网站和ppt，抽签决定顺序', NOW());
+    values('T002', '3140100000', '1', '1', '答辩须知', '2016.1.8早上8：00——9：00uml考试，考完试进行答辩，答辩要求展示网站和ppt，抽签决定顺序', NOW());

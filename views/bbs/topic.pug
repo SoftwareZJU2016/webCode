@@ -10,7 +10,7 @@ include components/head
                     h1.post-title= topic.title
                     .post-meta.clearfix
                         span.date= topic.post_time.toLocaleString()
-                        - var author = topic.anonymity == 1 ? '匿名用户' : topic.creator_id
+                        - var author = topic.anonymity == 1 ? '匿名用户' : (topic.creator_id + ' ' +topic.name)
                         span.author= author
                         span.comments= topic.reply_num
                         if userType == 'A'
@@ -28,7 +28,7 @@ include components/head
                                 .floor
                                     span.name #{index+1}L
                                 .author
-                                    span.name= item.anonymity == 1 ? '匿名用户' : item.creator_id
+                                    span.name= item.anonymity == 1 ? '匿名用户' : (item.creator_id + ' ' +item.name)
                                     span.space &nbsp&nbsp&nbsp
                                     span.submitdate= item.post_time.toLocaleString()
                                 p!= item.content
@@ -40,7 +40,6 @@ include components/head
                         h3 回复此贴
 
                             div
-                                textarea#editor_id(name='content', style='height:300px;')
                                 textarea#tmp-editor(style='height:300px; width: 100%;')
                             div
                                 input#anonymity(type='checkbox', value='1')

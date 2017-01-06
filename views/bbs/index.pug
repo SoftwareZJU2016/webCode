@@ -21,7 +21,7 @@ include components/head
                                 a(href='/bbs/topic/'+item.id)= item.title
                             .post-meta.clearfix
                                 span.date= item.post_time.toLocaleString()
-                                span.author= item.anonymity == 1 ? '匿名用户' : item.creator_id
+                                span.author= item.anonymity == 1 ? '匿名用户' : (item.creator_id + ' ' +item.name) 
                                 span.comments= item.reply_num
                                 if userType == 'A'
                                     input#delete-topic(name='submit', type='submit', value='删除')
@@ -35,8 +35,8 @@ include components/head
                         p#topic-content!= item.content.substr(0, 100)
                             | ...
                             a.readmore-link(href='/bbs/topic/'+item.id) Read more
-
-                #pagination
+                
+                //#pagination
                     //TODO
                     a.btn.active(href='#') 1
                     a.btn(href='#') 2

@@ -9,7 +9,7 @@ Topic.getAll = (courseID, callback) => {
             return;
         }
         //？表示等待填充的数据，这种方式可以防止MYSQL注入攻击
-        var query = 'SELECT * from topic WHERE course_id = ?  ORDER BY last_reply_time';
+        var query = 'SELECT * from user, topic WHERE course_id = ? AND topic.creator_id = user.id ORDER BY last_reply_time';
         //第二个参数就是一个填充数据的数组
         connection.query(query, [courseID], (err, results, fields) => {
             //results是数据库操作返回的结果，是一个数组！
@@ -29,7 +29,7 @@ Topic.getByID = (topicID, callback) => {
             console.log(err);
             return;
         }
-        var query = 'SELECT * FROM topic WHERE id = ?';
+        var query = 'SELECT * FROM user, topic WHERE topic.id = ? AND user.id = topic.creator_id';
         connection.query(query, [topicID], (err, results, fields) => {
             if (err) {
                 console.log(err);
@@ -47,7 +47,7 @@ Topic.getReply = (topicID, callback) => {
             console.log(err);
             return;
         }
-        var query = 'SELECT * FROM topic_reply WHERE topic_id = ?';
+        var query = 'SELECT * FROM topic_reply, user WHERE topic_reply.creator_id = user.id AND topic_id = ?';
         connection.query(query, [topicID], (err, results, fields) => {
             if (err) {
                 console.log(err);
