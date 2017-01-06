@@ -41,8 +41,8 @@ style.
                         a(href='/student/classIntroduction', style='font-size: 20px;') 课程介绍
                     li#teac-list(class=(navIndex==2) ? 'active': '')
                         a(href='#', style='font-size: 20px;') 教师介绍
-                        each item in teachers
-                            .teac-container
+                        .teac-container
+                            each item in teachers
                                 a.teac(style='font-size:15px' href='/student/teacherIntroduction/'+item.id)= item.name
                     li(class=(navIndex==3) ? 'active': '')
                         a(href='/student/courseResource', style='font-size: 20px;') 课件资料

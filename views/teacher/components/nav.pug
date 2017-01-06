@@ -48,8 +48,8 @@ style.
                         a(href='/teacher/courseResource', style='font-size: 20px;') 课件资料
                     li#class-list(class=(navIndex==4) ? 'active': '')
                         a(href='#', style='font-size: 20px;') 作业模块
-                        each item in classes
-                            .class-container
+                        .class-container
+                            each item in classes
                                 a.class(style='font-size:15px' href='/teacher/homework/'+item.id + '/list')= item.section
                     li
                         a(href='/bbs', style='font-size: 20px;') 论坛
