@@ -69,7 +69,7 @@ Homework.getClassHomework = (classID, callback) => {
     pool.getConnection((err, connection) => {
         if (err) console.log(err);
 
-        var query = 'SELECT * FROM homework, file WHERE homework.class_id = ? \
+        var query = 'SELECT * FROM file, homework WHERE homework.class_id = ? \
                     and homework.file_id = file.id';
         connection.query(query, [classID], (err, results, fields) => {
             if (err) {
@@ -89,7 +89,7 @@ Homework.getClassSubmitHomework = (classID, hwID, callback) => {
 
         var query = 'SELECT * FROM homework, submit_homework, file WHERE homework.id = submit_homework.hw_id AND file.id = submit_homework.file_id\
                      AND homework.class_id = ? AND submit_homework.hw_id = ?';
-        connection.query(query, [classID, hwID, hwID], (err, results, fields) => {
+        connection.query(query, [classID, hwID], (err, results, fields) => {
             if (err) {
                 console.log(err);
                 results = [];
