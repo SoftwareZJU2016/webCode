@@ -50,9 +50,9 @@ style.
                             a(href='/student/classIntroduction', style='font-size: 20px;') 课程介绍
                         li#submenu-list(class=(navIndex==2) ? 'active': '')
                             a(href='#', style='font-size: 20px;') 教师介绍
-                            each item in teachers
-                                .submenu-container
-                                    a.submenu(href='/student/teacherIntroduction/'+item.id)= item.name
+                            .submenu-container
+                                each item in teachers
+                                    a.submenu(href='/student/teacherIntroduction/'+item.id) #{item.name}老师
                         li
                             a(href='/student/courseResource', style='font-size: 20px;') 课件资料
                         li
@@ -71,8 +71,8 @@ style.
                             a(href='/teacher/courseResource', style='font-size: 20px;') 课件资料
                         li#submenu-list(class=(navIndex==2) ? 'active': '')
                             a(href='#', style='font-size: 20px;') 作业模块
-                            each item in classes
-                                .submenu-container
+                            .submenu-container
+                                each item in classes
                                     a.submenu(href='/teacher/homework/'+item.id+'/list')= item.section
                         li.active
                             a(href='/bbs', style='font-size: 20px;') 论坛

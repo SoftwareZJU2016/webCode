@@ -39,7 +39,7 @@ insert into user values ('3140100000', '陈然', '123456', 'S', '', '', ''),
                         ('3140100004', '杨璞', '123456', 'S', '', '', ''),
                         ('3140100005', '杨伟民', '123456', 'S', '', '', ''),
                         ('T001', '邢卫', '123456', 'T', '', '', ''),
-                        ('T002', '林海', '1234567', 'T', '', '', ''),
+                        ('T002', '林海', '123456', 'T', '', '', ''),
                         ('admin', '管理员', '123456', 'A', '', '', ''),
                         ('se_admin', '(>_0)', '2333', 'A', '', '', ''),
                         ('3140100006', '助教杨', '123456', 'S,TA', '', '', '');
@@ -234,7 +234,7 @@ create table topic (
     foreign key (course_id)
         references course(id) on update cascade
 ) CHARACTER SET = utf8;
-insert into topic(creator_id, course_id, post_time, title, content) values ('3140100005', 1, NOW(), '请问各位感觉UML考试的难度如何？', '感觉我太菜了都不会做啊，希望老师改卷手下留情');
+insert into topic(creator_id, course_id, post_time, title, content, reply_num) values ('3140100005', 1, NOW(), '请问各位感觉UML考试的难度如何？', '感觉我太菜了都不会做啊，希望老师改卷手下留情', 6);
 
 create table topic_reply (
     id int AUTO_INCREMENT,

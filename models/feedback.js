@@ -7,7 +7,7 @@ Feedback.get = (feedbackID, callback) => {
     pool.getConnection((err, connection) => {
         if (err) console.log(err);
 
-        var query = 'SELECT * FROM feedbackID WHERE id = ?';
+        var query = 'SELECT * FROM feedback WHERE id = ?';
         connection.query(query, [feedbackID], (err, results, fields) => {
             if (err) { 
                 console.log(err);

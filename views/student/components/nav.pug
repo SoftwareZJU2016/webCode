@@ -43,7 +43,7 @@ style.
                         a(href='#', style='font-size: 20px;') 教师介绍
                         .teac-container
                             each item in teachers
-                                a.teac(style='font-size:15px' href='/student/teacherIntroduction/'+item.id)= item.name
+                                a.teac(style='font-size:15px' href='/student/teacherIntroduction/'+item.id) #{item.name}老师
                     li(class=(navIndex==3) ? 'active': '')
                         a(href='/student/courseResource', style='font-size: 20px;') 课件资料
                     li(class=(navIndex==4) ? 'active': '')

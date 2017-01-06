@@ -137,8 +137,8 @@ router.route('/homework')
                         return _e.hw_id == e.id
                     });
                     e.status = submit ? '已提交' : '未提交';
-                    e.score = submit.score;
-                    e.comment = submit.comment;
+                    e.score = submit ? submit.score : -1;
+                    e.comment = submit ? submit.comment : '';
                 })
                 res.render(viewDir+'homework', {
                     classes: res.locals.classes,

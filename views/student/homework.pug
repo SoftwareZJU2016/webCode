@@ -36,8 +36,10 @@ include components/head
                                 #{homework.score == -1 ? '未批改' : '已批改'}
                                 #{homework.score == -1 ? '' : ('分数: '+homework.score+'，评价: '+homework.comment)}
                             td
+                                div
+                                    button.upload 下载作业说明
                                 input.file(type="file" name="file")
-                                button.upload 提交
+                                button.upload 提交作业
             .clear
             <script src="/jquery-3.1.1.js"></script> 
             script.

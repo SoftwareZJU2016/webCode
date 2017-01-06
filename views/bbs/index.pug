@@ -21,7 +21,7 @@ include components/head
                                 a(href='/bbs/topic/'+item.id)= item.title
                             .post-meta.clearfix
                                 span.date= item.post_time.toLocaleString()
-                                span.author= item.anonymity == 1 ? '匿名用户' : (item.creator_id + ' ' +item.name) 
+                                span.author= item.anonymity == 1 ? '匿名用户' : item.name
                                 span.comments= item.reply_num
                                 if userType == 'A'
                                     input#delete-topic(name='submit', type='submit', value='删除')

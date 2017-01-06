@@ -94,6 +94,22 @@ router.route('/classIntroduction')
                 }
             })
         }else if(edit_id == 2){
+            Course.updateClassPlan(courseID, content, function (success) {
+                if(success){
+                    res.json({
+                        code: 1,
+                        msg: '教学日历更新成功',
+                        body: {}
+                    })
+                }else{
+                    res.json({
+                        code: 0,
+                        msg: '教学日历更新失败',
+                        body: {}
+                    })
+                }
+            })
+        }else if(edit_id == 3){
             Course.updateClassBackground(courseID, content, function (success) {
                 if(success){
                     res.json({
@@ -109,7 +125,7 @@ router.route('/classIntroduction')
                     })
                 }
             })
-        }else if(edit_id == 3){
+        }else if(edit_id == 4){
             Course.updateClassAssess(courseID, content, function (success) {
                 if(success){
                     res.json({
@@ -125,7 +141,7 @@ router.route('/classIntroduction')
                     })
                 }
             })
-        }else if(edit_id == 4){
+        }else if(edit_id == 5){
             Course.updateClassTextbook(courseID, content, function (success) {
                 if(success){
                     res.json({
@@ -141,7 +157,7 @@ router.route('/classIntroduction')
                     })
                 }
             })
-        }else if(edit_id == 5){
+        }else if(edit_id == 6){
             Course.updateClassHomework(courseID, content, function (success) {
                 if(success){
                     res.json({
@@ -157,7 +173,7 @@ router.route('/classIntroduction')
                     })
                 }
             })
-        }else if(edit_id == 6){
+        }else if(edit_id == 7){
             Course.updateClassBasicRequest(courseID, content, function (success) {
                 if(success){
                     res.json({

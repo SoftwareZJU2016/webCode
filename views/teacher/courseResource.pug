@@ -33,6 +33,7 @@ div
                                     td
                                         button(onclick='del('+item.id+')') 删除
                                         button(onclick='save('+item.id+')') 保存
+                                        button(onclick='save('+item.id+')') 下载
                     div(align='right')
                         input.file(name="slide" type="file")
                         input.upload(type="button" value="上传")
@@ -47,6 +48,7 @@ div
                                 th 上传时间
                                 th 学生端操作
                                 th 游客端操作
+                                th 操作
                         tbody
                             each item, index in refmtl
                                 tr(class=(index%2==0)? 'light' : 'dark')
@@ -60,6 +62,7 @@ div
                                     td
                                         button(onclick='del('+item.id+')') 删除
                                         button(onclick='save('+item.id+')') 保存
+                                        button(onclick='save('+item.id+')') 下载
                     div(align='right')
                         input.file(name="slide" type="file")
                         input.upload(type="button" value="上传")
@@ -74,12 +77,13 @@ div
                                 th 上传时间
                                 th 学生端操作
                                 th 游客端操作
+                                th 操作
                         tbody
                             each item, index in goodhomework
                                 tr(class= (index%2==0)? 'light' : 'dark')
                                     td= item.name
                                     td #{item.size} bytes
-                                    td= item.upload_time
+                                    td= item.upload_time.toLocaleString()
                                     td
                                         input(type="checkbox")
                                     td
@@ -87,6 +91,7 @@ div
                                     td
                                         button(onclick='del('+item.id+')') 删除
                                         button(onclick='save('+item.id+')') 保存
+                                        button(onclick='save('+item.id+')') 下载
                     div(align='right')
                         input.file(name="slide" type="file")
                         input.upload(type="button" value="上传")
@@ -101,6 +106,7 @@ div
                                 th 上传时间
                                 th 学生端操作
                                 th 游客端操作
+                                th 操作
                         tbody
                             each item, index in media
                                 tr(class= (index%2==0)? 'light' : 'dark')
@@ -114,6 +120,7 @@ div
                                     td
                                         button(onclick='del('+item.id+')') 删除
                                         button(onclick='save('+item.id+')') 保存
+                                        button(onclick='save('+item.id+')') 下载
                     div(align='right')
                         input.file(name="slide" type="file")
                         input.upload(type="button" value="上传")
