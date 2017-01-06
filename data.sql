@@ -92,7 +92,8 @@ create table class (
         references course(id) on update cascade
 ) CHARACTER SET = utf8;
 insert into class(course_id, year, semester, section) values ('1', '2016', '秋冬', '周一第6、7、8节');
-insert into class(course_id, year, semester, section) values ('2', '2016', '秋冬', '周五第3、4、5节');
+insert into class(course_id, year, semester, section) values ('1', '2016', '秋冬', '周五第3、4、5节');
+insert into class(course_id, year, semester, section) values ('2', '2016', '秋冬', '周二第3、4、5节');
 
 # 用户、课程、班级 多对多关系
 create table user_class (
