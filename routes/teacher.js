@@ -194,7 +194,7 @@ router.route('/classIntroduction')
 
 router.route('/courseResource')
     .get((req, res, next) => {
-        File.getClassFiles(req.session.classid, classFiles => {
+        File.getClassFiles(req.session.courseID, classFiles => {
             File.getCourseFiles(req.session.courseID, courseFiles => {
                 var refmtl = [], goodhomework = [], media = [];
                 courseFiles.forEach((e, i) => {
@@ -236,7 +236,7 @@ router.post('/courseResource/upload', upload.single('file'), (req, res, next) =>
                 })
             })
         } else {
-            Class.addFile(fileID, req.session.classid, success => {
+            Class.addFile(fileID, req.session.courseID, success => {
                 res.json({
                     code: success ? 1 : 0,
                     msg: '班级资料更新'+ (success ? '成功' : '失败'),
