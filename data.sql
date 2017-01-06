@@ -192,7 +192,7 @@ create table submit_homework (
     file_id int, # 提交作业时的附件
     content text, # 选择题答案怎么建表
     submit_time datetime not null,
-    score int, # 选择题后端或许可以把作业改了直接填分数
+    score int default -1, # 选择题后端或许可以把作业改了直接填分数
     comment text,
     primary key (hw_id, stu_id),
     foreign key (hw_id)

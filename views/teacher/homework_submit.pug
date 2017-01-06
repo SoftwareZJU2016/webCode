@@ -68,7 +68,7 @@ include components/head
                                 stuID: stuID
                             }, function(data) {
                                 alert(data.msg);
-                                if (data.msg == 1) {
+                                if (data.code == 1) {
                                     window.location.reload();
                                 }
                             })
