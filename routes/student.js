@@ -137,6 +137,8 @@ router.route('/homework')
                         return _e.hw_id == e.id
                     });
                     e.status = submit ? '已提交' : '未提交';
+                    e.score = submit.score;
+                    e.comment = submit.comment;
                 })
                 res.render(viewDir+'homework', {
                     classes: res.locals.classes,
@@ -171,7 +173,6 @@ router.route('/homework')
 router.route('/inbox')
     .get((req, res, next) => {
         Message.getAll(req.session.userID, req.session.classid, req.session.courseID, function (message) {
-            //console.log(message);
             res.render(viewDir+'inbox', {
                 links: res.locals.links,
                 courses: res.locals.courses,
@@ -185,7 +186,6 @@ router.route('/inbox/:id')
     .get((req, res, next) => {
         var messageID = req.params.id;
         Message.getByID(messageID, function (message) {
-            console.log(message);
             res.render(viewDir+'inbox_detail', {
                 links: res.locals.links,
                 courses: res.locals.courses,

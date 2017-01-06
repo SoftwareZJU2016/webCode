@@ -19,6 +19,7 @@ include components/head
                         th 发布时间
                         th 截止日期
                         th 提交状态
+                        th 批改状态
                         th 操作
                 tbody
                     each homework, index in homeworks
@@ -31,6 +32,9 @@ include components/head
                             td= homework.post_time.toLocaleString()
                             td= homework.due_time.toLocaleString()
                             td(style="color: red")= homework.status
+                            td(style="color: red").
+                                #{homework.score == -1 ? '未批改' : '已批改'}
+                                #{homework.score == -1 ? '' : ('分数: '+homework.score+'，评价: '+homework.comment)}
                             td
                                 input.file(type="file" name="file")
                                 button.upload 提交

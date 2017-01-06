@@ -136,4 +136,21 @@ Homework.getClassAllSubmit = (classID, callback) => {
     });
 }
 
+Homework.correct = (hwID, stuID, score, comment, callback) => {
+    pool.getConnection((err, connection) => {
+        if (err) console.log(err);
+
+        var query = 'UPDATE submit_homework SET score = ?, comment = ? \
+                     WHERE hw_id = ? AND stu_id = ?';
+        connection.query(query, [score, comment, hwID, stuID], (err, results, fields) => {
+            if (err) {
+                console.log(err);
+                results = {};
+            }
+            callback(!results.affectedRows ? false : true);
+            connection.release();
+        });
+    });
+}
+
 module.exports = Homework;

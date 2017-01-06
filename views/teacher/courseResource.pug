@@ -32,7 +32,7 @@ div
                                         input(type="checkbox")
                                     td
                                         button(onclick='del('+item.id+')') 删除
-                                        button(onclick='del('+item.id+')') 保存
+                                        button(onclick='save('+item.id+')') 保存
                     div(align='right')
                         input.file(name="slide" type="file")
                         input.upload(type="button" value="上传")
@@ -54,11 +54,12 @@ div
                                     td #{item.size} bytes
                                     td= item.upload_time.toLocaleString()
                                     td
-                                        button(onclick='del('+item.id+')') 删除
-                                        button 隐藏
+                                        input(type="checkbox")
                                     td
-                                        button(onclick='del()') 删除
-                                        button 隐藏
+                                        input(type="checkbox")
+                                    td
+                                        button(onclick='del('+item.id+')') 删除
+                                        button(onclick='save('+item.id+')') 保存
                     div(align='right')
                         input.file(name="slide" type="file")
                         input.upload(type="button" value="上传")
@@ -80,11 +81,12 @@ div
                                     td #{item.size} bytes
                                     td= item.upload_time
                                     td
-                                        button(onclick='del('+item.id+')') 删除
-                                        button 隐藏
+                                        input(type="checkbox")
                                     td
-                                        button(onclick='del()') 删除
-                                        button 隐藏
+                                        input(type="checkbox")
+                                    td
+                                        button(onclick='del('+item.id+')') 删除
+                                        button(onclick='save('+item.id+')') 保存
                     div(align='right')
                         input.file(name="slide" type="file")
                         input.upload(type="button" value="上传")
@@ -106,11 +108,12 @@ div
                                     td #{item.size} bytes
                                     td= item.upload_time.toLocaleString()
                                     td
-                                        button(onclick='del('+item.id+')') 删除
-                                        button 隐藏
+                                        input(type="checkbox")
                                     td
-                                        button(onclick='del()') 删除
-                                        button 隐藏
+                                        input(type="checkbox")
+                                    td
+                                        button(onclick='del('+item.id+')') 删除
+                                        button(onclick='save('+item.id+')') 保存
                     div(align='right')
                         input.file(name="slide" type="file")
                         input.upload(type="button" value="上传")

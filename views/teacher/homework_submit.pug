@@ -17,14 +17,17 @@ include components/head
                             th 作业文件
                             th 提交者
                             th 提交日期
+                            th 批改状态
                             th 操作
                     tbody
                         each item, index in homeworks
                             tr.sub-item(class= (index%2==0) ? 'dark' : 'light')
+                                td.fl-id(style="display: none;")= item.file_id
                                 td= index+1
                                 td= item.name
                                 td.stu= item.stu_id
                                 td= item.submit_time.toLocaleString()
+                                td(style="color: red")= item.score == -1 ? '未批改' : ('已批改, 分数:' + item.score)
                                 td
                                     button.download 下载
                                     if item.name.includes('.pdf')
@@ -43,12 +46,17 @@ include components/head
             .clear
             <script src="/jquery-3.1.1.js"></script>
             script.
-                $('.sub-item').each(function(e) {
+                $('.sub-item').each(function(i, e) {
                     var correct = $(e).find('.correct');
+                    var download = $(e).find('.download');
+                    var preview = $(e).find('.preview');
                     var stuID = $(e).find('.stu').html();
+                    var fileID = $(e).find('.fl-id').html();
                     correct.click(function() {
-                        var scoreTmp = window.promot("请输入分数");
-                        var comment = window.promot("请输入评价");
+                        var scoreTmp = window.prompt("请输入分数");
+                        var comment = window.prompt("请输入评价");
+                        if (!scoreTmp || !comment)
+                            return;
                         var score = parseInt(scoreTmp);
                         if (isNaN(score)|| score > 100 || score < 0) {
                             alert('请输入正确的分数！');
@@ -65,6 +73,20 @@ include components/head
                                 }
                             })
                         }
-                    })
+                    });
+                    download.click(function() {
+                        var form = $('<form></form>');
+                        form.attr({
+                            method: "post",
+                            action: ""
+                        });
+                        form.append('<input type="text" name="dl" value="1" >');
+                        form.append('<input type="text" name="fileID" value='+fileID+'>');
+                        console.log(form.serializeArray())
+                        form.submit();
+                    });
+                    preview.click(function() {
+                        alert('复习UML去= = 我不写啦！')
+                    });
                 })
     include ../components/footer

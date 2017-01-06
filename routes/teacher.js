@@ -315,11 +315,19 @@ router.route('/homework/:classID/correct/:hwID')
         })
     })
     .post((req, res, next) => {
-        res.json({
-            code: 0,
-            msg: '复习去了不写了= =',
-            body: {}
-        })
+        if (req.body.dl) { 
+            File.getByID(req.body.fileID, file => {
+                res.download(file.filepath, file.name);
+            });
+        } else {
+            Homework.correct(req.params.hwID, req.body.stuID, req.body.score, req.body.comment, success => {
+                res.json({
+                    code: success ? 1 : 0,
+                    msg: '作业批改' + (success ? '成功' : '失败'),
+                    body: {}
+                })
+            })
+        }
     })
 
 router.route('/homework/:classID/duplicate')
